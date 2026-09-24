@@ -33,7 +33,7 @@
           <span>PAINEL DO VENDEDOR</span>
         </div>
         <h3 class="header-title">Controle da Demonstração</h3>
-        <p class="header-desc">Alterne nichos e personalize ao vivo na reunião com o cliente</p>
+        <p class="header-desc">Alterne nichos e personalize as 3 cores da loja ao vivo</p>
       </div>
 
       <div class="header-actions">
@@ -84,24 +84,24 @@
               <div class="theme-tagline">{{ t.tagline }}</div>
               <div class="theme-palette">
                 <span class="palette-dot" [style.background]="t.primaryColor" title="Cor Primária"></span>
-                <span class="palette-dot" [style.background]="t.backgroundColor" title="Cor Fundo"></span>
                 <span class="palette-dot" [style.background]="t.secondaryColor" title="Secundária"></span>
+                <span class="palette-dot" [style.background]="t.backgroundColor" title="Cor Fundo"></span>
               </div>
             </button>
           }
         </div>
       </div>
 
-      <!-- Section 2: Live Pitch Customization -->
+      <!-- Section 2: Live Pitch Customization with 3 Theme Colors -->
       <div class="demo-section highlight-box">
         <div class="section-title-wrap">
           <h4 class="section-title">2. Personalização ao Vivo na Frente do Cliente</h4>
-          <span class="section-subtitle">Coloque a marca e o WhatsApp do seu prospect agora mesmo!</span>
+          <span class="section-subtitle">Ajuste o nome, WhatsApp e as 3 cores visuais da marca</span>
         </div>
 
         <div class="form-grid">
           <!-- Nome da Loja -->
-          <div class="form-group">
+          <div class="form-group full-width">
             <label class="form-label">Nome da Marca do Cliente</label>
             <input
               type="text"
@@ -112,9 +112,12 @@
             />
           </div>
 
-          <!-- Cor Primária -->
+          <!-- Cor 1: Primária -->
           <div class="form-group">
-            <label class="form-label">Cor Principal da Marca</label>
+            <label class="form-label">
+              1. Cor Primária
+              <span class="label-hint">(Botões e Destaques)</span>
+            </label>
             <div class="color-input-wrapper">
               <input
                 type="color"
@@ -129,6 +132,109 @@
                 (ngModelChange)="primaryColor.set($event)"
                 placeholder="#CCA45E"
               />
+            </div>
+          </div>
+
+          <!-- Cor 2: Secundária -->
+          <div class="form-group">
+            <label class="form-label">
+              2. Cor Secundária
+              <span class="label-hint">(Bordas e Detalhes)</span>
+            </label>
+            <div class="color-input-wrapper">
+              <input
+                type="color"
+                class="color-picker"
+                [ngModel]="secondaryColor()"
+                (ngModelChange)="secondaryColor.set($event)"
+              />
+              <input
+                type="text"
+                class="form-control color-text"
+                [ngModel]="secondaryColor()"
+                (ngModelChange)="secondaryColor.set($event)"
+                placeholder="#CBD5E1"
+              />
+            </div>
+          </div>
+
+          <!-- Cor 3: Fundo da Loja -->
+          <div class="form-group full-width">
+            <label class="form-label">
+              3. Cor de Fundo da Loja (Background)
+              <span class="label-hint">(Fundo Geral, Cabeçalho e Seções)</span>
+            </label>
+            <div class="color-input-wrapper">
+              <input
+                type="color"
+                class="color-picker"
+                [ngModel]="backgroundColor()"
+                (ngModelChange)="backgroundColor.set($event)"
+              />
+              <input
+                type="text"
+                class="form-control color-text"
+                [ngModel]="backgroundColor()"
+                (ngModelChange)="backgroundColor.set($event)"
+                placeholder="#0A152E"
+              />
+            </div>
+          </div>
+
+          <!-- Atalhos Rápidos de Paleta de Cores -->
+          <div class="color-presets-wrapper full-width">
+            <span class="presets-title">Sugestões Rápidas de Paletas:</span>
+            <div class="presets-pills">
+              <button
+                type="button"
+                class="preset-pill"
+                (click)="applyColorPreset('#CCA45E', '#CBD5E1', '#0A152E')"
+                title="Dourado Nobre e Azul Marinho"
+              >
+                <span class="pill-dot" style="background: #CCA45E"></span>
+                <span class="pill-dot" style="background: #0A152E"></span>
+                <span>Navy & Ouro</span>
+              </button>
+              <button
+                type="button"
+                class="preset-pill"
+                (click)="applyColorPreset('#FFFFFF', '#E63946', '#080809')"
+                title="Streetwear All Black & Vermelho"
+              >
+                <span class="pill-dot" style="background: #FFFFFF"></span>
+                <span class="pill-dot" style="background: #080809"></span>
+                <span>All-Black & Red</span>
+              </button>
+              <button
+                type="button"
+                class="preset-pill"
+                (click)="applyColorPreset('#C15C3D', '#D4A373', '#1A1210')"
+                title="Terracota Solar e Linho Natural"
+              >
+                <span class="pill-dot" style="background: #C15C3D"></span>
+                <span class="pill-dot" style="background: #1A1210"></span>
+                <span>Terracota & Linho</span>
+              </button>
+              <button
+                type="button"
+                class="preset-pill"
+                (click)="applyColorPreset('#D97706', '#B45309', '#140E0A')"
+                title="Âmbar Dourado e Couro Bovino"
+              >
+                <span class="pill-dot" style="background: #D97706"></span>
+                <span class="pill-dot" style="background: #140E0A"></span>
+                <span>Country & Âmbar</span>
+              </button>
+              <button
+                type="button"
+                class="preset-pill"
+                (click)="applyColorPreset('#10B981', '#6EE7B7', '#061A14')"
+                title="Verde Esmeralda Moderno"
+              >
+                <span class="pill-dot" style="background: #10B981"></span>
+                <span class="pill-dot" style="background: #061A14"></span>
+                <span>Esmeralda Tech</span>
+              </button>
             </div>
           </div>
 

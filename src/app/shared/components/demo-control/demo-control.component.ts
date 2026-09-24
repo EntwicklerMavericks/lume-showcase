@@ -25,17 +25,24 @@ export class DemoControlComponent {
   currentThemeId = this.demoStorage.currentThemeId;
   activeConfig = this.demoStorage.activeConfig;
 
-  // Form model for live client customization
+  // Form model for live client customization (Nome + 3 Cores + WhatsApp + Slogan)
   brandName = signal<string>('');
   primaryColor = signal<string>('#CCA45E');
+  secondaryColor = signal<string>('#CBD5E1');
+  backgroundColor = signal<string>('#0A152E');
   whatsappNumber = signal<string>('');
   tagline = signal<string>('');
 
   constructor() {
-    // Sincroniza campos locais quando a configuração ativa mudar
+    this.syncFormWithConfig();
+  }
+
+  private syncFormWithConfig(): void {
     const config = this.activeConfig();
     this.brandName.set(config.name);
     this.primaryColor.set(config.primaryColor);
+    this.secondaryColor.set(config.secondaryColor);
+    this.backgroundColor.set(config.backgroundColor);
     this.whatsappNumber.set(config.whatsappNumber);
     this.tagline.set(config.tagline);
   }
@@ -65,32 +72,40 @@ export class DemoControlComponent {
 
   selectTheme(themeId: string): void {
     this.demoStorage.switchTheme(themeId, this.replaceCatalogOnSwitch());
+    this.syncFormWithConfig();
     const config = this.demoStorage.activeConfig();
-    this.brandName.set(config.name);
-    this.primaryColor.set(config.primaryColor);
-    this.whatsappNumber.set(config.whatsappNumber);
-    this.tagline.set(config.tagline);
     this.notify(`Tema ${config.name} aplicado com sucesso!`);
   }
 
+  /**
+   * Aplica personalização completa com 3 cores: Primária, Secundária e Fundo
+   */
   applyCustomization(): void {
     this.demoStorage.updateCustomBranding({
       name: this.brandName().trim() || undefined,
       primaryColor: this.primaryColor().trim() || undefined,
+      secondaryColor: this.secondaryColor().trim() || undefined,
+      backgroundColor: this.backgroundColor().trim() || undefined,
       whatsappNumber: this.whatsappNumber().trim() || undefined,
       tagline: this.tagline().trim() || undefined
     });
-    this.notify('Personalização aplicada em tempo real!');
+    this.notify('Personalização de cores e marca aplicada em tempo real!');
+  }
+
+  /**
+   * Atalhos de paletas prontas para demonstração rápida
+   */
+  applyColorPreset(primary: string, secondary: string, background: string): void {
+    this.primaryColor.set(primary);
+    this.secondaryColor.set(secondary);
+    this.backgroundColor.set(background);
+    this.applyCustomization();
   }
 
   resetDefaults(): void {
     if (confirm('Deseja realmente restaurar todos os dados e o catálogo para o padrão original da demonstração?')) {
       this.demoStorage.resetToDefaults();
-      const config = this.demoStorage.activeConfig();
-      this.brandName.set(config.name);
-      this.primaryColor.set(config.primaryColor);
-      this.whatsappNumber.set(config.whatsappNumber);
-      this.tagline.set(config.tagline);
+      this.syncFormWithConfig();
       this.notify('Demonstração restaurada com sucesso!');
     }
   }

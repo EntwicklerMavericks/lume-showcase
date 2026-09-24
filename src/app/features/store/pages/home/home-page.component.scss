@@ -40,9 +40,9 @@
       inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(10, 21, 46, 0.45) 0%,
-        rgba(10, 21, 46, 0.65) 45%,
-        rgba(10, 21, 46, 0.95) 100%
+        var(--hero-overlay-start, rgba(10, 21, 46, 0.45)) 0%,
+        var(--hero-overlay-mid, rgba(10, 21, 46, 0.72)) 45%,
+        var(--hero-overlay-end, rgba(10, 21, 46, 0.98)) 100%
       );
     }
   }
@@ -178,9 +178,9 @@
 
 /* FAIXA DE BENEFÍCIOS SUTIS */
 .perks-strip {
-  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
   padding: 1.75rem 0;
-  background-color: #0A152E;
+  background-color: var(--surface, #0A152E);
 
   .perks-grid {
     display: flex;
@@ -211,7 +211,7 @@
 
     .perk-desc {
       font-size: 0.6875rem;
-      color: #CBD5E1;
+      color: var(--text-secondary, #CBD5E1);
       letter-spacing: 0.02em;
     }
   }
@@ -458,11 +458,11 @@
   }
 }
 
-/* MANIFESTO INSTITUCIONAL (AZUL MARINHO & DOURADO) */
+/* MANIFESTO INSTITUCIONAL DINÂMICO */
 .about-section {
-  background-color: #0A152E;
-  border-top: 1px solid rgba(212, 175, 55, 0.25);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+  background-color: var(--surface, #0A152E);
+  border-top: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+  border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
   text-align: center;
 
   .about-content {
@@ -485,7 +485,7 @@
     font-size: clamp(1.5rem, 4vw, 2.5rem);
     font-weight: 300;
     letter-spacing: 0.08em;
-    color: #FFFFFF;
+    color: var(--text-primary, #FFFFFF);
     margin: 0 0 1.5rem;
     line-height: 1.2;
   }
@@ -493,7 +493,7 @@
   .about-text {
     font-size: 0.9375rem;
     line-height: 1.85;
-    color: #CBD5E1;
+    color: var(--text-secondary, #CBD5E1);
     margin: 0 0 2.5rem;
     font-weight: 300;
   }
@@ -513,16 +513,16 @@
     &:hover {
       border-color: var(--primary);
       background: var(--primary);
-      color: #000000;
+      color: var(--primary-contrast, #000000);
     }
   }
 }
 
-/* ATENDIMENTO WHATSAPP (AZUL MARINHO NOBRE) */
+/* ATENDIMENTO WHATSAPP DINÂMICO */
 .whatsapp-section {
   text-align: center;
-  background-color: #070F1E;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  background-color: var(--footer-bg, #070F1E);
+  border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
 
   .whatsapp-content {
     max-width: 640px;
@@ -537,8 +537,8 @@
     text-transform: uppercase;
     letter-spacing: 0.2em;
     padding: 0.3rem 0.75rem;
-    background: rgba(212, 175, 55, 0.15);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: var(--primary-light, rgba(204, 164, 94, 0.15));
+    border: 1px solid var(--header-border, rgba(204, 164, 94, 0.3));
     color: var(--primary);
     border-radius: 9999px;
     margin-bottom: 1.25rem;
@@ -548,14 +548,14 @@
     font-size: clamp(1.35rem, 3vw, 2rem);
     font-weight: 300;
     letter-spacing: 0.05em;
-    color: #FFFFFF;
+    color: var(--text-primary, #FFFFFF);
     margin: 0 0 1rem;
     line-height: 1.3;
   }
 
   .whatsapp-text {
     font-size: 0.875rem;
-    color: #CBD5E1;
+    color: var(--text-secondary, #CBD5E1);
     line-height: 1.7;
     margin: 0 0 2.25rem;
     max-width: 520px;

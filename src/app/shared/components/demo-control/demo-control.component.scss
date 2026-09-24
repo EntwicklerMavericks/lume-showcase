@@ -448,6 +448,53 @@
   }
 }
 
+.color-presets-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+
+  .presets-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #9ca3af;
+  }
+
+  .presets-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .preset-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #181920;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    padding: 4px 10px;
+    color: #e5e7eb;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    &:hover {
+      background: #23242e;
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .pill-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
 .form-actions {
   margin-top: 6px;
 

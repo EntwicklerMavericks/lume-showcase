@@ -13,32 +13,67 @@ export class ThemeService {
       return;
     }
 
-    const primary = overrides?.primaryColor || STORE_CONFIG.primaryColor || '#ffffff';
-    const secondary = overrides?.secondaryColor || STORE_CONFIG.secondaryColor || '#a1a1aa';
-    const background = overrides?.backgroundColor || (STORE_CONFIG as any).backgroundColor;
+    const primary = overrides?.primaryColor || STORE_CONFIG.primaryColor || '#CCA45E';
+    const secondary = overrides?.secondaryColor || STORE_CONFIG.secondaryColor || '#CBD5E1';
+    const background = overrides?.backgroundColor || (STORE_CONFIG as any).backgroundColor || '#0A152E';
 
     const root = document.documentElement;
+    const primaryRgb = this.hexToRgb(primary);
+    const secondaryRgb = this.hexToRgb(secondary);
+    const backgroundRgb = this.hexToRgb(background);
 
-    if (background) {
-      root.style.setProperty('--background', background);
+    // 1. Cor de Fundo da Loja (Background) e Derivadas de Superfície
+    root.style.setProperty('--background', background);
+
+    if (backgroundRgb) {
+      const isBgLight = this.calculateLuminance(backgroundRgb) > 0.5;
+      const surfaceBg = this.adjustBrightness(backgroundRgb, isBgLight ? -6 : 8);
+      const surfaceHover = this.adjustBrightness(backgroundRgb, isBgLight ? -12 : 15);
+      const footerBg = this.adjustBrightness(backgroundRgb, isBgLight ? -10 : -8);
+
+      root.style.setProperty('--surface', surfaceBg);
+      root.style.setProperty('--surface-hover', surfaceHover);
+      root.style.setProperty('--footer-bg', footerBg);
+      root.style.setProperty('--header-bg', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.95)`);
+      root.style.setProperty('--hero-overlay-start', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.4)`);
+      root.style.setProperty('--hero-overlay-mid', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.72)`);
+      root.style.setProperty('--hero-overlay-end', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.98)`);
+
+      // Garante contraste legível para textos padrão
+      const textPrimary = isBgLight ? '#111827' : '#F4F4F5';
+      const textSecondary = isBgLight ? '#4B5563' : '#A1A1AA';
+      const textMuted = isBgLight ? '#9CA3AF' : '#71717A';
+      root.style.setProperty('--text-primary', textPrimary);
+      root.style.setProperty('--text-secondary', textSecondary);
+      root.style.setProperty('--text-muted', textMuted);
+    } else {
+      root.style.setProperty('--surface', 'rgba(255, 255, 255, 0.05)');
+      root.style.setProperty('--surface-hover', 'rgba(255, 255, 255, 0.09)');
+      root.style.setProperty('--footer-bg', background);
+      root.style.setProperty('--header-bg', 'rgba(10, 21, 46, 0.95)');
+      root.style.setProperty('--hero-overlay-start', 'rgba(10, 21, 46, 0.4)');
+      root.style.setProperty('--hero-overlay-mid', 'rgba(10, 21, 46, 0.72)');
+      root.style.setProperty('--hero-overlay-end', 'rgba(10, 21, 46, 0.98)');
     }
 
-    // 1. Cor Primária e Derivadas
+    // 2. Cor Primária da Marca e Derivadas (Destaques, Botões, Acentos)
     root.style.setProperty('--primary', primary);
 
-    const primaryRgb = this.hexToRgb(primary);
     if (primaryRgb) {
       const contrast = this.getContrastColor(primaryRgb);
       root.style.setProperty('--primary-contrast', contrast);
       root.style.setProperty('--primary-focus', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.15)`);
       root.style.setProperty('--primary-light', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.1)`);
-      root.style.setProperty('--primary-glow', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.25)`);
-      
-      // Hover: se for claro escurece 12%, se for escuro clareia 12%
+      root.style.setProperty('--primary-glow', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.28)`);
+      root.style.setProperty('--header-border', `rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.22)`);
+      root.style.setProperty('--border-focus', primary);
+
+      // Hover
       const isLight = this.calculateLuminance(primaryRgb) > 0.5;
       const hover = this.adjustBrightness(primaryRgb, isLight ? -15 : 20);
       root.style.setProperty('--primary-hover', hover);
 
+      // Degradê da marca
       const lightAccent = this.adjustBrightness(primaryRgb, 14);
       const darkAccent = this.adjustBrightness(primaryRgb, -14);
       root.style.setProperty('--primary-gradient', `linear-gradient(135deg, ${lightAccent} 0%, ${primary} 50%, ${darkAccent} 100%)`);
@@ -46,29 +81,30 @@ export class ThemeService {
       root.style.setProperty('--primary-contrast', '#000000');
       root.style.setProperty('--primary-hover', primary);
       root.style.setProperty('--primary-glow', 'rgba(255, 255, 255, 0.2)');
+      root.style.setProperty('--header-border', 'rgba(255, 255, 255, 0.15)');
+      root.style.setProperty('--border-focus', primary);
       root.style.setProperty('--primary-gradient', primary);
     }
 
-    // 2. Cor Secundária e Derivadas
+    // 3. Cor Secundária da Marca e Derivadas (Detalhes, Apoio, Bordas Suaves)
     root.style.setProperty('--secondary', secondary);
 
-    const secondaryRgb = this.hexToRgb(secondary);
     if (secondaryRgb) {
       const isLight = this.calculateLuminance(secondaryRgb) > 0.5;
       const secHover = this.adjustBrightness(secondaryRgb, isLight ? -15 : 20);
       root.style.setProperty('--secondary-hover', secHover);
+      root.style.setProperty('--border-subtle', `rgba(${secondaryRgb.r}, ${secondaryRgb.g}, ${secondaryRgb.b}, 0.25)`);
     } else {
       root.style.setProperty('--secondary-hover', secondary);
+      root.style.setProperty('--border-subtle', 'rgba(255, 255, 255, 0.15)');
     }
-
-    // 3. Foco de Borda
-    root.style.setProperty('--border-focus', primary);
   }
 
   /**
    * Converte string hex (#ffffff ou #fff) para componentes RGB.
    */
   private hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+    if (!hex) return null;
     const cleanHex = hex.replace('#', '').trim();
 
     if (cleanHex.length === 3) {
