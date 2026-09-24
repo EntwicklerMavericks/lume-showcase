@@ -129,9 +129,13 @@ export class DemoStorageService {
         this.customBranding.set(JSON.parse(savedCustom));
       }
 
+      // Verifica versão do catálogo para atualizar automaticamente catálogos antigos do storage
+      const savedVersion = localStorage.getItem('lume_demo_catalog_version');
+      const isCatalogOutdated = savedVersion !== 'v2_rich_catalogs_2026';
+
       // 3. Categorias
       const savedCats = localStorage.getItem(STORAGE_CATEGORIES);
-      if (savedCats) {
+      if (savedCats && !isCatalogOutdated) {
         this.categories.set(JSON.parse(savedCats));
       } else {
         const themeCats = DEMO_THEMES[initialThemeId]?.categories || DEMO_THEMES['lume'].categories;
@@ -141,12 +145,13 @@ export class DemoStorageService {
 
       // 4. Produtos
       const savedProds = localStorage.getItem(STORAGE_PRODUCTS);
-      if (savedProds) {
+      if (savedProds && !isCatalogOutdated) {
         this.products.set(JSON.parse(savedProds));
       } else {
         const themeProds = DEMO_THEMES[initialThemeId]?.products || DEMO_THEMES['lume'].products;
         this.products.set(themeProds);
         localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(themeProds));
+        localStorage.setItem('lume_demo_catalog_version', 'v2_rich_catalogs_2026');
       }
 
       // 5. Pedidos e Clientes

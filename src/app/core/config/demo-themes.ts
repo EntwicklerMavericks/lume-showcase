@@ -30,6 +30,9 @@ export interface DemoThemeConfig {
 }
 
 export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
+  // =========================================================================
+  // 1. LUME — FUTUREWEAR & TECH APPAREL (TEMA OFICIAL)
+  // =========================================================================
   lume: {
     id: 'lume',
     name: 'Lume',
@@ -68,22 +71,22 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
       },
       {
         id: 'cat-lum-2',
-        name: 'Hoodies & Agasalhos',
+        name: 'Hoodies & Agasalhos Futuristas',
         slug: 'hoodies-agasalhos',
         description: 'Moletons tecnológicos estruturados e agasalhos com acabamento futurista.',
         image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80'
       },
       {
         id: 'cat-lum-3',
-        name: 'Calças Táticas & Joggers',
-        slug: 'calcas-joggers',
+        name: 'Calças Táticas & Cargo Tech',
+        slug: 'calcas-taticas',
         description: 'Calças utilitárias com múltiplos bolsos e ajuste ergonômico nos tornozelos.',
         image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80'
       },
       {
         id: 'cat-lum-4',
-        name: 'Casacos & Corta-Ventos',
-        slug: 'casacos-corta-ventos',
+        name: 'Jaquetas Corta-Vento & Modular',
+        slug: 'jaquetas-corta-ventos',
         description: 'Corta-ventos repelentes à água e casacos térmicos de alta performance.',
         image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
       }
@@ -163,10 +166,69 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         available: true,
         featured: true,
         isNew: true
+      },
+      {
+        id: 'lum-5',
+        sku: 'LUM-REG-005',
+        name: 'Regata Techwear Laser Microperfurada',
+        slug: 'regata-techwear-laser-microperfurada',
+        description: 'Regata de caimento moderno com microperfurações a laser na região dorsal para ventilação térmica dinâmica. Tecido antibacteriano com fios de prata.',
+        price: 129.90,
+        images: ['https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=1000&q=85'],
+        categoryId: 'cat-lum-1',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Verde Neon', hex: '#0df5a4' }],
+        composition: '90% Poliamida Tecnológica Dry, 10% Elastano',
+        fit: 'Athletic Fitted',
+        washCare: 'Lavagem rápida à máquina. Secagem instantânea ao ar.',
+        available: true,
+        featured: false,
+        isNew: true
+      },
+      {
+        id: 'lum-6',
+        sku: 'LUM-PAR-006',
+        name: 'Calça Parachute Cyber Tactical Cordão',
+        slug: 'calca-parachute-cyber-tactical-cordao',
+        description: 'Calça parachute em nylon taslan com toque peletizado, cós largo com elástico reforçado e stoppers metálicos nos tornozelos para modelagem versátil.',
+        price: 279.90,
+        promotionalPrice: 249.90,
+        images: ['https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=1000&q=85'],
+        categoryId: 'cat-lum-3',
+        sizes: ['38', '40', '42', '44'],
+        colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Cinza Concreto', hex: '#4b5563' }],
+        composition: '100% Nylon Taslan Hidrorrepelente',
+        fit: 'Parachute Relaxed Fit',
+        washCare: 'Lavar à mão ou em ciclo delicado.',
+        available: true,
+        featured: false,
+        isNew: true
+      },
+      {
+        id: 'lum-7',
+        sku: 'LUM-MOD-007',
+        name: 'Jaqueta Modular Bomber Arneses Removíveis',
+        slug: 'jaqueta-modular-bomber-arneses-removiveis',
+        description: 'Jaqueta bomber de estética futurista com fitas táticas funcionais e bolso manga com zíper selado. Forro acetinado térmico de alta respirabilidade.',
+        price: 389.90,
+        promotionalPrice: 349.90,
+        images: ['https://images.unsplash.com/photo-1520975954732-35dd22299614?w=1000&q=85'],
+        categoryId: 'cat-lum-4',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Deep Cyber Black', hex: '#080809' }],
+        composition: '100% Poliéster Estruturado com Membrana Corta-Vento',
+        fit: 'Modern Bomber Fit',
+        washCare: 'Limpeza a seco ou lavagem manual suave.',
+        available: true,
+        featured: true,
+        isNew: false
       }
     ]
   },
 
+  // =========================================================================
+  // 2. OLIVEIRA — FITNESS & CASUAL (MODA ESPORTIVA)
+  // =========================================================================
   oliveira: {
     id: 'oliveira',
     name: 'Oliveira',
@@ -198,31 +260,31 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     categories: [
       {
         id: 'cat-fit-1',
-        name: 'Camisetas & Tops',
+        name: 'Camisetas & Tops Performance',
         slug: 'camisetas-tops',
         description: 'Camisetas dry-fit, regatas e tops para treino intenso e uso casual.',
         image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80'
       },
       {
         id: 'cat-fit-2',
-        name: 'Calças & Leggings',
+        name: 'Calças & Leggings Modeladoras',
         slug: 'calcas-leggings',
         description: 'Leggings modeladoras de alta compressão e calças joggers esportivas.',
         image: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80'
       },
       {
         id: 'cat-fit-3',
-        name: 'Casacos & Corta-Ventos',
-        slug: 'casacos-jaquetas',
-        description: 'Windbreakers, jaquetas esportivas e agasalhos para treino e passeios.',
-        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
-      },
-      {
-        id: 'cat-fit-4',
-        name: 'Bermudas & Shorts',
+        name: 'Bermudas & Shorts Esportivos',
         slug: 'bermudas-shorts',
         description: 'Bermudas 2 em 1 de compressão e shorts leves para treino e lazer.',
         image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80'
+      },
+      {
+        id: 'cat-fit-4',
+        name: 'Casacos & Corta-Ventos Running',
+        slug: 'casacos-jaquetas',
+        description: 'Windbreakers, jaquetas esportivas e agasalhos para treino e passeios.',
+        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
       }
     ],
     products: [
@@ -271,7 +333,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'legging-esculp-safe-cintura-alta',
         description: 'Legging com compressão estratégica que modela sem apertar. Tecido encorpado zero transparência com bolso invisível para celular.',
         price: 189.90,
-        images: ['https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1000&q=85'],
+        images: ['https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1000&q=85', 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1000&q=85'],
         categoryId: 'cat-fit-2',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Preto Intenso', hex: '#0a0a0a' }, { name: 'Azul Marinho', hex: '#0a152e' }],
@@ -289,27 +351,85 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'bermuda-2-em-1-force-compressao',
         description: 'Bermuda masculina com forro interno de compressão anti-atrito e bolso celular. Camada externa leve e respirável.',
         price: 149.90,
-        images: ['https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=1000&q=85'],
-        categoryId: 'cat-fit-4',
+        images: ['https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=1000&q=85', 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1000&q=85'],
+        categoryId: 'cat-fit-3',
         sizes: ['P', 'M', 'G', 'GG'],
-        colors: [{ name: 'Preto Grafite', hex: '#18181b' }],
+        colors: [{ name: 'Preto Grafite', hex: '#18181b' }, { name: 'Azul Marinho Real', hex: '#0a152e' }],
         composition: '92% Poliéster reciclado, 8% Elastano',
         fit: 'Regular com Bermuda Interna Compression',
         washCare: 'Lavar à máquina em ciclo rápido.',
         available: true,
         featured: true,
         isNew: false
+      },
+      {
+        id: 'oli-5',
+        sku: 'OLI-WND-005',
+        name: 'Corta-Vento Running Ultralight Refletivo',
+        slug: 'corta-vento-running-ultralight-refletivo',
+        description: 'Jaqueta corta-vento em microfibra ultraleve com acabamento repelente a água, abertura para ventilação nas costas e faixas refletivas 360° para treinos noturnos.',
+        price: 239.90,
+        promotionalPrice: 209.90,
+        images: ['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1000&q=85'],
+        categoryId: 'cat-fit-4',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Azul Marinho', hex: '#0a152e' }, { name: 'Dourado Nobre', hex: '#cca45e' }],
+        composition: '100% Poliamida Ultralight Ripstop',
+        fit: 'Athletic Streamlined',
+        washCare: 'Lavagem rápida com sabão neutro.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'oli-6',
+        sku: 'OLI-REG-006',
+        name: 'Regata Masculina Muscle Fit Treino',
+        slug: 'regata-masculina-muscle-fit-treino',
+        description: 'Regata cavada com caimento atlético muscle fit em poliamida dry com toque gelado. Costuras flatlock anti-atrito para máxima liberdade nos treinos de força.',
+        price: 109.90,
+        images: ['https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1000&q=85'],
+        categoryId: 'cat-fit-1',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Chumbo Escuro', hex: '#27272a' }, { name: 'Branco Óptico', hex: '#ffffff' }],
+        composition: '91% Poliamida Dry Touch, 9% Spandex',
+        fit: 'Muscle Athletic Fit',
+        washCare: 'Lavagem em máquina até 30°C.',
+        available: true,
+        featured: false,
+        isNew: false
+      },
+      {
+        id: 'oli-7',
+        sku: 'OLI-JOG-007',
+        name: 'Calça Jogger Sport Training Flex 4-Way',
+        slug: 'calca-jogger-sport-training-flex-4-way',
+        description: 'Calça jogger unissex em moletinho tecnológico com elastano 4-way stretch. Cós elástico largo anatômico, bolsos com zíper selado e punho ergonômico.',
+        price: 219.90,
+        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85'],
+        categoryId: 'cat-fit-2',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Azul Marinho Real', hex: '#0a152e' }, { name: 'Preto Ônix', hex: '#09090b' }],
+        composition: '68% Algodão Nobre, 26% Poliéster, 6% Elastano',
+        fit: 'Athletic Jogger Fit',
+        washCare: 'Lavagem à máquina em ciclo suave.',
+        available: true,
+        featured: false,
+        isNew: true
       }
     ]
   },
 
+  // =========================================================================
+  // 3. BARONE IMPORTS — STREETWEAR & URBAN CULTURE
+  // =========================================================================
   barone: {
     id: 'barone',
     name: 'Barone Imports',
     segment: 'Streetwear & Urban Culture',
     badge: 'CULTURA URBANA',
     tagline: 'HEAVYWEIGHT STREETWEAR',
-    description: 'Moda de rua autêntica, modelagens oversized e tecidos heavyweight 240g/m² desenvolvidos para o homem contemporâneo. Estilo que dita as regras nas ruas.',
+    description: 'Moda de rua autêntica, modelagens oversized e tecidos heavyweight 260g/m² desenvolvidos para o homem contemporâneo. Estilo que dita as regras nas ruas.',
     aboutEyebrow: 'MANIFESTO STREET',
     aboutTitle: 'Do asfalto para o mundo. Atitude heavyweight.',
     aboutText: 'A Barone Imports traduz a cultura urbana com tecidos encorpados de alta gramatura, caimento boxy oversized e estética minimalista de impacto visual.',
@@ -328,46 +448,53 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     headerBg: 'rgba(8, 8, 9, 0.98)',
     headerBorder: 'rgba(255, 255, 255, 0.15)',
     perks: [
-      { title: 'HEAVYWEIGHT COTTON 240G', desc: 'Tecidos encorpados com caimento estruturado e lavagem acid' },
+      { title: 'HEAVYWEIGHT COTTON 260G', desc: 'Tecidos encorpados com caimento estruturado e lavagem acid' },
       { title: 'DROPS & EDIÇÃO LIMITADA', desc: 'Lotes numerados e modelagens exclusivas boxy fit' }
     ],
     categories: [
       {
         id: 'cat-st-1',
-        name: 'Camisetas Oversized',
+        name: 'Camisetas Heavyweight & Boxy',
         slug: 'camisetas-oversized',
         description: 'Tees de alta gramatura com caimento boxy e gola canelada 3cm.',
         image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80'
       },
       {
         id: 'cat-st-2',
-        name: 'Hoodies & Agasalhos',
+        name: 'Hoodies & Moletons 420g',
         slug: 'hoodies-agasalhos',
         description: 'Moletons 3 cabos pesados flanelados com capuz duplo estruturado.',
         image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80'
       },
       {
         id: 'cat-st-3',
-        name: 'Calças Cargo & Jogger',
+        name: 'Calças Cargo & Skate Pants',
         slug: 'calcas-cargo',
         description: 'Calças utilitárias com bolsos fole e ajuste anatômico nos tornozelos.',
         image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80'
+      },
+      {
+        id: 'cat-st-4',
+        name: 'Jaquetas Varsity & Workwear',
+        slug: 'jaquetas-varsity',
+        description: 'Jaquetas college de feltro, sarja encorpada e casacos streetwear.',
+        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
       }
     ],
     products: [
       {
         id: 'bar-1',
         sku: 'BAR-TEE-001',
-        name: 'Camiseta Boxy Heavyweight 240g Black',
-        slug: 'camiseta-boxy-heavyweight-240g-black',
-        description: 'Camiseta oversized confeccionada em malha premium 100% algodão penteado 240g. Gola canelada 3cm anti-esgarçamento e caimento boxy imponente.',
+        name: 'Camiseta Boxy Heavyweight 260g Black',
+        slug: 'camiseta-boxy-heavyweight-260g-black',
+        description: 'Camiseta oversized confeccionada em malha premium 100% algodão penteado 260g. Gola canelada 3cm anti-esgarçamento e caimento boxy imponente.',
         price: 159.90,
         promotionalPrice: 139.90,
         images: ['https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1000&q=85', 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1000&q=85'],
         categoryId: 'cat-st-1',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Preto Intenso', hex: '#080809' }, { name: 'Off-White Acid', hex: '#e4e4e7' }],
-        composition: '100% Algodão Penteado Heavyweight 240g',
+        composition: '100% Algodão Penteado Heavyweight 260g',
         fit: 'Boxy Oversized Fit',
         washCare: 'Lavar do avesso em água fria. Não passar sobre as estampas.',
         available: true,
@@ -377,11 +504,11 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
       {
         id: 'bar-2',
         sku: 'BAR-HOD-002',
-        name: 'Hoodie Acid Wash Heavyweight 400g',
-        slug: 'hoodie-acid-wash-heavyweight-400g',
-        description: 'Moletom 3 cabos 400g com lavagem estonada acid wash exclusiva. Capuz estruturado sem cordão e bolso canguru embutido.',
+        name: 'Hoodie Acid Wash Heavyweight 420g',
+        slug: 'hoodie-acid-wash-heavyweight-420g',
+        description: 'Moletom 3 cabos 420g com lavagem estonada acid wash exclusiva. Capuz estruturado sem cordão e bolso canguru embutido.',
         price: 289.90,
-        images: ['https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1000&q=85'],
+        images: ['https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1000&q=85', 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1000&q=85'],
         categoryId: 'cat-st-2',
         sizes: ['M', 'G', 'GG'],
         colors: [{ name: 'Cinza Grafite Acid', hex: '#27272a' }, { name: 'Preto Vintage', hex: '#18181b' }],
@@ -397,9 +524,9 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         sku: 'BAR-CAR-003',
         name: 'Calça Cargo Utilitária Tática Ripstop',
         slug: 'calca-cargo-utilitaria-tatica-ripstop',
-        description: 'Calça cargo em sarja ripstop militar com 6 bolsos amplos, cordão de ajuste e reforço de costura dupla nos joelhos.',
+        description: 'Calça cargo em sarja ripstop militar com 6 bolsos amplos com fole, cordão de ajuste no tornozelo e reforço de costura dupla nos joelhos.',
         price: 249.90,
-        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85'],
+        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85', 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=1000&q=85'],
         categoryId: 'cat-st-3',
         sizes: ['38', '40', '42', '44'],
         colors: [{ name: 'All Black', hex: '#080809' }, { name: 'Verde Oliva Militar', hex: '#3f4238' }],
@@ -409,10 +536,87 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         available: true,
         featured: true,
         isNew: false
+      },
+      {
+        id: 'bar-4',
+        sku: 'BAR-TEE-004',
+        name: 'Camiseta Oversized Graphic Drop Tokyo',
+        slug: 'camiseta-oversized-graphic-drop-tokyo',
+        description: 'Camiseta oversized 260g em puro algodão com estampa serigráfica em relevo nas costas com tema metrópole contemporânea. Costura reforçada ombro a ombro.',
+        price: 169.90,
+        promotionalPrice: 149.90,
+        images: ['https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1000&q=85', 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1000&q=85'],
+        categoryId: 'cat-st-1',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Off-White Craquelado', hex: '#f4f4f5' }, { name: 'Preto Carbono', hex: '#09090b' }],
+        composition: '100% Algodão Heavyweight 260g',
+        fit: 'Drop Shoulder Boxy',
+        washCare: 'Lavar do avesso com água fria.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'bar-5',
+        sku: 'BAR-VAR-005',
+        name: 'Jaqueta Varsity College Streetwear Barone',
+        slug: 'jaqueta-varsity-college-streetwear-barone',
+        description: 'Jaqueta college clássica streetwear com mangas contrastantes, corpo em feltro encorpado, patches bordados em chenille e botões de pressão metálicos esmaltados.',
+        price: 369.90,
+        promotionalPrice: 329.90,
+        images: ['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1000&q=85', 'https://images.unsplash.com/photo-1520975954732-35dd22299614?w=1000&q=85'],
+        categoryId: 'cat-st-4',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Preto & Branco', hex: '#09090b' }, { name: 'Verde Vintage & Creme', hex: '#1b3b22' }],
+        composition: 'Corpo: 70% Lã Sintética Feltro, Mangas: 100% Poliuretano Macio',
+        fit: 'Classic Varsity Boxy',
+        washCare: 'Limpeza a seco especializada.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'bar-6',
+        sku: 'BAR-JNS-006',
+        name: 'Calça Denim Skate Loose Fit 14oz',
+        slug: 'calca-denim-skate-loose-fit-14oz',
+        description: 'Jeans 100% algodão 14oz com lavagem clara estonada vintage, perna ampla loose fit skate e costuras pespontadas duplas para resistir à lixa e ao asfalto.',
+        price: 269.90,
+        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85'],
+        categoryId: 'cat-st-3',
+        sizes: ['38', '40', '42', '44'],
+        colors: [{ name: 'Azul Claro Vintage', hex: '#64748b' }, { name: 'Preto Envelhecido', hex: '#27272a' }],
+        composition: '100% Algodão Denim 14oz',
+        fit: 'Wide Leg Loose Skate',
+        washCare: 'Lavar à máquina do avesso em água fria.',
+        available: true,
+        featured: false,
+        isNew: false
+      },
+      {
+        id: 'bar-7',
+        sku: 'BAR-BER-007',
+        name: 'Bermuda Sweatpants Heavy Oversized 380g',
+        slug: 'bermuda-sweatpants-heavy-oversized-380g',
+        description: 'Bermuda de moletom felpado 380g com corte desestruturado acima do joelho, bolsos laterais fundos e cordão grosso de algodão cru com ponteiras de metal.',
+        price: 179.90,
+        images: ['https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=1000&q=85'],
+        categoryId: 'cat-st-3',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Cinza Mescla Ash', hex: '#d4d4d8' }, { name: 'Preto Intenso', hex: '#09090b' }],
+        composition: '100% Algodão Moletom 380g',
+        fit: 'Relaxed Drop Fit',
+        washCare: 'Lavar do avesso com sabão neutro.',
+        available: true,
+        featured: false,
+        isNew: true
       }
     ]
   },
 
+  // =========================================================================
+  // 4. MARÉ — RESORT & BEACHWEAR (ALTO VERÃO & LINHO PURO)
+  // =========================================================================
   mare: {
     id: 'mare',
     name: 'Maré',
@@ -444,17 +648,31 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     categories: [
       {
         id: 'cat-mar-1',
-        name: 'Camisas de Linho',
+        name: 'Camisas de Linho & Gola Cubana',
         slug: 'camisas-linho',
         description: 'Camisas gola padre e gola cubana em puro linho pré-lavado.',
         image: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80'
       },
       {
         id: 'cat-mar-2',
-        name: 'Bermudas & Shorts Resort',
+        name: 'Bermudas & Shorts Riviera',
         slug: 'shorts-resort',
-        description: 'Shorts de alfaiataria em linho e sarja leve para o pós-praia.',
+        description: 'Shorts de alfaiataria em linho e shorts náuticos de secagem ultrarrápida.',
         image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80'
+      },
+      {
+        id: 'cat-mar-3',
+        name: 'Calças Fluidas de Linho Nobre',
+        slug: 'calcas-linho',
+        description: 'Calças em puro linho com cós elástico, cordão natural e corte relaxado.',
+        image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&q=80'
+      },
+      {
+        id: 'cat-mar-4',
+        name: 'Polos & Camisas Tricot Verão',
+        slug: 'polos-tricot',
+        description: 'Camisas polos em tricot tramado vazado e tecidos arejados de verão.',
+        image: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80'
       }
     ],
     products: [
@@ -494,10 +712,105 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         available: true,
         featured: true,
         isNew: true
+      },
+      {
+        id: 'mar-3',
+        sku: 'MAR-CAM-003',
+        name: 'Camisa Gola Padre Manga Longa Linho Cru',
+        slug: 'camisa-gola-padre-manga-longa-linho-cru',
+        description: 'Camisa refinada em puro linho com colarinho mandarim / gola padre, botões madreperolados e martingal nas mangas para ajuste dobrado despojado.',
+        price: 249.90,
+        promotionalPrice: 219.90,
+        images: ['https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1000&q=85', 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=1000&q=85'],
+        categoryId: 'cat-mar-1',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Linho Cru Natural', hex: '#e6ded5' }, { name: 'Azul Céu', hex: '#93c5fd' }, { name: 'Branco Neve', hex: '#ffffff' }],
+        composition: '100% Linho Francês Puro',
+        fit: 'Modern Slim Resort Fit',
+        washCare: 'Lavar em água fria. Não centrifugar em alta rotação.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'mar-4',
+        sku: 'MAR-CAL-004',
+        name: 'Calça Pantalona Fluida em Puro Linho Areia',
+        slug: 'calca-pantalona-fluida-em-puro-linho-areia',
+        description: 'Calça de corte reto amplo com cós elástico traseiro e cordão frontal. Tecido levemente tramado de linho com caimento arejado e fresco para dias ensolarados.',
+        price: 279.90,
+        images: ['https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=1000&q=85', 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1000&q=85'],
+        categoryId: 'cat-mar-3',
+        sizes: ['38', '40', '42', '44'],
+        colors: [{ name: 'Areia Duna', hex: '#d4a373' }, { name: 'Branco Alabastro', hex: '#fafaf9' }, { name: 'Terracota Suave', hex: '#b45309' }],
+        composition: '100% Linho Puro Amaciado',
+        fit: 'Relaxed Wide Leg',
+        washCare: 'Lavagem delicada à mão ou em saquinho.',
+        available: true,
+        featured: true,
+        isNew: false
+      },
+      {
+        id: 'mar-5',
+        sku: 'MAR-SWM-005',
+        name: 'Short de Banho Riviera Quick-Dry Peletizado',
+        slug: 'short-de-banho-riviera-quick-dry-peletizado',
+        description: 'Short náutico de banho em tecido tecnológico peletizado repelente a água. Secagem em menos de 10 minutos com sunga interna elástica ultra-confortável.',
+        price: 159.90,
+        promotionalPrice: 139.90,
+        images: ['https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=1000&q=85'],
+        categoryId: 'cat-mar-2',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Listrado Riviera Navy', hex: '#1e3a8a' }, { name: 'Terracota Sunset', hex: '#c15c3d' }, { name: 'Verde Esmeralda', hex: '#047857' }],
+        composition: '100% Poliéster Peletizado Water-Repellent',
+        fit: 'Short Riviera Acima do Joelho',
+        washCare: 'Enxaguar em água doce após piscina ou mar.',
+        available: true,
+        featured: false,
+        isNew: true
+      },
+      {
+        id: 'mar-6',
+        sku: 'MAR-POL-006',
+        name: 'Camisa Polo em Tricot Vazado Summer Breeze',
+        slug: 'camisa-polo-em-tricot-vazado-summer-breeze',
+        description: 'Polo confeccionada em tricot fino de algodão nobre com trama aberta respirável. Gola sem botões estilo polo capri e caimento relaxado para sunset parties.',
+        price: 229.90,
+        images: ['https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=1000&q=85'],
+        categoryId: 'cat-mar-4',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Off-White Baunilha', hex: '#fef3c7' }, { name: 'Caramelo Dourado', hex: '#d97706' }],
+        composition: '100% Algodão Mercerizado Penteado',
+        fit: 'Relaxed Retro Polo',
+        washCare: 'Secar na horizontal. Não pendurar para não deformar o tricot.',
+        available: true,
+        featured: false,
+        isNew: true
+      },
+      {
+        id: 'mar-7',
+        sku: 'MAR-KIM-007',
+        name: 'Kimono Resort Sunset em Linho & Viscose',
+        slug: 'kimono-resort-sunset-em-linho-e-viscose',
+        description: 'Kimono unissex com manga 3/4 fluida, acabamento pespontado limpo e faixa opcional para amarração. Ideal para o fim de tarde na praia, marina ou resort.',
+        price: 239.90,
+        images: ['https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1000&q=85'],
+        categoryId: 'cat-mar-1',
+        sizes: ['P/M', 'G/GG'],
+        colors: [{ name: 'Terracota Âmbar', hex: '#c15c3d' }, { name: 'Areia Rústico', hex: '#d4a373' }],
+        composition: '55% Linho Nobre, 45% Viscose Fluida',
+        fit: 'Oversized Flow Fit',
+        washCare: 'Lavar à mão com água fria.',
+        available: true,
+        featured: true,
+        isNew: false
       }
     ]
   },
 
+  // =========================================================================
+  // 5. TERRA FORTE — MODA COUNTRY & VAQUEJADA (ESTILO SERTANEJO)
+  // =========================================================================
   terra_forte: {
     id: 'terra_forte',
     name: 'Terra Forte',
@@ -529,17 +842,31 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     categories: [
       {
         id: 'cat-tf-1',
-        name: 'Camisas Country & Xadrez',
+        name: 'Camisas Western & Flanelas Xadrez',
         slug: 'camisas-country',
         description: 'Camisas western estruturadas com botões de pressão e pala bordada.',
         image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80'
       },
       {
         id: 'cat-tf-2',
-        name: 'Couro Nobre & Jaquetas',
+        name: 'Calças Jeans Bootcut & Texana',
+        slug: 'calcas-texanas',
+        description: 'Calças jeans resistentes com corte bootcut ideal para uso com botas.',
+        image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80'
+      },
+      {
+        id: 'cat-tf-3',
+        name: 'Couro Nobre, Coletes & Jaquetas',
         slug: 'jaquetas-couro',
-        description: 'Jaquetas em couro legítimo amaciado e coletes resistentes.',
+        description: 'Jaquetas em couro legítimo amaciado e coletes resistentes de lona.',
         image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
+      },
+      {
+        id: 'cat-tf-4',
+        name: 'Cintos & Acessórios de Vaquejada',
+        slug: 'cintos-acessorios',
+        description: 'Cintos de couro entalhado, bonés trucker e acessórios sertanejos.',
+        image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80'
       }
     ],
     products: [
@@ -554,7 +881,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         images: ['https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1000&q=85', 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1000&q=85'],
         categoryId: 'cat-tf-1',
         sizes: ['P', 'M', 'G', 'GG'],
-        colors: [{ name: 'Âmbar Dourado', hex: '#d97706' }, { name: 'Azul Petróleo Western', hex: '#1e3a5f' }],
+        colors: [{ name: 'Âmbar Dourado', hex: '#d97706' }, { name: 'Azul Petróleo Western', hex: '#1e3a5f' }, { name: 'Branco Fazenda', hex: '#fafafa' }],
         composition: '100% Algodão Encorpado 210g',
         fit: 'Western Comfort Fit',
         washCare: 'Lavagem à máquina até 40°C. Não alvejar.',
@@ -567,22 +894,118 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         sku: 'TF-JAC-002',
         name: 'Jaqueta Bomber Couro Bovino Rústico',
         slug: 'jaqueta-bomber-couro-bovino-rustico',
-        description: 'Jaqueta produzida artesanalmente em couro legítimo atanado com forro interno térmico acetinado e metais antioxidantes.',
+        description: 'Jaqueta produzida artesanalmente em couro legítimo atanado com forro interno térmico acetinado e metais antioxidantes ouro velho.',
         price: 890.00,
+        promotionalPrice: 799.00,
         images: ['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1000&q=85'],
-        categoryId: 'cat-tf-2',
+        categoryId: 'cat-tf-3',
         sizes: ['M', 'G', 'GG'],
         colors: [{ name: 'Marrom Tabaco', hex: '#451a03' }, { name: 'Preto Rústico', hex: '#1c1917' }],
-        composition: '100% Couro Bovino Legítimo, Forro 100% Poliéster',
-        fit: 'Regular Estruturado',
+        composition: '100% Couro Bovino Legítimo, Forro 100% Poliéster Acetinado',
+        fit: 'Regular Western Fit',
         washCare: 'Limpeza especializada em couro. Hidratar periodicamente.',
         available: true,
         featured: true,
+        isNew: true
+      },
+      {
+        id: 'tf-3',
+        sku: 'TF-XAD-003',
+        name: 'Camisa Xadrez Western Pérola Snap Flanelada',
+        slug: 'camisa-xadrez-western-perola-snap-flanelada',
+        description: 'Camisa western xadrez encorpada com pala bordada, bolsos chanfrados e botões de pressão madreperolados. Tecido flanelado macio e ultra durável.',
+        price: 219.90,
+        promotionalPrice: 189.90,
+        images: ['https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=1000&q=85', 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1000&q=85'],
+        categoryId: 'cat-tf-1',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Vermelho & Preto Buffalo', hex: '#991b1b' }, { name: 'Azul Royal & Navy', hex: '#1d4ed8' }, { name: 'Verde Mata & Caramelo', hex: '#166534' }],
+        composition: '100% Algodão Flanelado 220g',
+        fit: 'Western Regular',
+        washCare: 'Lavagem em água fria. Secar à sombra.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'tf-4',
+        sku: 'TF-JNS-004',
+        name: 'Calça Jeans Texana Bootcut com Elastano 14oz',
+        slug: 'calca-jeans-texana-bootcut-com-elastano-14oz',
+        description: 'Modelagem texana bootcut autêntica com barra desenhada para cobrir o cano da bota com perfeição. Jeans 14oz com 2% de elastano para conforto na sela e no dia a dia.',
+        price: 259.90,
+        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85'],
+        categoryId: 'cat-tf-2',
+        sizes: ['38', '40', '42', '44', '46'],
+        colors: [{ name: 'Stone Washed Médio', hex: '#334155' }, { name: 'Índigo Escuro Tradicional', hex: '#1e293b' }],
+        composition: '98% Algodão Denim Pesado 14oz, 2% Elastano',
+        fit: 'Bootcut Texano',
+        washCare: 'Lavar à máquina do avesso em água fria.',
+        available: true,
+        featured: true,
+        isNew: false
+      },
+      {
+        id: 'tf-5',
+        sku: 'TF-COL-005',
+        name: 'Colete de Lona Encerada & Forro Xadrez Rústico',
+        slug: 'colete-de-lona-encerada-e-forro-xadrez-rustico',
+        description: 'Colete térmico resistente ao vento e poeira em lona de algodão pesada com forro interno acolchoado flanelado xadrez. Zíper de metal ouro velho com puxador de couro.',
+        price: 329.90,
+        promotionalPrice: 289.90,
+        images: ['https://images.unsplash.com/photo-1520975954732-35dd22299614?w=1000&q=85'],
+        categoryId: 'cat-tf-3',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Marrom Canela', hex: '#78350f' }, { name: 'Preto Carvão', hex: '#18181b' }],
+        composition: 'Lona 100% Algodão Heavy Duty, Forro 100% Flanela Térmica',
+        fit: 'Regular Utility Fit',
+        washCare: 'Limpar a seco ou com esponja úmida.',
+        available: true,
+        featured: false,
+        isNew: true
+      },
+      {
+        id: 'tf-6',
+        sku: 'TF-CIN-006',
+        name: 'Cinto Couro Bovino Entalhado Fivela Western',
+        slug: 'cinto-couro-bovino-entalhado-fivela-western',
+        description: 'Couro legítimo bovino selecionado com entalhes florais em alto relevo feitos manualmente. Fivela removível em zamac prateado envelhecido com detalhes texanos.',
+        price: 169.90,
+        images: ['https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1000&q=85'],
+        categoryId: 'cat-tf-4',
+        sizes: ['90cm', '95cm', '100cm', '105cm', '110cm'],
+        colors: [{ name: 'Marrom Havana', hex: '#451a03' }, { name: 'Preto Western', hex: '#09090b' }],
+        composition: '100% Couro Bovino Genuíno Selecionado',
+        fit: 'Largura 4.0cm Western Padrão',
+        washCare: 'Hidratar com cera para couro a cada 6 meses.',
+        available: true,
+        featured: false,
+        isNew: false
+      },
+      {
+        id: 'tf-7',
+        sku: 'TF-BNE-007',
+        name: 'Boné Trucker Country Terra Forte Bordado Relevo',
+        slug: 'bone-trucker-country-terra-forte-bordado-relevo',
+        description: 'Boné trucker com frente estruturada em sarja pesada, tela traseira respirável para ventilação e patch frontal bordado com fios reforçados. Fecho snapback ajustável.',
+        price: 99.90,
+        images: ['https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1000&q=85'],
+        categoryId: 'cat-tf-4',
+        sizes: ['Único Ajustável'],
+        colors: [{ name: 'Café & Marrom', hex: '#78350f' }, { name: 'Preto & Grafite', hex: '#18181b' }],
+        composition: 'Frente: 100% Algodão Sarja, Tela: 100% Poliéster',
+        fit: 'Trucker Snapback',
+        washCare: 'Limpar à mão com pano úmido.',
+        available: true,
+        featured: false,
         isNew: true
       }
     ]
   },
 
+  // =========================================================================
+  // 6. ATELIER AURA — ALFAIATARIA & LUXO MINIMALISTA (CONTEMPORARY LUXURY)
+  // =========================================================================
   atelier_aura: {
     id: 'atelier_aura',
     name: 'Atelier Aura',
@@ -614,17 +1037,31 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     categories: [
       {
         id: 'cat-aur-1',
-        name: 'Blazers & Alfaiataria',
+        name: 'Blazers & Paletós de Alfaiataria',
         slug: 'blazers-alfaiataria',
         description: 'Blazers estruturados e paletós sob medida contemporâneos.',
         image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80'
       },
       {
         id: 'cat-aur-2',
-        name: 'Pantalonas & Calças Nobres',
+        name: 'Calças com Pregas Italianas',
         slug: 'calcas-nobres',
         description: 'Pantalonas de cós alto com pregas duplas e caimento arquitetônico.',
         image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80'
+      },
+      {
+        id: 'cat-aur-3',
+        name: 'Camisaria Nobre & Algodão Egípcio',
+        slug: 'camisaria-nobre',
+        description: 'Camisas sociais em algodão egípcio 120 fios e camisetas em Pima peruano.',
+        image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&q=80'
+      },
+      {
+        id: 'cat-aur-4',
+        name: 'Suéteres de Cashmere & Lã Merino',
+        slug: 'cashmere-merino',
+        description: 'Tricots finos em lã merino extrafina e blusas de gola alta atemporais.',
+        image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80'
       }
     ],
     products: [
@@ -639,7 +1076,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         images: ['https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=1000&q=85', 'https://images.unsplash.com/photo-1548883354-7622d03aca27?w=1000&q=85'],
         categoryId: 'cat-aur-1',
         sizes: ['38', '40', '42', '44'],
-        colors: [{ name: 'Preto Grafite', hex: '#0e0e10' }, { name: 'Off-White Giz', hex: '#f5f5f7' }],
+        colors: [{ name: 'Preto Grafite', hex: '#0e0e10' }, { name: 'Off-White Giz', hex: '#f5f5f7' }, { name: 'Azul Marinho Noturno', hex: '#0f172a' }],
         composition: '98% Lã Fria Italiana Super 120s, 2% Elastano Nobre',
         fit: 'Tailored Precision Fit',
         washCare: 'Lavagem a seco especializada em alfaiataria.',
@@ -654,13 +1091,106 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'pantalona-ampla-pregas-duplas-alfaiataria',
         description: 'Pantalona fluída com pregas duplas frontais, bolsos faca e acabamento interno de alfaiataria tradicional. Caimento alongado e refinado.',
         price: 520.00,
+        promotionalPrice: 470.00,
         images: ['https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1000&q=85'],
         categoryId: 'cat-aur-2',
         sizes: ['36', '38', '40', '42'],
-        colors: [{ name: 'Preto Ônix', hex: '#0e0e10' }, { name: 'Pérola Acetinado', hex: '#e5e7eb' }],
+        colors: [{ name: 'Preto Ônix', hex: '#0e0e10' }, { name: 'Pérola Acetinado', hex: '#e5e7eb' }, { name: 'Bege Areia Nobre', hex: '#d6d3d1' }],
         composition: '70% Viscose Nobre, 30% Linho com toque de seda',
         fit: 'High-Waist Wide Leg',
         washCare: 'Lavagem suave ou limpeza a seco.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'aur-3',
+        sku: 'AUR-CAM-003',
+        name: 'Camisa Social Puro Algodão Egípcio 120 Fios',
+        slug: 'camisa-social-puro-algodao-egipcio-120-fios',
+        description: 'Confeccionada em algodão egípcio Giza 120 fios com toque sedoso ultra-refinado. Colarinho semi-italiano, entretela alemã fusionada e botões em madrepérola natural australiana.',
+        price: 420.00,
+        images: ['https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=1000&q=85', 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=1000&q=85'],
+        categoryId: 'cat-aur-3',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Branco Alabastro', hex: '#ffffff' }, { name: 'Azul Glacial', hex: '#e0f2fe' }, { name: 'Preto Noite', hex: '#0f172a' }],
+        composition: '100% Algodão Egípcio Giza Fio 120/2',
+        fit: 'Modern Tailored Slim',
+        washCare: 'Lavagem suave. Passar a ferro a vapor.',
+        available: true,
+        featured: true,
+        isNew: false
+      },
+      {
+        id: 'aur-4',
+        sku: 'AUR-SUT-004',
+        name: 'Suéter Gola Alta Rolê em Lã Merino Australiana',
+        slug: 'sueter-gola-alta-role-em-la-merino-australiana',
+        description: 'Tricot fino em 100% lã merino extrafina 19.5 micra que proporciona regulação térmica inteligente sem pinicar. Gola alta canelada elegante e punhos anatômicos.',
+        price: 590.00,
+        promotionalPrice: 520.00,
+        images: ['https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1000&q=85'],
+        categoryId: 'cat-aur-4',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Preto Puro', hex: '#0e0e10' }, { name: 'Bege Fendi', hex: '#a8a29e' }, { name: 'Cinza Mescla Nobre', hex: '#475569' }],
+        composition: '100% Lã Merino Australiana Extrafina',
+        fit: 'Tailored Knit Fit',
+        washCare: 'Lavar à mão em água fria com sabão para lãs. Secar horizontal.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'aur-5',
+        sku: 'AUR-CAL-005',
+        name: 'Calça Alfaiataria Sartorial com Fivelas Laterais',
+        slug: 'calca-alfaiataria-sartorial-com-fivelas-laterais',
+        description: 'Calça sem passantes com ajuste por fivelas metálicas laterais (side adjusters), bolso moeda embutido e barra italiana feita à mão. Pura elegância alfaiate.',
+        price: 490.00,
+        images: ['https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=1000&q=85'],
+        categoryId: 'cat-aur-2',
+        sizes: ['38', '40', '42', '44'],
+        colors: [{ name: 'Cinza Chumbo', hex: '#334155' }, { name: 'Azul Marinho Royal', hex: '#0f172a' }],
+        composition: '98% Lã Fria Tropical, 2% Elastano',
+        fit: 'Slim Tapered Sartorial',
+        washCare: 'Lavagem a seco.',
+        available: true,
+        featured: false,
+        isNew: true
+      },
+      {
+        id: 'aur-6',
+        sku: 'AUR-TEE-006',
+        name: 'Camiseta Pima Luxury Minimal Touch',
+        slug: 'camiseta-pima-luxury-minimal-touch',
+        description: 'Camiseta desenvolvida com algodão Pima peruano colhido manualmente. Toque acetinado de seda, costuras invisíveis e gola canelada fina contemporânea.',
+        price: 240.00,
+        images: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1000&q=85'],
+        categoryId: 'cat-aur-3',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Preto Ônix', hex: '#0e0e10' }, { name: 'Branco Off', hex: '#f8fafc' }, { name: 'Verde Oliva Fumo', hex: '#3f4238' }],
+        composition: '100% Algodão Pima Peruano Extra Long Staple',
+        fit: 'Clean Regular Fit',
+        washCare: 'Lavar em água fria no ciclo delicado.',
+        available: true,
+        featured: false,
+        isNew: false
+      },
+      {
+        id: 'aur-7',
+        sku: 'AUR-CAS-007',
+        name: 'Sobretudo Chesterfield em Cashmere & Lã Batida',
+        slug: 'sobretudo-chesterfield-em-cashmere-e-la-batida',
+        description: 'Casaco sobretudo longo de alfaiataria em blend de lã batida italiana com 30% cashmere virgem. Lapela notched de proporções impecáveis e forro acetinado.',
+        price: 1490.00,
+        promotionalPrice: 1290.00,
+        images: ['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1000&q=85'],
+        categoryId: 'cat-aur-1',
+        sizes: ['38', '40', '42', '44'],
+        colors: [{ name: 'Preto Absoluto', hex: '#0e0e10' }, { name: 'Camel Italiano', hex: '#b45309' }],
+        composition: '70% Lã Batida Nobre, 30% Cashmere Virgem',
+        fit: 'Tailored Overcoat Fit',
+        washCare: 'Limpeza a seco especializada.',
         available: true,
         featured: true,
         isNew: true
