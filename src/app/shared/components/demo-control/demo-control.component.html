@@ -1,0 +1,220 @@
+<!-- Floating Sales Rep Trigger Pill -->
+@if (!isOpen()) {
+  <div class="demo-trigger-wrapper" [class.minimized]="isMinimized()">
+    <button class="demo-trigger-btn" (click)="toggleOpen()" title="Abrir Painel do Vendedor">
+      <span class="trigger-pulse"></span>
+      <span class="trigger-icon">⚡</span>
+      @if (!isMinimized()) {
+        <span class="trigger-label">Modo Demonstração</span>
+        <span class="trigger-badge">{{ activeConfig().name }}</span>
+      }
+    </button>
+  </div>
+}
+
+<!-- Toast Notification -->
+@if (copiedNotification()) {
+  <div class="demo-toast">
+    <span class="toast-icon">✨</span>
+    <span>{{ copiedNotification() }}</span>
+  </div>
+}
+
+<!-- Modal / Drawer Backdrop & Panel -->
+@if (isOpen()) {
+  <div class="demo-backdrop" (click)="close()"></div>
+
+  <div class="demo-panel">
+    <!-- Header -->
+    <div class="demo-header">
+      <div class="header-info">
+        <div class="header-badge">
+          <span class="badge-dot"></span>
+          <span>PAINEL DO VENDEDOR</span>
+        </div>
+        <h3 class="header-title">Controle da Demonstração</h3>
+        <p class="header-desc">Alterne nichos e personalize ao vivo na reunião com o cliente</p>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-icon" (click)="minimize()" title="Minimizar para botão discreto">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </button>
+        <button class="btn-icon close-btn" (click)="close()" title="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Body Scrollable Content -->
+    <div class="demo-body">
+      <!-- Section 1: Ready Fashion Niches -->
+      <div class="demo-section">
+        <div class="section-title-wrap">
+          <h4 class="section-title">1. Escolha o Nicho de Moda (5 Temas Nativos)</h4>
+          <span class="section-subtitle">Troca instantânea de identidade visual e catálogo</span>
+        </div>
+
+        <label class="catalog-toggle-label">
+          <input
+            type="checkbox"
+            [checked]="replaceCatalogOnSwitch()"
+            (change)="replaceCatalogOnSwitch.set(!replaceCatalogOnSwitch())"
+          />
+          <span>Carregar catálogo de produtos e categorias deste nicho</span>
+        </label>
+
+        <div class="themes-grid">
+          @for (t of themesList; track t.id) {
+            <button
+              class="theme-card"
+              [class.active]="currentThemeId() === t.id"
+              (click)="selectTheme(t.id)"
+            >
+              <div class="theme-card-top">
+                <div class="theme-color-indicator" [style.background]="t.primaryColor"></div>
+                <span class="theme-segment">{{ t.segment }}</span>
+              </div>
+              <div class="theme-name">{{ t.name }}</div>
+              <div class="theme-tagline">{{ t.tagline }}</div>
+              <div class="theme-palette">
+                <span class="palette-dot" [style.background]="t.primaryColor" title="Cor Primária"></span>
+                <span class="palette-dot" [style.background]="t.backgroundColor" title="Cor Fundo"></span>
+                <span class="palette-dot" [style.background]="t.secondaryColor" title="Secundária"></span>
+              </div>
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Section 2: Live Pitch Customization -->
+      <div class="demo-section highlight-box">
+        <div class="section-title-wrap">
+          <h4 class="section-title">2. Personalização ao Vivo na Frente do Cliente</h4>
+          <span class="section-subtitle">Coloque a marca e o WhatsApp do seu prospect agora mesmo!</span>
+        </div>
+
+        <div class="form-grid">
+          <!-- Nome da Loja -->
+          <div class="form-group">
+            <label class="form-label">Nome da Marca do Cliente</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngModel]="brandName()"
+              (ngModelChange)="brandName.set($event)"
+              placeholder="Ex: Camila Modas ou Alpha Street"
+            />
+          </div>
+
+          <!-- Cor Primária -->
+          <div class="form-group">
+            <label class="form-label">Cor Principal da Marca</label>
+            <div class="color-input-wrapper">
+              <input
+                type="color"
+                class="color-picker"
+                [ngModel]="primaryColor()"
+                (ngModelChange)="primaryColor.set($event)"
+              />
+              <input
+                type="text"
+                class="form-control color-text"
+                [ngModel]="primaryColor()"
+                (ngModelChange)="primaryColor.set($event)"
+                placeholder="#CCA45E"
+              />
+            </div>
+          </div>
+
+          <!-- WhatsApp do Cliente -->
+          <div class="form-group full-width">
+            <label class="form-label">
+              WhatsApp do Cliente
+              <span class="label-hint">(Receba o pedido de teste ao vivo no celular dele!)</span>
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              [ngModel]="whatsappNumber()"
+              (ngModelChange)="whatsappNumber.set($event)"
+              placeholder="Ex: 5511999998888 (com DDI e DDD)"
+            />
+          </div>
+
+          <!-- Slogan / Tagline -->
+          <div class="form-group full-width">
+            <label class="form-label">Slogan / Subtítulo</label>
+            <input
+              type="text"
+              class="form-control"
+              [ngModel]="tagline()"
+              (ngModelChange)="tagline.set($event)"
+              placeholder="Ex: Alta performance e estilo premium"
+            />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-primary" (click)="applyCustomization()">
+            <span>⚡ Aplicar Mudanças ao Vivo</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section 3: Quick Navigation -->
+      <div class="demo-section">
+        <h4 class="section-title">3. Atalhos Rápidos da Apresentação</h4>
+        <div class="shortcuts-grid">
+          <button class="btn-shortcut" (click)="navigateTo('/')">
+            <span class="shortcut-icon">🏪</span>
+            <div class="shortcut-text">
+              <strong>Vitrine Principal</strong>
+              <small>Home e banner principal</small>
+            </div>
+          </button>
+
+          <button class="btn-shortcut" (click)="navigateTo('/catalogo')">
+            <span class="shortcut-icon">👕</span>
+            <div class="shortcut-text">
+              <strong>Catálogo de Roupas</strong>
+              <small>Filtros, categorias e busca</small>
+            </div>
+          </button>
+
+          <button class="btn-shortcut" (click)="navigateTo('/admin/products')">
+            <span class="shortcut-icon">📸</span>
+            <div class="shortcut-text">
+              <strong>Painel Admin</strong>
+              <small>Cadastro rápido com câmera</small>
+            </div>
+          </button>
+
+          <button class="btn-shortcut" (click)="navigateTo('/carrinho')">
+            <span class="shortcut-icon">🛍️</span>
+            <div class="shortcut-text">
+              <strong>Sacola de Compras</strong>
+              <small>Checkout direto no WhatsApp</small>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Section 4: Reset & Restore -->
+      <div class="demo-section footer-section">
+        <div class="footer-info">
+          <strong>Preparar para a Próxima Reunião?</strong>
+          <small>Restaura os dados e produtos originais em 1 clique</small>
+        </div>
+        <button class="btn-reset" (click)="resetDefaults()">
+          <span>🔄 Resetar Demonstração</span>
+        </button>
+      </div>
+    </div>
+  </div>
+}
