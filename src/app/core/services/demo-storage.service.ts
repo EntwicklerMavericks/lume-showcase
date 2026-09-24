@@ -67,7 +67,7 @@ export class DemoStorageService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly themeService = inject(ThemeService);
 
-  readonly currentThemeId = signal<string>('oliveira');
+  readonly currentThemeId = signal<string>('lume');
   readonly customBranding = signal<CustomBranding>({});
   readonly products = signal<Product[]>([]);
   readonly categories = signal<Category[]>([]);
@@ -77,7 +77,7 @@ export class DemoStorageService {
   /** Configuração ativa completa da loja (fundindo tema base + personalização ao vivo) */
   readonly activeConfig = computed<DemoThemeConfig>(() => {
     const themeId = this.currentThemeId();
-    const base = DEMO_THEMES[themeId] || DEMO_THEMES['oliveira'];
+    const base = DEMO_THEMES[themeId] || DEMO_THEMES['lume'];
     const custom = this.customBranding();
 
     const mergedName = custom.name?.trim() ? custom.name.trim() : base.name;
@@ -109,7 +109,7 @@ export class DemoStorageService {
   }
 
   /**
-   * Inicializa o estado a partir do LocalStorage com fallback para o tema Oliveira padrão.
+   * Inicializa o estado a partir do LocalStorage com fallback para o tema Lume padrão.
    */
   private initializeFromStorage(): void {
     if (!this.isBrowser()) return;
@@ -117,7 +117,7 @@ export class DemoStorageService {
     try {
       // 1. Tema atual
       const savedThemeId = localStorage.getItem(STORAGE_THEME_ID);
-      const initialThemeId = savedThemeId && DEMO_THEMES[savedThemeId] ? savedThemeId : 'oliveira';
+      const initialThemeId = savedThemeId && DEMO_THEMES[savedThemeId] ? savedThemeId : 'lume';
       this.currentThemeId.set(initialThemeId);
 
       // 2. Custom branding
@@ -131,7 +131,7 @@ export class DemoStorageService {
       if (savedCats) {
         this.categories.set(JSON.parse(savedCats));
       } else {
-        const themeCats = DEMO_THEMES[initialThemeId]?.categories || DEMO_THEMES['oliveira'].categories;
+        const themeCats = DEMO_THEMES[initialThemeId]?.categories || DEMO_THEMES['lume'].categories;
         this.categories.set(themeCats);
         localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(themeCats));
       }
@@ -141,7 +141,7 @@ export class DemoStorageService {
       if (savedProds) {
         this.products.set(JSON.parse(savedProds));
       } else {
-        const themeProds = DEMO_THEMES[initialThemeId]?.products || DEMO_THEMES['oliveira'].products;
+        const themeProds = DEMO_THEMES[initialThemeId]?.products || DEMO_THEMES['lume'].products;
         this.products.set(themeProds);
         localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(themeProds));
       }
@@ -219,7 +219,7 @@ export class DemoStorageService {
   }
 
   /**
-   * Restaura todos os dados da demonstração para o padrão original (Oliveira Fitness).
+   * Restaura todos os dados da demonstração para o padrão original (Lume Oficial).
    */
   resetToDefaults(): void {
     if (this.isBrowser()) {
@@ -231,8 +231,8 @@ export class DemoStorageService {
       localStorage.removeItem(STORAGE_CUSTOMERS);
     }
 
-    const defaultTheme = DEMO_THEMES['oliveira'];
-    this.currentThemeId.set('oliveira');
+    const defaultTheme = DEMO_THEMES['lume'];
+    this.currentThemeId.set('lume');
     this.customBranding.set({});
     this.categories.set(defaultTheme.categories);
     this.products.set(defaultTheme.products);
@@ -240,7 +240,7 @@ export class DemoStorageService {
     this.customers.set(DEFAULT_CUSTOMERS);
 
     if (this.isBrowser()) {
-      localStorage.setItem(STORAGE_THEME_ID, 'oliveira');
+      localStorage.setItem(STORAGE_THEME_ID, 'lume');
       localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(defaultTheme.categories));
       localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(defaultTheme.products));
     }

@@ -7,52 +7,52 @@
  * E pronto! Toda a vitrine, rodapé, sacola, botões, SEO e links de WhatsApp serão atualizados.
  */
 
-const STORE_NAME = 'Oliveira';
+const STORE_NAME = 'Lume';
 
 export const STORE_CONFIG = {
-  /** Cor primária da marca: Dourado Refinado do Logo (#CCA45E) */
-  primaryColor: '#CCA45E',
+  /** Cor primária da marca: Verde Neon Lume (#0DF5A4) */
+  primaryColor: '#0DF5A4',
 
-  /** Cor secundária/auxiliar da marca: Azul Suave / Branco (#CBD5E1) */
-  secondaryColor: '#CBD5E1',
+  /** Cor secundária/auxiliar da marca: Branco Puro (#FFFFFF) */
+  secondaryColor: '#FFFFFF',
 
-  /** Fundo premium Azul Marinho (#0A152E) */
-  backgroundColor: '#0A152E',
+  /** Fundo Cyber Black (#080809) */
+  backgroundColor: '#080809',
 
   /** Nome da loja exibido no site e no painel */
   name: STORE_NAME,
 
   /** Subtítulo / Tagline da marca no header */
-  tagline: 'MODA ESPORTIVA E CASUAL',
+  tagline: 'FUTUREWEAR & TECH APPAREL',
 
   /** Slogan / Descrição resumida da loja para SEO e rodapé */
-  description: 'Moda esportiva e casual masculina e feminina. Roupas desenvolvidas para treinos intensos na academia e passeios casuais com máximo estilo, conforto e performance.',
+  description: 'Peças desenvolvidas com design futurista, tecidos tecnológicos de alta respirabilidade e caimento impecável. A marca oficial que une tecnologia, alta conversão e moda.',
 
   /** Caminho do logotipo/monograma principal (fundo transparente) */
-  logoUrl: '/images/oliveira-icon.png',
+  logoUrl: '/images/logo.png',
 
   /** Logotipo completo com tipografia e monograma (fundo transparente) */
-  fullLogoUrl: '/images/oliveira-logo.png',
+  fullLogoUrl: '/images/logo.png',
 
-  /** Logotipo original com fundo azul marinho */
-  originalLogoUrl: '/images/oliveira-logo.jpg',
+  /** Logotipo original */
+  originalLogoUrl: '/images/logo.png',
 
   /** Número do WhatsApp do vendedor (com código do país e DDD, sem + ou espaços) */
-  whatsappNumber: '5511963041542',
+  whatsappNumber: '5511999998888',
 
   /** Número do WhatsApp formatado para exibição visual */
-  whatsappFormatted: '+55 11 96304-1542',
+  whatsappFormatted: '+55 11 99999-8888',
 
   /** E-mail oficial de contato */
-  email: 'contato@oliveiramoda.com.br',
+  email: 'contato@lume.com.br',
 
   /** Horário de atendimento exibido no rodapé */
-  businessHours: 'Segunda a Sábado — 09:00 às 12:00 e 14:00 às 19:00',
+  businessHours: 'Segunda a Sábado — 09:00 às 20:00',
 
   /** Título e texto do manifesto / conceito na Home */
-  aboutEyebrow: 'A MARCA',
-  aboutTitle: 'Performance no treino. Estilo nos passeios.',
-  aboutText: 'A Oliveira cria peças esportivas e casuais masculinas e femininas com tecidos inteligentes, respirabilidade e caimento impecável. Do treino pesado na academia aos momentos casuais de lazer, viva o seu melhor estilo com máxima atitude.',
+  aboutEyebrow: 'LUME OFICIAL',
+  aboutTitle: 'Tecnologia de ponta em cada costura.',
+  aboutText: 'A Lume combina estética cyber-minimalista, tecidos tecnológicos respiráveis com proteção UV50+ e modelagens anatômicas contemporâneas. Estilo inteligente para quem dita o futuro.',
 
   /** Moeda utilizada */
   currency: 'BRL',

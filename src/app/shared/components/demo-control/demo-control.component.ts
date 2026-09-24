@@ -27,9 +27,9 @@ export class DemoControlComponent {
 
   // Form model for live client customization (Nome + 3 Cores + WhatsApp + Slogan)
   brandName = signal<string>('');
-  primaryColor = signal<string>('#CCA45E');
-  secondaryColor = signal<string>('#CBD5E1');
-  backgroundColor = signal<string>('#0A152E');
+  primaryColor = signal<string>('#0DF5A4');
+  secondaryColor = signal<string>('#FFFFFF');
+  backgroundColor = signal<string>('#080809');
   whatsappNumber = signal<string>('');
   tagline = signal<string>('');
 

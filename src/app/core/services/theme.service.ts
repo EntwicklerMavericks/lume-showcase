@@ -13,9 +13,9 @@ export class ThemeService {
       return;
     }
 
-    const primary = overrides?.primaryColor || STORE_CONFIG.primaryColor || '#CCA45E';
-    const secondary = overrides?.secondaryColor || STORE_CONFIG.secondaryColor || '#CBD5E1';
-    const background = overrides?.backgroundColor || (STORE_CONFIG as any).backgroundColor || '#0A152E';
+    const primary = overrides?.primaryColor || STORE_CONFIG.primaryColor || '#0DF5A4';
+    const secondary = overrides?.secondaryColor || STORE_CONFIG.secondaryColor || '#FFFFFF';
+    const background = overrides?.backgroundColor || (STORE_CONFIG as any).backgroundColor || '#080809';
 
     const root = document.documentElement;
     const primaryRgb = this.hexToRgb(primary);

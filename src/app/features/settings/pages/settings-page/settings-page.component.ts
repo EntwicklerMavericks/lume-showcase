@@ -13,7 +13,7 @@ export class SettingsPageComponent implements OnInit {
   private fb = inject(FormBuilder);
   private demoStorage = inject(DemoStorageService);
 
-  logoPreview = signal<string>('/images/oliveira-icon.png');
+  logoPreview = signal<string>('/images/logo.png');
   saveSuccess = signal<boolean>(false);
 
   settingsForm: FormGroup = this.fb.group({

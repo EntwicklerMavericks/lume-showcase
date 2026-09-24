@@ -29,6 +29,142 @@ export interface DemoThemeConfig {
 }
 
 export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
+  lume: {
+    id: 'lume',
+    name: 'Lume',
+    segment: 'Futurewear & Tech Apparel',
+    badge: 'MARCA OFICIAL // WHITE-LABEL',
+    tagline: 'FUTUREWEAR & TECH APPAREL',
+    description: 'Peças desenvolvidas com design futurista, tecidos tecnológicos de alta respirabilidade e caimento impecável. A marca oficial que une tecnologia, alta conversão e moda.',
+    aboutEyebrow: 'LUME OFICIAL',
+    aboutTitle: 'Tecnologia de ponta em cada costura.',
+    aboutText: 'A Lume combina estética cyber-minimalista, tecidos tecnológicos respiráveis com proteção UV50+ e modelagens anatômicas contemporâneas. Estilo inteligente para quem dita o futuro.',
+    heroImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=85',
+    logoUrl: '/images/logo.png',
+    fullLogoUrl: '/images/logo.png',
+    whatsappNumber: '5511999998888',
+    whatsappFormatted: '+55 11 99999-8888',
+    email: 'contato@lume.com.br',
+    businessHours: 'Segunda a Sábado — 09:00 às 20:00',
+    primaryColor: '#0DF5A4',
+    primaryContrast: '#000000',
+    secondaryColor: '#FFFFFF',
+    backgroundColor: '#080809',
+    headerBg: 'rgba(8, 8, 9, 0.95)',
+    headerBorder: 'rgba(13, 245, 164, 0.25)',
+    perks: [
+      { title: 'TECNOLOGIA CYBER DRY & REFLECT', desc: 'Fibras inteligentes respiráveis com detalhes refletivos e proteção UV50+' },
+      { title: 'MODELAGENS ANATÔMICAS TECH', desc: 'Caimento ergonômico projetado para mobilidade e presença visual marcante' }
+    ],
+    categories: [
+      {
+        id: 'cat-lum-1',
+        name: 'Camisetas Tech & Cyber',
+        slug: 'camisetas-tech',
+        description: 'Camisetas em malha tecnológica de alta gramatura com toque sedoso e detalhes neon.',
+        image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80'
+      },
+      {
+        id: 'cat-lum-2',
+        name: 'Hoodies & Agasalhos',
+        slug: 'hoodies-agasalhos',
+        description: 'Moletons tecnológicos estruturados e agasalhos com acabamento futurista.',
+        image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80'
+      },
+      {
+        id: 'cat-lum-3',
+        name: 'Calças Táticas & Joggers',
+        slug: 'calcas-joggers',
+        description: 'Calças utilitárias com múltiplos bolsos e ajuste ergonômico nos tornozelos.',
+        image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80'
+      },
+      {
+        id: 'cat-lum-4',
+        name: 'Casacos & Corta-Ventos',
+        slug: 'casacos-corta-ventos',
+        description: 'Corta-ventos repelentes à água e casacos térmicos de alta performance.',
+        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
+      }
+    ],
+    products: [
+      {
+        id: 'lum-1',
+        sku: 'LUM-CAM-001',
+        name: 'Camiseta Cyber Tech Neon Glow',
+        slug: 'camiseta-cyber-tech-neon-glow',
+        description: 'Camiseta masculina e unissex confeccionada em malha tecnológica dry-cotton com acabamento sedoso e detalhe minimalista glow neon. Máxima respirabilidade e estilo contemporâneo.',
+        price: 159.90,
+        promotionalPrice: 139.90,
+        images: ['https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1000&q=85', 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1000&q=85'],
+        categoryId: 'cat-lum-1',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Verde Neon Glow', hex: '#0df5a4' }, { name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Branco Puro', hex: '#ffffff' }],
+        composition: '92% Poliamida Tecnológica Dry, 8% Elastano Nobre',
+        fit: 'Modern Athletic Fit',
+        washCare: 'Lavagem suave à máquina (até 30°C). Não passar a ferro quente.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'lum-2',
+        sku: 'LUM-HOD-002',
+        name: 'Hoodie Futurewear Reflective 420g',
+        slug: 'hoodie-futurewear-reflective-420g',
+        description: 'Moletom 3 cabos 420g com forro peluciado macio, capuz duplo estruturado e estampa minimalista com pigmento refletivo no escuro. O equilíbrio ideal entre conforto térmico e vanguarda.',
+        price: 319.90,
+        promotionalPrice: 289.90,
+        images: ['https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1000&q=85', 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1000&q=85'],
+        categoryId: 'cat-lum-2',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Neon Accent', hex: '#0df5a4' }],
+        composition: '80% Algodão Premium, 20% Fibras Térmicas Respiráveis',
+        fit: 'Boxy Oversized Fit',
+        washCare: 'Lavar do avesso em água fria. Secar à sombra.',
+        available: true,
+        featured: true,
+        isNew: true
+      },
+      {
+        id: 'lum-3',
+        sku: 'LUM-CAR-003',
+        name: 'Calça Jogger Tática Ripstop Lume',
+        slug: 'calca-jogger-tatica-ripstop-lume',
+        description: 'Calça utilitária em tecido ripstop militar com acabamento repelente a respingos e rasgos. 6 bolsos ergonômicos, cintura com cordão embutido e ajuste nos tornozelos.',
+        price: 269.90,
+        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85'],
+        categoryId: 'cat-lum-3',
+        sizes: ['38', '40', '42', '44'],
+        colors: [{ name: 'All Black Tático', hex: '#080809' }, { name: 'Cinza Titânio', hex: '#27272a' }],
+        composition: '100% Algodão Ripstop Estruturado',
+        fit: 'Ergonomic Tapered Fit',
+        washCare: 'Lavagem em máquina até 40°C.',
+        available: true,
+        featured: true,
+        isNew: false
+      },
+      {
+        id: 'lum-4',
+        sku: 'LUM-JKT-004',
+        name: 'Corta-Vento Cyber Shield Impermeável',
+        slug: 'corta-vento-cyber-shield-impermeavel',
+        description: 'Jaqueta corta-vento ultraleve corta-frio com membrana impermeável e zíper selado emborrachado. Pesa apenas 220g e acompanha bolsinho integrado para transporte compacto.',
+        price: 249.90,
+        promotionalPrice: 219.90,
+        images: ['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1000&q=85'],
+        categoryId: 'cat-lum-4',
+        sizes: ['P', 'M', 'G', 'GG'],
+        colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Verde Neon Details', hex: '#0df5a4' }],
+        composition: '100% Nylon Ultralight Shield Ripstop',
+        fit: 'Athletic Slim Fit',
+        washCare: 'Não passar a ferro. Lavagem rápida com sabão neutro.',
+        available: true,
+        featured: true,
+        isNew: true
+      }
+    ]
+  },
+
   oliveira: {
     id: 'oliveira',
     name: 'Oliveira',

@@ -56,7 +56,7 @@
       <!-- Section 1: Ready Fashion Niches -->
       <div class="demo-section">
         <div class="section-title-wrap">
-          <h4 class="section-title">1. Escolha o Nicho de Moda (5 Temas Nativos)</h4>
+          <h4 class="section-title">1. Escolha o Nicho de Moda (6 Temas Nativos)</h4>
           <span class="section-subtitle">Troca instantânea de identidade visual e catálogo</span>
         </div>
 
@@ -130,7 +130,7 @@
                 class="form-control color-text"
                 [ngModel]="primaryColor()"
                 (ngModelChange)="primaryColor.set($event)"
-                placeholder="#CCA45E"
+                placeholder="#0DF5A4"
               />
             </div>
           </div>
@@ -153,7 +153,7 @@
                 class="form-control color-text"
                 [ngModel]="secondaryColor()"
                 (ngModelChange)="secondaryColor.set($event)"
-                placeholder="#CBD5E1"
+                placeholder="#FFFFFF"
               />
             </div>
           </div>
@@ -176,7 +176,7 @@
                 class="form-control color-text"
                 [ngModel]="backgroundColor()"
                 (ngModelChange)="backgroundColor.set($event)"
-                placeholder="#0A152E"
+                placeholder="#080809"
               />
             </div>
           </div>
@@ -185,6 +185,16 @@
           <div class="color-presets-wrapper full-width">
             <span class="presets-title">Sugestões Rápidas de Paletas:</span>
             <div class="presets-pills">
+              <button
+                type="button"
+                class="preset-pill"
+                (click)="applyColorPreset('#0DF5A4', '#FFFFFF', '#080809')"
+                title="Lume Oficial (Verde Neon & Cyber Black)"
+              >
+                <span class="pill-dot" style="background: #0DF5A4"></span>
+                <span class="pill-dot" style="background: #080809"></span>
+                <span>Lume Oficial</span>
+              </button>
               <button
                 type="button"
                 class="preset-pill"
