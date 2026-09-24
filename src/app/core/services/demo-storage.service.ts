@@ -131,7 +131,7 @@ export class DemoStorageService {
 
       // Verifica versão do catálogo para atualizar automaticamente catálogos antigos do storage
       const savedVersion = localStorage.getItem('lume_demo_catalog_version');
-      const isCatalogOutdated = savedVersion !== 'v5_niche_unique_photos_2026';
+      const isCatalogOutdated = savedVersion !== 'v7_real_clothing_studio_2026';
 
       // 3. Categorias
       const savedCats = localStorage.getItem(STORAGE_CATEGORIES);
@@ -151,7 +151,7 @@ export class DemoStorageService {
         const themeProds = DEMO_THEMES[initialThemeId]?.products || DEMO_THEMES['lume'].products;
         this.products.set([...themeProds]);
         localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(themeProds));
-        localStorage.setItem('lume_demo_catalog_version', 'v5_niche_unique_photos_2026');
+        localStorage.setItem('lume_demo_catalog_version', 'v7_real_clothing_studio_2026');
       }
 
       // 5. Pedidos e Clientes
@@ -201,7 +201,7 @@ export class DemoStorageService {
       if (this.isBrowser()) {
         localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(theme.categories));
         localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(theme.products));
-        localStorage.setItem('lume_demo_catalog_version', 'v5_niche_unique_photos_2026');
+        localStorage.setItem('lume_demo_catalog_version', 'v7_real_clothing_studio_2026');
       }
     }
 
@@ -253,7 +253,7 @@ export class DemoStorageService {
       localStorage.setItem(STORAGE_THEME_ID, 'lume');
       localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(defaultTheme.categories));
       localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(defaultTheme.products));
-      localStorage.setItem('lume_demo_catalog_version', 'v5_niche_unique_photos_2026');
+      localStorage.setItem('lume_demo_catalog_version', 'v7_real_clothing_studio_2026');
     }
 
     this.applyActiveThemeStyles();

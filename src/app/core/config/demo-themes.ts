@@ -67,28 +67,28 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         name: 'Camisetas Tech & Cyber',
         slug: 'camisetas-tech',
         description: 'Camisetas em malha tecnológica de alta gramatura com toque sedoso e detalhes neon.',
-        image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80'
+        image: '/images/products/lume/lum-1.jpg'
       },
       {
         id: 'cat-lum-2',
         name: 'Hoodies & Agasalhos Futuristas',
         slug: 'hoodies-agasalhos',
         description: 'Moletons tecnológicos estruturados e agasalhos com acabamento futurista.',
-        image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=600&q=80'
+        image: '/images/products/lume/lum-2.jpg'
       },
       {
         id: 'cat-lum-3',
         name: 'Calças Táticas & Cargo Tech',
         slug: 'calcas-taticas',
         description: 'Calças utilitárias com múltiplos bolsos e ajuste ergonômico nos tornozelos.',
-        image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80'
+        image: '/images/products/lume/lum-3.jpg'
       },
       {
         id: 'cat-lum-4',
         name: 'Jaquetas Corta-Vento & Modular',
         slug: 'jaquetas-corta-ventos',
         description: 'Corta-ventos repelentes à água e casacos térmicos de alta performance.',
-        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80'
+        image: '/images/products/lume/lum-4.jpg'
       }
     ],
     products: [
@@ -100,7 +100,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Camiseta masculina e unissex confeccionada em malha tecnológica dry-cotton com acabamento sedoso e detalhe minimalista glow neon. Máxima respirabilidade e estilo contemporâneo.',
         price: 159.90,
         promotionalPrice: 139.90,
-        images: ['https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=1000&q=85', 'https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?w=1000&q=85'],
+        images: ['/images/products/lume/lum-1.jpg'],
         categoryId: 'cat-lum-1',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Verde Neon Glow', hex: '#0df5a4' }, { name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Branco Puro', hex: '#ffffff' }],
@@ -119,7 +119,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Moletom 3 cabos 420g com forro peluciado macio, capuz duplo estruturado e estampa minimalista com pigmento refletivo no escuro. O equilíbrio ideal entre conforto térmico e vanguarda.',
         price: 319.90,
         promotionalPrice: 289.90,
-        images: ['https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=1000&q=85', 'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=1000&q=85'],
+        images: ['/images/products/lume/lum-2.jpg'],
         categoryId: 'cat-lum-2',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Neon Accent', hex: '#0df5a4' }],
@@ -137,7 +137,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'calca-jogger-tatica-ripstop-lume',
         description: 'Calça utilitária em tecido ripstop militar com acabamento repelente a respingos e rasgos. 6 bolsos ergonômicos, cintura com cordão embutido e ajuste nos tornozelos.',
         price: 269.90,
-        images: ['https://images.unsplash.com/photo-1542272604-787c3835535d?w=1000&q=85'],
+        images: ['/images/products/lume/lum-3.jpg'],
         categoryId: 'cat-lum-3',
         sizes: ['38', '40', '42', '44'],
         colors: [{ name: 'All Black Tático', hex: '#080809' }, { name: 'Cinza Titânio', hex: '#27272a' }],
@@ -156,7 +156,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Jaqueta corta-vento ultraleve corta-frio com membrana impermeável e zíper selado emborrachado. Pesa apenas 220g e acompanha bolsinho integrado para transporte compacto.',
         price: 249.90,
         promotionalPrice: 219.90,
-        images: ['https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1000&q=85'],
+        images: ['/images/products/lume/lum-4.jpg'],
         categoryId: 'cat-lum-4',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Verde Neon Details', hex: '#0df5a4' }],
@@ -174,7 +174,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'regata-techwear-laser-microperfurada',
         description: 'Regata de caimento moderno com microperfurações a laser na região dorsal para ventilação térmica dinâmica. Tecido antibacteriano com fios de prata.',
         price: 129.90,
-        images: ['https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=1000&q=85'],
+        images: ['/images/products/lume/lum-5.jpg'],
         categoryId: 'cat-lum-1',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Verde Neon', hex: '#0df5a4' }],
@@ -193,7 +193,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Calça parachute em nylon taslan com toque peletizado, cós largo com elástico reforçado e stoppers metálicos nos tornozelos para modelagem versátil.',
         price: 279.90,
         promotionalPrice: 249.90,
-        images: ['https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=1000&q=85'],
+        images: ['/images/products/lume/lum-6.jpg'],
         categoryId: 'cat-lum-3',
         sizes: ['38', '40', '42', '44'],
         colors: [{ name: 'Deep Cyber Black', hex: '#080809' }, { name: 'Cinza Concreto', hex: '#4b5563' }],
@@ -212,7 +212,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Jaqueta bomber de estética futurista com fitas táticas funcionais e bolso manga com zíper selado. Forro acetinado térmico de alta respirabilidade.',
         price: 389.90,
         promotionalPrice: 349.90,
-        images: ['https://images.unsplash.com/photo-1520975954732-35dd22299614?w=1000&q=85'],
+        images: ['/images/products/lume/lum-7.jpg'],
         categoryId: 'cat-lum-4',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Deep Cyber Black', hex: '#080809' }],
@@ -263,28 +263,28 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         name: 'Camisetas & Tops Performance',
         slug: 'camisetas-tops',
         description: 'Camisetas dry-fit, regatas e tops para treino intenso e uso casual.',
-        image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80'
+        image: '/images/products/oliveira/oli-1.jpg'
       },
       {
         id: 'cat-fit-2',
         name: 'Calças & Leggings Modeladoras',
         slug: 'calcas-leggings',
         description: 'Leggings modeladoras de alta compressão e calças joggers esportivas.',
-        image: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80'
+        image: '/images/products/oliveira/oli-3.jpg'
       },
       {
         id: 'cat-fit-3',
         name: 'Bermudas & Shorts Esportivos',
         slug: 'bermudas-shorts',
         description: 'Bermudas 2 em 1 de compressão e shorts leves para treino e lazer.',
-        image: 'https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80'
+        image: '/images/products/oliveira/oli-4.jpg'
       },
       {
         id: 'cat-fit-4',
         name: 'Casacos & Corta-Ventos Running',
         slug: 'casacos-jaquetas',
         description: 'Windbreakers, jaquetas esportivas e agasalhos para treino e passeios.',
-        image: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=600&q=80'
+        image: '/images/products/oliveira/oli-5.jpg'
       }
     ],
     products: [
@@ -296,7 +296,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Camiseta masculina de alta performance em microfibra dry com elastano. Respirabilidade máxima, secagem ultrarrápida e proteção UV50+.',
         price: 139.90,
         promotionalPrice: 119.90,
-        images: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-1.jpg'],
         categoryId: 'cat-fit-1',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Azul Marinho', hex: '#0a152e' }, { name: 'Branco Puro', hex: '#ffffff' }, { name: 'Dourado Nobre', hex: '#cca45e' }],
@@ -315,7 +315,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Top fitness feminino com alças cruzadas nas costas para distribuição anatômica de peso. Média compressão e bojo removível.',
         price: 119.90,
         promotionalPrice: 99.90,
-        images: ['https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1000&q=85', 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-2.jpg'],
         categoryId: 'cat-fit-1',
         sizes: ['P', 'M', 'G'],
         colors: [{ name: 'Azul Marinho', hex: '#0a152e' }, { name: 'Off-White', hex: '#f8fafc' }],
@@ -333,7 +333,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'legging-esculp-safe-cintura-alta',
         description: 'Legging com compressão estratégica que modela sem apertar. Tecido encorpado zero transparência com bolso invisível para celular.',
         price: 189.90,
-        images: ['https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=1000&q=85', 'https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-3.jpg'],
         categoryId: 'cat-fit-2',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Preto Intenso', hex: '#0a0a0a' }, { name: 'Azul Marinho', hex: '#0a152e' }],
@@ -351,7 +351,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'bermuda-2-em-1-force-compressao',
         description: 'Bermuda masculina com forro interno de compressão anti-atrito e bolso celular. Camada externa leve e respirável.',
         price: 149.90,
-        images: ['https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=1000&q=85', 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-4.jpg'],
         categoryId: 'cat-fit-3',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Preto Grafite', hex: '#18181b' }, { name: 'Azul Marinho Real', hex: '#0a152e' }],
@@ -370,7 +370,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         description: 'Jaqueta corta-vento em microfibra ultraleve com acabamento repelente a água, abertura para ventilação nas costas e faixas refletivas 360° para treinos noturnos.',
         price: 239.90,
         promotionalPrice: 209.90,
-        images: ['https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-5.jpg'],
         categoryId: 'cat-fit-4',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Azul Marinho', hex: '#0a152e' }, { name: 'Dourado Nobre', hex: '#cca45e' }],
@@ -388,7 +388,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'regata-masculina-muscle-fit-treino',
         description: 'Regata cavada com caimento atlético muscle fit em poliamida dry com toque gelado. Costuras flatlock anti-atrito para máxima liberdade nos treinos de força.',
         price: 109.90,
-        images: ['https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-6.jpg'],
         categoryId: 'cat-fit-1',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Chumbo Escuro', hex: '#27272a' }, { name: 'Branco Óptico', hex: '#ffffff' }],
@@ -406,7 +406,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
         slug: 'calca-jogger-sport-training-flex-4-way',
         description: 'Calça jogger unissex em moletinho tecnológico com elastano 4-way stretch. Cós elástico largo anatômico, bolsos com zíper selado e punho ergonômico.',
         price: 219.90,
-        images: ['https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=1000&q=85', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1000&q=85'],
+        images: ['/images/products/oliveira/oli-3.jpg'],
         categoryId: 'cat-fit-2',
         sizes: ['P', 'M', 'G', 'GG'],
         colors: [{ name: 'Azul Marinho Real', hex: '#0a152e' }, { name: 'Preto Ônix', hex: '#09090b' }],
