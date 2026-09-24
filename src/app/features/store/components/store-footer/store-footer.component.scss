@@ -36,6 +36,7 @@
       border: none;
       border-radius: 0;
       background: transparent;
+      filter: drop-shadow(0 0 8px var(--primary-glow, rgba(13, 245, 164, 0.4)));
     }
 
     .footer-logo {

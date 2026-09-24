@@ -32,13 +32,13 @@ export const STORE_CONFIG = {
   description: 'Peças desenvolvidas com design futurista, tecidos tecnológicos de alta respirabilidade e caimento impecável. A marca oficial que une tecnologia, alta conversão e moda.',
 
   /** Caminho do logotipo/monograma principal (fundo transparente) */
-  logoUrl: '/images/logo.png',
+  logoUrl: '/images/lume-icon.png',
 
   /** Logotipo completo com tipografia e monograma (fundo transparente) */
-  fullLogoUrl: '/images/logo.png',
+  fullLogoUrl: '/images/lume-logo.png',
 
   /** Logotipo original */
-  originalLogoUrl: '/images/logo.png',
+  originalLogoUrl: '/images/lume-logo.jpg',
 
   /** Número do WhatsApp do vendedor (com código do país e DDD, sem + ou espaços) */
   whatsappNumber: '5511999998888',

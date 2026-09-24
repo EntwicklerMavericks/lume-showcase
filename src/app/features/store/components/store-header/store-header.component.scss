@@ -64,11 +64,13 @@
       border-radius: 0;
       box-shadow: none;
       background: transparent;
-      transition: transform 0.25s ease;
+      filter: drop-shadow(0 0 8px rgba(13, 245, 164, 0.35));
+      transition: transform 0.25s ease, filter 0.25s ease;
     }
 
     &:hover .store-logo-img {
-      transform: scale(1.06);
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 12px rgba(13, 245, 164, 0.6));
     }
 
     .logo-text {
