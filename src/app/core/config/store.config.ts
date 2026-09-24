@@ -57,6 +57,9 @@ export const STORE_CONFIG = {
   aboutTitle: 'Tecnologia de ponta em cada costura.',
   aboutText: 'A Lume combina estética cyber-minimalista, tecidos tecnológicos respiráveis com proteção UV50+ e modelagens anatômicas contemporâneas. Estilo inteligente para quem dita o futuro.',
 
+  /** Imagem principal de fundo do Hero (Campanha) */
+  heroImage: '/images/hero-lume.jpg',
+
   /** Moeda utilizada */
   currency: 'BRL',
 

@@ -99,7 +99,7 @@ export class DemoStorageService {
       whatsappNumber: mergedWhatsapp,
       whatsappFormatted: custom.whatsappFormatted?.trim() ? custom.whatsappFormatted.trim() : (custom.whatsappNumber ? `+${custom.whatsappNumber}` : base.whatsappFormatted),
       logoUrl: custom.logoUrl || base.logoUrl,
-      heroImage: custom.heroImage || base.heroImage
+      heroImage: (custom.heroImage && !custom.heroImage.includes('photo-1509631179647-0177331693ae')) ? custom.heroImage : base.heroImage
     };
   });
 

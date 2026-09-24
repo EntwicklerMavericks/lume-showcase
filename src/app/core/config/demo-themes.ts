@@ -40,7 +40,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     aboutEyebrow: 'LUME OFICIAL',
     aboutTitle: 'Tecnologia de ponta em cada costura.',
     aboutText: 'A Lume combina estética cyber-minimalista, tecidos tecnológicos respiráveis com proteção UV50+ e modelagens anatômicas contemporâneas. Estilo inteligente para quem dita o futuro.',
-    heroImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=85',
+    heroImage: '/images/hero-lume.jpg',
     logoUrl: '/images/lume-icon.png',
     fullLogoUrl: '/images/lume-logo.png',
     whatsappNumber: '5511999998888',
