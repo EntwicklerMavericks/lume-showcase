@@ -25,11 +25,12 @@ export class DemoControlComponent {
   currentThemeId = this.demoStorage.currentThemeId;
   activeConfig = this.demoStorage.activeConfig;
 
-  // Form model for live client customization (Nome + 3 Cores + WhatsApp + Slogan)
+  // Form model for live client customization (Nome + 4 Cores + WhatsApp + Slogan)
   brandName = signal<string>('');
   primaryColor = signal<string>('#0DF5A4');
   secondaryColor = signal<string>('#FFFFFF');
   backgroundColor = signal<string>('#080809');
+  sectionBg = signal<string>('#080809');
   whatsappNumber = signal<string>('');
   tagline = signal<string>('');
 
@@ -43,6 +44,7 @@ export class DemoControlComponent {
     this.primaryColor.set(config.primaryColor);
     this.secondaryColor.set(config.secondaryColor);
     this.backgroundColor.set(config.backgroundColor);
+    this.sectionBg.set(config.sectionBg || config.backgroundColor);
     this.whatsappNumber.set(config.whatsappNumber);
     this.tagline.set(config.tagline);
   }
@@ -78,7 +80,7 @@ export class DemoControlComponent {
   }
 
   /**
-   * Aplica personalização completa com 3 cores: Primária, Secundária e Fundo
+   * Aplica personalização completa com 4 cores: Primária, Secundária, Fundo Geral e Fundo das Seções
    */
   applyCustomization(): void {
     this.demoStorage.updateCustomBranding({
@@ -86,6 +88,7 @@ export class DemoControlComponent {
       primaryColor: this.primaryColor().trim() || undefined,
       secondaryColor: this.secondaryColor().trim() || undefined,
       backgroundColor: this.backgroundColor().trim() || undefined,
+      sectionBg: this.sectionBg().trim() || undefined,
       whatsappNumber: this.whatsappNumber().trim() || undefined,
       tagline: this.tagline().trim() || undefined
     });
@@ -95,10 +98,11 @@ export class DemoControlComponent {
   /**
    * Atalhos de paletas prontas para demonstração rápida
    */
-  applyColorPreset(primary: string, secondary: string, background: string): void {
+  applyColorPreset(primary: string, secondary: string, background: string, sectionBg?: string): void {
     this.primaryColor.set(primary);
     this.secondaryColor.set(secondary);
     this.backgroundColor.set(background);
+    this.sectionBg.set(sectionBg || background);
     this.applyCustomization();
   }
 

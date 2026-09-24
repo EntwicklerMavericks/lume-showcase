@@ -8,7 +8,12 @@ export class ThemeService {
   /**
    * Aplica o tema configurado em STORE_CONFIG (ou overrides) diretamente nas CSS custom properties do documento.
    */
-  applyTheme(overrides?: { primaryColor?: string; secondaryColor?: string; backgroundColor?: string }): void {
+  applyTheme(overrides?: {
+    primaryColor?: string;
+    secondaryColor?: string;
+    backgroundColor?: string;
+    sectionBg?: string;
+  }): void {
     if (typeof document === 'undefined' || !document.documentElement) {
       return;
     }
@@ -16,11 +21,13 @@ export class ThemeService {
     const primary = overrides?.primaryColor || STORE_CONFIG.primaryColor || '#0DF5A4';
     const secondary = overrides?.secondaryColor || STORE_CONFIG.secondaryColor || '#FFFFFF';
     const background = overrides?.backgroundColor || (STORE_CONFIG as any).backgroundColor || '#080809';
+    const sectionBg = overrides?.sectionBg || (STORE_CONFIG as any).sectionBg || background;
 
     const root = document.documentElement;
     const primaryRgb = this.hexToRgb(primary);
     const secondaryRgb = this.hexToRgb(secondary);
     const backgroundRgb = this.hexToRgb(background);
+    const sectionRgb = this.hexToRgb(sectionBg);
 
     // 1. Cor de Fundo da Loja (Background) e Derivadas de Superfície
     root.style.setProperty('--background', background);
@@ -97,6 +104,33 @@ export class ThemeService {
     } else {
       root.style.setProperty('--secondary-hover', secondary);
       root.style.setProperty('--border-subtle', 'rgba(255, 255, 255, 0.15)');
+    }
+
+    // 4. Cor de Fundo das Seções da Vitrine (Categorias, Destaques, Lançamentos)
+    root.style.setProperty('--section-bg', sectionBg);
+
+    if (sectionRgb) {
+      const isSectionLight = this.calculateLuminance(sectionRgb) > 0.5;
+      const sectionTextPrimary = isSectionLight ? '#111827' : '#F4F4F5';
+      const sectionTextSecondary = isSectionLight ? '#4B5563' : '#A1A1AA';
+      const sectionTextMuted = isSectionLight ? '#64748B' : '#71717A';
+      const sectionBorder = isSectionLight ? '#E2E8F0' : 'rgba(255, 255, 255, 0.08)';
+      const sectionCardBg = isSectionLight ? '#F8FAFC' : this.adjustBrightness(sectionRgb, 6);
+      const sectionCardBorder = isSectionLight ? '#E2E8F0' : 'rgba(255, 255, 255, 0.1)';
+
+      root.style.setProperty('--section-text-primary', sectionTextPrimary);
+      root.style.setProperty('--section-text-secondary', sectionTextSecondary);
+      root.style.setProperty('--section-text-muted', sectionTextMuted);
+      root.style.setProperty('--section-border', sectionBorder);
+      root.style.setProperty('--section-card-bg', sectionCardBg);
+      root.style.setProperty('--section-card-border', sectionCardBorder);
+    } else {
+      root.style.setProperty('--section-text-primary', '#F4F4F5');
+      root.style.setProperty('--section-text-secondary', '#A1A1AA');
+      root.style.setProperty('--section-text-muted', '#71717A');
+      root.style.setProperty('--section-border', 'rgba(255, 255, 255, 0.08)');
+      root.style.setProperty('--section-card-bg', 'rgba(255, 255, 255, 0.04)');
+      root.style.setProperty('--section-card-border', 'rgba(255, 255, 255, 0.08)');
     }
   }
 

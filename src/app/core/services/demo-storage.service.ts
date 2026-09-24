@@ -18,6 +18,7 @@ export interface CustomBranding {
   primaryColor?: string;
   secondaryColor?: string;
   backgroundColor?: string;
+  sectionBg?: string;
   whatsappNumber?: string;
   whatsappFormatted?: string;
   logoUrl?: string;
@@ -83,6 +84,7 @@ export class DemoStorageService {
     const mergedName = custom.name?.trim() ? custom.name.trim() : base.name;
     const mergedPrimary = custom.primaryColor?.trim() ? custom.primaryColor.trim() : base.primaryColor;
     const mergedBackground = custom.backgroundColor?.trim() ? custom.backgroundColor.trim() : base.backgroundColor;
+    const mergedSectionBg = custom.sectionBg?.trim() ? custom.sectionBg.trim() : (base.sectionBg || base.backgroundColor);
     const mergedWhatsapp = custom.whatsappNumber?.trim() ? custom.whatsappNumber.trim() : base.whatsappNumber;
 
     return {
@@ -93,6 +95,7 @@ export class DemoStorageService {
       primaryColor: mergedPrimary,
       secondaryColor: custom.secondaryColor?.trim() ? custom.secondaryColor.trim() : base.secondaryColor,
       backgroundColor: mergedBackground,
+      sectionBg: mergedSectionBg,
       whatsappNumber: mergedWhatsapp,
       whatsappFormatted: custom.whatsappFormatted?.trim() ? custom.whatsappFormatted.trim() : (custom.whatsappNumber ? `+${custom.whatsappNumber}` : base.whatsappFormatted),
       logoUrl: custom.logoUrl || base.logoUrl,
@@ -169,7 +172,8 @@ export class DemoStorageService {
     this.themeService.applyTheme({
       primaryColor: config.primaryColor,
       secondaryColor: config.secondaryColor,
-      backgroundColor: config.backgroundColor
+      backgroundColor: config.backgroundColor,
+      sectionBg: config.sectionBg
     });
   }
 

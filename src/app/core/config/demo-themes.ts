@@ -21,6 +21,7 @@ export interface DemoThemeConfig {
   primaryContrast: string;
   secondaryColor: string;
   backgroundColor: string;
+  sectionBg?: string;
   headerBg: string;
   headerBorder: string;
   perks: { title: string; desc: string }[];
@@ -50,6 +51,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     primaryContrast: '#000000',
     secondaryColor: '#FFFFFF',
     backgroundColor: '#080809',
+    sectionBg: '#080809',
     headerBg: 'rgba(8, 8, 9, 0.95)',
     headerBorder: 'rgba(13, 245, 164, 0.25)',
     perks: [
@@ -186,6 +188,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     primaryContrast: '#0A152E',
     secondaryColor: '#CBD5E1',
     backgroundColor: '#0A152E',
+    sectionBg: '#0A152E',
     headerBg: 'rgba(10, 21, 46, 0.98)',
     headerBorder: 'rgba(204, 164, 94, 0.2)',
     perks: [
@@ -321,6 +324,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     primaryContrast: '#000000',
     secondaryColor: '#E63946',
     backgroundColor: '#080809',
+    sectionBg: '#080809',
     headerBg: 'rgba(8, 8, 9, 0.98)',
     headerBorder: 'rgba(255, 255, 255, 0.15)',
     perks: [
@@ -430,6 +434,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     primaryContrast: '#FFFFFF',
     secondaryColor: '#D4A373',
     backgroundColor: '#1A1210',
+    sectionBg: '#1A1210',
     headerBg: 'rgba(26, 18, 16, 0.98)',
     headerBorder: 'rgba(193, 92, 61, 0.25)',
     perks: [
@@ -514,6 +519,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     primaryContrast: '#FFFFFF',
     secondaryColor: '#B45309',
     backgroundColor: '#140E0A',
+    sectionBg: '#140E0A',
     headerBg: 'rgba(20, 14, 10, 0.98)',
     headerBorder: 'rgba(217, 119, 6, 0.25)',
     perks: [
@@ -598,6 +604,7 @@ export const DEMO_THEMES: Record<string, DemoThemeConfig> = {
     primaryContrast: '#0E0E10',
     secondaryColor: '#D1D5DB',
     backgroundColor: '#0E0E10',
+    sectionBg: '#0E0E10',
     headerBg: 'rgba(14, 14, 16, 0.98)',
     headerBorder: 'rgba(255, 255, 255, 0.15)',
     perks: [

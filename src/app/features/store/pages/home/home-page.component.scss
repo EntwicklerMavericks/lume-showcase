@@ -287,28 +287,30 @@
   }
 }
 
-/* CATEGORIAS EM GRID EDITORIAL & PRODUTOS (FUNDO BRANCO CLEAN) */
+/* CATEGORIAS EM GRID EDITORIAL & PRODUTOS (FUNDO DINÂMICO CONFIGURÁVEL) */
 .categories-section,
 .featured-section,
 .new-section {
-  background-color: #FFFFFF;
-  color: #0F172A;
+  background-color: var(--section-bg, var(--background, #080809));
+  color: var(--section-text-primary, #F4F4F5);
+  border-top: 1px solid var(--section-border, rgba(255, 255, 255, 0.06));
+  border-bottom: 1px solid var(--section-border, rgba(255, 255, 255, 0.06));
 
   .heading-subtitle {
-    color: #64748B;
+    color: var(--section-text-muted, #71717A);
   }
 
   .heading-title {
-    color: #0A192F;
+    color: var(--primary);
     font-weight: 700;
   }
 
   .section-header {
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid var(--section-border, rgba(255, 255, 255, 0.08));
 
     .section-link {
-      color: #0A192F;
-      font-weight: 600;
+      color: var(--section-text-secondary, #A1A1AA);
+      font-weight: 500;
 
       &:hover {
         color: var(--primary);
@@ -318,7 +320,7 @@
 
   ::ng-deep .product-card {
     .card-name {
-      color: #0F172A;
+      color: var(--section-text-primary, #F4F4F5);
     }
 
     &:hover .card-name {
@@ -326,16 +328,16 @@
     }
 
     .card-fit {
-      color: #64748B;
+      color: var(--section-text-muted, #71717A);
     }
 
     .price-original {
-      color: #94A3B8;
+      color: var(--section-text-muted, #71717A);
     }
 
     .card-image-wrapper {
-      background-color: #F8FAFC;
-      border: 1px solid #E2E8F0;
+      background-color: var(--section-card-bg, #121215);
+      border: 1px solid var(--section-card-border, rgba(255, 255, 255, 0.08));
     }
   }
 }
@@ -419,18 +421,20 @@
 
     .category-name {
       font-size: 0.8125rem;
-      font-weight: 500;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--primary);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
     }
 
     .category-action {
       font-size: 0.625rem;
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: var(--text-muted);
-      opacity: 0.8;
+      color: #FFFFFF;
+      opacity: 0.88;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
       transform: translateY(2px);
       transition: opacity 0.3s, transform 0.3s, color 0.3s;
     }

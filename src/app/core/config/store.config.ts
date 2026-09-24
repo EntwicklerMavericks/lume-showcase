@@ -19,6 +19,9 @@ export const STORE_CONFIG = {
   /** Fundo Cyber Black (#080809) */
   backgroundColor: '#080809',
 
+  /** Fundo das Seções da Vitrine / Cards (#080809) */
+  sectionBg: '#080809',
+
   /** Nome da loja exibido no site e no painel */
   name: STORE_NAME,
 
