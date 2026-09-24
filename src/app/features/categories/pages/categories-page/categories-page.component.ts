@@ -1,7 +1,8 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminCategory, AdminProductsService } from '../../../../core/services/admin-products.service';
 import { StoreService } from '../../../../core/services/store.service';
+import { DemoStorageService } from '../../../../core/services/demo-storage.service';
 
 @Component({
   selector: 'app-categories-page',
@@ -14,6 +15,14 @@ export class CategoriesPageComponent implements OnInit {
   private fb = inject(FormBuilder);
   private adminProductsService = inject(AdminProductsService);
   private storeService = inject(StoreService);
+  private demoStorage = inject(DemoStorageService);
+
+  constructor() {
+    effect(() => {
+      this.demoStorage.categories();
+      this.loadCategories();
+    });
+  }
 
   showModal = signal<boolean>(false);
   isLoading = signal<boolean>(true);

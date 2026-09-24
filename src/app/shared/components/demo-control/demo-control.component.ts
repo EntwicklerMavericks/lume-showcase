@@ -73,10 +73,10 @@ export class DemoControlComponent {
   }
 
   selectTheme(themeId: string): void {
-    this.demoStorage.switchTheme(themeId, this.replaceCatalogOnSwitch());
+    this.demoStorage.switchTheme(themeId, true);
     this.syncFormWithConfig();
     const config = this.demoStorage.activeConfig();
-    this.notify(`Tema ${config.name} aplicado com sucesso!`);
+    this.notify(`Tema ${config.name} e catálogo de fotos exclusivos aplicados!`);
   }
 
   /**

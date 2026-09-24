@@ -1,6 +1,7 @@
-import { Component, computed, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminCategory, AdminProduct, AdminProductsService } from '../../../../core/services/admin-products.service';
+import { DemoStorageService } from '../../../../core/services/demo-storage.service';
 
 @Component({
   selector: 'app-products-page',
@@ -12,6 +13,15 @@ import { AdminCategory, AdminProduct, AdminProductsService } from '../../../../c
 export class ProductsPageComponent implements OnInit, OnDestroy {
   private fb = inject(FormBuilder);
   private adminProductsService = inject(AdminProductsService);
+  private demoStorage = inject(DemoStorageService);
+
+  constructor() {
+    effect(() => {
+      this.demoStorage.products();
+      this.demoStorage.categories();
+      this.loadData();
+    });
+  }
 
   @ViewChild('cameraVideo') cameraVideo?: ElementRef<HTMLVideoElement>;
   @ViewChild('cameraFallbackInput') cameraFallbackInput?: ElementRef<HTMLInputElement>;

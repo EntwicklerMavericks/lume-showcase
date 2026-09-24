@@ -131,7 +131,7 @@ export class DemoStorageService {
 
       // Verifica versão do catálogo para atualizar automaticamente catálogos antigos do storage
       const savedVersion = localStorage.getItem('lume_demo_catalog_version');
-      const isCatalogOutdated = savedVersion !== 'v2_rich_catalogs_2026';
+      const isCatalogOutdated = savedVersion !== 'v5_niche_unique_photos_2026';
 
       // 3. Categorias
       const savedCats = localStorage.getItem(STORAGE_CATEGORIES);
@@ -139,7 +139,7 @@ export class DemoStorageService {
         this.categories.set(JSON.parse(savedCats));
       } else {
         const themeCats = DEMO_THEMES[initialThemeId]?.categories || DEMO_THEMES['lume'].categories;
-        this.categories.set(themeCats);
+        this.categories.set([...themeCats]);
         localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(themeCats));
       }
 
@@ -149,9 +149,9 @@ export class DemoStorageService {
         this.products.set(JSON.parse(savedProds));
       } else {
         const themeProds = DEMO_THEMES[initialThemeId]?.products || DEMO_THEMES['lume'].products;
-        this.products.set(themeProds);
+        this.products.set([...themeProds]);
         localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(themeProds));
-        localStorage.setItem('lume_demo_catalog_version', 'v2_rich_catalogs_2026');
+        localStorage.setItem('lume_demo_catalog_version', 'v5_niche_unique_photos_2026');
       }
 
       // 5. Pedidos e Clientes
@@ -196,11 +196,12 @@ export class DemoStorageService {
 
     if (replaceCatalog) {
       const theme = DEMO_THEMES[themeId];
-      this.categories.set(theme.categories);
-      this.products.set(theme.products);
+      this.categories.set([...theme.categories]);
+      this.products.set([...theme.products]);
       if (this.isBrowser()) {
         localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(theme.categories));
         localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(theme.products));
+        localStorage.setItem('lume_demo_catalog_version', 'v5_niche_unique_photos_2026');
       }
     }
 
@@ -243,8 +244,8 @@ export class DemoStorageService {
     const defaultTheme = DEMO_THEMES['lume'];
     this.currentThemeId.set('lume');
     this.customBranding.set({});
-    this.categories.set(defaultTheme.categories);
-    this.products.set(defaultTheme.products);
+    this.categories.set([...defaultTheme.categories]);
+    this.products.set([...defaultTheme.products]);
     this.orders.set(DEFAULT_ORDERS);
     this.customers.set(DEFAULT_CUSTOMERS);
 
@@ -252,6 +253,7 @@ export class DemoStorageService {
       localStorage.setItem(STORAGE_THEME_ID, 'lume');
       localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(defaultTheme.categories));
       localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(defaultTheme.products));
+      localStorage.setItem('lume_demo_catalog_version', 'v5_niche_unique_photos_2026');
     }
 
     this.applyActiveThemeStyles();
