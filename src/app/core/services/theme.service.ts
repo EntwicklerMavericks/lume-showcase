@@ -37,10 +37,17 @@ export class ThemeService {
       const surfaceBg = this.adjustBrightness(backgroundRgb, isBgLight ? -6 : 8);
       const surfaceHover = this.adjustBrightness(backgroundRgb, isBgLight ? -12 : 15);
       const footerBg = this.adjustBrightness(backgroundRgb, isBgLight ? -10 : -8);
+      const sidebarBg = isBgLight ? surfaceBg : this.adjustBrightness(backgroundRgb, 3);
+      const borderColor = isBgLight ? 'rgba(0, 0, 0, 0.12)' : 'rgba(255, 255, 255, 0.08)';
+      const borderHover = isBgLight ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.15)';
 
       root.style.setProperty('--surface', surfaceBg);
       root.style.setProperty('--surface-hover', surfaceHover);
       root.style.setProperty('--footer-bg', footerBg);
+      root.style.setProperty('--sidebar-bg', sidebarBg);
+      root.style.setProperty('--bg-surface', surfaceBg);
+      root.style.setProperty('--border-color', borderColor);
+      root.style.setProperty('--border-hover', borderHover);
       root.style.setProperty('--header-bg', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.95)`);
       root.style.setProperty('--hero-overlay-start', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.4)`);
       root.style.setProperty('--hero-overlay-mid', `rgba(${backgroundRgb.r}, ${backgroundRgb.g}, ${backgroundRgb.b}, 0.72)`);
@@ -57,6 +64,10 @@ export class ThemeService {
       root.style.setProperty('--surface', 'rgba(255, 255, 255, 0.05)');
       root.style.setProperty('--surface-hover', 'rgba(255, 255, 255, 0.09)');
       root.style.setProperty('--footer-bg', background);
+      root.style.setProperty('--sidebar-bg', background);
+      root.style.setProperty('--bg-surface', 'rgba(255, 255, 255, 0.05)');
+      root.style.setProperty('--border-color', 'rgba(255, 255, 255, 0.08)');
+      root.style.setProperty('--border-hover', 'rgba(255, 255, 255, 0.15)');
       root.style.setProperty('--header-bg', 'rgba(10, 21, 46, 0.95)');
       root.style.setProperty('--hero-overlay-start', 'rgba(10, 21, 46, 0.4)');
       root.style.setProperty('--hero-overlay-mid', 'rgba(10, 21, 46, 0.72)');
