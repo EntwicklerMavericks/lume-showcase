@@ -23,18 +23,50 @@ export interface CustomBranding {
   whatsappFormatted?: string;
   logoUrl?: string;
   heroImage?: string;
+  // Endereço e Configuração de Frete
+  email?: string;
+  phone?: string;
+  postalCode?: string;
+  street?: string;
+  number?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  pacBaseRate?: number;
+  sedexBaseRate?: number;
+  freeShippingMin?: number;
 }
 
 export interface DemoOrder {
   id: string;
+  orderNumber?: string;
   client: string;
   email?: string;
   phone?: string;
+  cpf?: string;
   date: string;
   total: number;
-  status: 'paid' | 'pending' | 'shipped' | 'cancelled';
+  subtotal?: number;
+  shippingCost?: number;
+  shippingMethod?: string;
+  status: 'paid' | 'pending' | 'shipped' | 'delivered' | 'cancelled';
   statusLabel: string;
   itemsCount: number;
+  paymentMethod?: 'PIX' | 'CREDIT_CARD';
+  trackingCode?: string;
+  street?: string;
+  number?: string;
+  complement?: string;
+  neighborhood?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  items?: any[];
+  pix?: {
+    qrCodeImage: string;
+    copiaECola: string;
+    expiresAt: string;
+  };
 }
 
 export interface DemoCustomer {
@@ -467,5 +499,86 @@ export class DemoStorageService {
       localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(list));
     }
     return true;
+  }
+
+  // ==========================================
+  // OPERAÇÕES DE PEDIDOS (DEMO ORDERS)
+  // ==========================================
+
+  addOrder(order: DemoOrder): void {
+    const updatedOrders = [order, ...this.orders()];
+    this.orders.set(updatedOrders);
+
+    if (this.isBrowser()) {
+      localStorage.setItem(STORAGE_ORDERS, JSON.stringify(updatedOrders));
+    }
+
+    // Atualiza ou adiciona cliente
+    if (order.client) {
+      const customers = this.customers();
+      const existingIdx = customers.findIndex(
+        (c) => (order.email && c.email === order.email) || c.name === order.client
+      );
+
+      if (existingIdx >= 0) {
+        const updated = [...customers];
+        updated[existingIdx] = {
+          ...updated[existingIdx],
+          totalOrders: updated[existingIdx].totalOrders + 1,
+          totalSpent: Math.round((updated[existingIdx].totalSpent + order.total) * 100) / 100,
+          lastOrderDate: 'Hoje',
+        };
+        this.customers.set(updated);
+        if (this.isBrowser()) {
+          localStorage.setItem(STORAGE_CUSTOMERS, JSON.stringify(updated));
+        }
+      } else {
+        const newCustomer: DemoCustomer = {
+          id: 'cli-' + Date.now().toString(36),
+          name: order.client,
+          email: order.email || 'cliente@exemplo.com',
+          phone: order.phone || '',
+          totalOrders: 1,
+          totalSpent: order.total,
+          lastOrderDate: 'Hoje',
+        };
+        const updated = [newCustomer, ...customers];
+        this.customers.set(updated);
+        if (this.isBrowser()) {
+          localStorage.setItem(STORAGE_CUSTOMERS, JSON.stringify(updated));
+        }
+      }
+    }
+  }
+
+  getOrderById(id: string): DemoOrder | undefined {
+    return this.orders().find((o) => o.id === id || o.orderNumber === id);
+  }
+
+  updateOrderStatus(id: string, status: DemoOrder['status'], trackingCode?: string): void {
+    const orders = this.orders();
+    const index = orders.findIndex((o) => o.id === id || o.orderNumber === id);
+    if (index === -1) return;
+
+    const labels: Record<DemoOrder['status'], string> = {
+      paid: 'Pago',
+      pending: 'Aguardando Pagamento',
+      shipped: 'Enviado',
+      delivered: 'Entregue',
+      cancelled: 'Cancelado',
+    };
+
+    const updated = [...orders];
+    updated[index] = {
+      ...updated[index],
+      status,
+      statusLabel: labels[status] || status,
+      trackingCode: trackingCode || updated[index].trackingCode,
+    };
+
+    this.orders.set(updated);
+    if (this.isBrowser()) {
+      localStorage.setItem(STORAGE_ORDERS, JSON.stringify(updated));
+    }
   }
 }

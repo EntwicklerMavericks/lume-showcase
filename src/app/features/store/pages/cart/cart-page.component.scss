@@ -350,6 +350,161 @@
     }
   }
 
+  /* Calculadora de Frete no Carrinho */
+  .cart-shipping-calc {
+    margin: 1.25rem 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+
+    .calc-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 0.6rem;
+
+      svg {
+        color: var(--primary);
+      }
+    }
+
+    .calc-input-row {
+      display: flex;
+      gap: 0.5rem;
+
+      .calc-input {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #FFFFFF;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8125rem;
+        border-radius: 4px;
+        outline: none;
+
+        &:focus {
+          border-color: var(--primary);
+        }
+      }
+
+      .calc-btn {
+        background: var(--primary);
+        color: var(--primary-contrast, #000);
+        border: none;
+        border-radius: 4px;
+        padding: 0 0.85rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.2s;
+
+        &:hover:not(:disabled) {
+          opacity: 0.9;
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .shipping-loading-text {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      margin-top: 0.6rem;
+    }
+
+    .shipping-dest-tag {
+      font-size: 0.72rem;
+      color: #94A3B8;
+      margin-top: 0.6rem;
+      padding: 0.25rem 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 4px;
+
+      strong {
+        color: var(--primary);
+      }
+    }
+
+    .cart-free-tag {
+      font-size: 0.75rem;
+      color: #10B981;
+      margin-top: 0.5rem;
+      padding: 0.35rem 0.5rem;
+      background: rgba(16, 185, 129, 0.12);
+      border-radius: 4px;
+    }
+
+    .cart-shipping-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+
+      .cart-shipping-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        input[type="radio"] {
+          accent-color: var(--primary);
+          cursor: pointer;
+        }
+
+        .opt-label {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex: 1;
+          cursor: pointer;
+          gap: 0.5rem;
+        }
+
+        .opt-info {
+          display: flex;
+          flex-direction: column;
+
+          .opt-name {
+            font-size: 0.75rem;
+            color: #FFFFFF;
+          }
+
+          .opt-deadline {
+            font-size: 0.6875rem;
+            color: #94A3B8;
+          }
+        }
+
+        .opt-price {
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--primary);
+
+          .free-text {
+            color: #10B981;
+          }
+        }
+
+        &.selected {
+          border-color: var(--primary);
+          background: rgba(204, 164, 94, 0.08);
+        }
+      }
+    }
+  }
+
   .summary-divider {
     height: 1px;
     background-color: rgba(255, 255, 255, 0.08);
@@ -413,6 +568,38 @@
 
     &:active {
       transform: translateY(0);
+    }
+  }
+
+  .whatsapp-btn {
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: #94A3B8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+
+    .wa-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+
+      svg {
+        color: #25D366;
+      }
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #25D366;
+      color: #FFFFFF;
     }
   }
 

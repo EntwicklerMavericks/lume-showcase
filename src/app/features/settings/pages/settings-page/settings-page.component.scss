@@ -52,6 +52,54 @@
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+
+  .section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .section-desc {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin: -0.75rem 0 0.5rem;
+    line-height: 1.4;
+  }
+
+  .address-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    .cep-field { grid-column: span 2; }
+    .street-field { grid-column: span 2; }
+    .num-field { grid-column: span 1; }
+    .neigh-field { grid-column: span 1; }
+    .city-field { grid-column: span 1; }
+    .uf-field { grid-column: span 1; }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      .cep-field, .street-field, .num-field, .neigh-field, .city-field, .uf-field {
+        grid-column: span 1;
+      }
+    }
+  }
+
+  .shipping-rates-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .uppercase-input {
+    text-transform: uppercase;
+  }
 }
 
 .textarea-input {
@@ -145,6 +193,72 @@
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+
+.email-feature-card {
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, rgba(204, 164, 94, 0.08), rgba(204, 164, 94, 0.02));
+  border: 1px solid rgba(204, 164, 94, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  .ef-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    .ef-icon {
+      font-size: 1.4rem;
+    }
+
+    .ef-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+    }
+  }
+
+  .ef-desc {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.45;
+  }
+
+  .ef-features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0.4rem 0;
+
+    .ef-item {
+      font-size: 0.75rem;
+      color: #CBD5E1;
+      font-weight: 500;
+    }
+  }
+
+  .btn-preview-emails {
+    background: var(--primary);
+    color: var(--primary-contrast, #000);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.65rem 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 0.5rem;
+    text-align: center;
+
+    &:hover {
+      opacity: 0.9;
+    }
   }
 }
 

@@ -1,0 +1,108 @@
+<div class="email-modal-backdrop" (click)="onBackdropClick($event)" role="dialog" aria-modal="true">
+  <div class="email-modal-card">
+    <!-- Header Modal -->
+    <div class="modal-top-bar">
+      <div class="bar-title-group">
+        <span class="badge-tag">Demonstração White-Label</span>
+        <h2 class="modal-title">E-mails Transacionais do Pedido</h2>
+        <p class="modal-desc">
+          Visualize os e-mails HTML responsivos que seus clientes recebem automaticamente em cada etapa da compra.
+        </p>
+      </div>
+
+      <div class="bar-actions">
+        <!-- Viewport switch -->
+        <div class="viewport-toggle">
+          <button
+            type="button"
+            class="vp-btn"
+            [class.active]="viewport() === 'desktop'"
+            (click)="viewport.set('desktop')"
+            title="Visualização Desktop"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Desktop</span>
+          </button>
+          <button
+            type="button"
+            class="vp-btn"
+            [class.active]="viewport() === 'mobile'"
+            (click)="viewport.set('mobile')"
+            title="Visualização Celular"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+              <line x1="12" y1="18" x2="12.01" y2="18"></line>
+            </svg>
+            <span>Mobile</span>
+          </button>
+        </div>
+
+        <button type="button" class="close-btn" (click)="close.emit()" aria-label="Fechar modal">✕</button>
+      </div>
+    </div>
+
+    <!-- Email Tabs -->
+    <div class="email-tabs-bar">
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="activeTab() === 'order_created'"
+        (click)="activeTab.set('order_created')"
+      >
+        <span class="tab-emoji">🛍️</span>
+        <span class="tab-text">1. Pedido Criado</span>
+      </button>
+
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="activeTab() === 'payment_confirmed'"
+        (click)="activeTab.set('payment_confirmed')"
+      >
+        <span class="tab-emoji">🎉</span>
+        <span class="tab-text">2. Pagamento Confirmado</span>
+      </button>
+
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="activeTab() === 'order_shipped'"
+        (click)="activeTab.set('order_shipped')"
+      >
+        <span class="tab-emoji">📦</span>
+        <span class="tab-text">3. Pedido Enviado</span>
+      </button>
+
+      <button
+        type="button"
+        class="tab-btn"
+        [class.active]="activeTab() === 'order_delivered'"
+        (click)="activeTab.set('order_delivered')"
+      >
+        <span class="tab-emoji">✨</span>
+        <span class="tab-text">4. Pedido Entregue</span>
+      </button>
+    </div>
+
+    <!-- Preview Container Frame -->
+    <div class="email-preview-scroll-wrapper">
+      <div class="email-frame" [class.mobile-view]="viewport() === 'mobile'">
+        <div class="email-content-rendered" [innerHTML]="renderedHtml()"></div>
+      </div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="modal-footer-note">
+      <div class="engine-badge">
+        <span class="dot-live"></span>
+        <span>Motor de E-mail: <strong>Resend API</strong> + <strong>SMTP Nodemailer</strong> (Fallback)</span>
+      </div>
+      <span class="note-brand">Templates 100% responsivos com a marca <strong>{{ storeConfig.name }}</strong></span>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { DemoStorageService } from '../../../../core/services/demo-storage.service';
+import { EmailPreviewComponent } from '../../../../shared/components/email-preview/email-preview.component';
 
 @Component({
   selector: 'app-settings-page',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, EmailPreviewComponent],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.scss'
 })
@@ -15,22 +17,48 @@ export class SettingsPageComponent implements OnInit {
 
   logoPreview = signal<string>('/images/logo.png');
   saveSuccess = signal<boolean>(false);
+  showEmailPreview = signal<boolean>(false);
 
   settingsForm: FormGroup = this.fb.group({
     storeName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     phone: ['', Validators.required],
-    address: ['Av. Paulista, 1000 - Bela Vista, São Paulo - SP', Validators.required]
+    // Endereço de origem — inicia vazio até o lojista configurar
+    postalCode: [''],
+    street: [''],
+    number: [''],
+    neighborhood: [''],
+    city: [''],
+    state: [''],
+    // Taxas de frete
+    pacBaseRate: [19.90, [Validators.required, Validators.min(0)]],
+    sedexBaseRate: [32.90, [Validators.required, Validators.min(0)]],
+    freeShippingMin: [299.00, [Validators.required, Validators.min(0)]],
   });
+
+  get storeConfig() {
+    return this.demoStorage.activeConfig();
+  }
 
   ngOnInit(): void {
     const config = this.demoStorage.activeConfig();
+    const custom = this.demoStorage.customBranding();
+
     this.logoPreview.set(config.logoUrl);
     this.settingsForm.patchValue({
       storeName: config.name,
       email: config.email || 'contato@loja.com.br',
       phone: config.whatsappFormatted || config.whatsappNumber,
-      address: 'Av. Paulista, 1000 - Bela Vista, São Paulo - SP'
+      // Endereço inicia vazio se não tiver sido configurado
+      postalCode: custom.postalCode || '',
+      street: custom.street || '',
+      number: custom.number || '',
+      neighborhood: custom.neighborhood || '',
+      city: custom.city || '',
+      state: custom.state || '',
+      pacBaseRate: custom.pacBaseRate !== undefined ? custom.pacBaseRate : 19.90,
+      sedexBaseRate: custom.sedexBaseRate !== undefined ? custom.sedexBaseRate : 32.90,
+      freeShippingMin: custom.freeShippingMin !== undefined ? custom.freeShippingMin : 299.00,
     });
   }
 
@@ -56,9 +84,19 @@ export class SettingsPageComponent implements OnInit {
 
     this.demoStorage.updateCustomBranding({
       name: val.storeName,
+      email: val.email,
       whatsappNumber: cleanPhone || val.phone,
       whatsappFormatted: val.phone,
-      logoUrl: this.logoPreview()
+      logoUrl: this.logoPreview(),
+      postalCode: val.postalCode,
+      street: val.street,
+      number: val.number,
+      neighborhood: val.neighborhood,
+      city: val.city,
+      state: val.state ? val.state.toUpperCase() : '',
+      pacBaseRate: Number(val.pacBaseRate),
+      sedexBaseRate: Number(val.sedexBaseRate),
+      freeShippingMin: Number(val.freeShippingMin),
     });
 
     this.saveSuccess.set(true);
