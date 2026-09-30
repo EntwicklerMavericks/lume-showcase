@@ -62,7 +62,7 @@
               </span>
             </td>
             <td class="status-cell">
-              <div class="custom-dropdown-wrap" [class.open-upward]="$index >= orders().length - 2 && orders().length >= 3">
+              <div class="custom-dropdown-wrap" [class.open-upward]="$index === orders().length - 1 && orders().length >= 4">
                 <button
                   type="button"
                   class="custom-dropdown-trigger"

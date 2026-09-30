@@ -151,29 +151,29 @@
     padding: 0.45rem 0.85rem;
     font-family: inherit;
     font-size: 0.78rem;
-    font-weight: 600;
-    color: #f8fafc;
-    background-color: #121824;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    font-weight: 500;
+    color: var(--text-primary);
+    background-color: var(--surface);
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     cursor: pointer;
     transition: all var(--transition-fast);
     user-select: none;
 
     &:hover {
-      border-color: rgba(255, 255, 255, 0.25);
-      background-color: #161f30;
-      color: #ffffff;
+      border-color: var(--border-hover);
+      background-color: var(--surface-hover);
+      color: var(--text-primary);
     }
 
     &.open {
-      border-color: var(--primary, #CCA45E);
-      background-color: #161f30;
-      box-shadow: 0 0 0 2px var(--primary-focus, rgba(204, 164, 94, 0.25));
+      border-color: var(--primary);
+      background-color: var(--surface-hover);
+      box-shadow: 0 0 0 2px var(--primary-focus);
 
       .chevron-icon {
         transform: rotate(180deg);
-        color: var(--primary, #CCA45E);
+        color: var(--primary);
       }
     }
 
@@ -196,16 +196,16 @@
     left: 0;
     width: 100%;
     min-width: 185px;
-    background: #0B111E;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background-color: var(--sidebar-bg, var(--surface));
+    border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.85), 0 0 0 1px var(--border-color);
     z-index: 100;
     padding: 4px;
     display: flex;
     flex-direction: column;
     gap: 2px;
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(16px);
 
     .dropdown-option {
       width: 100%;
@@ -217,7 +217,7 @@
       background: transparent;
       border: none;
       border-radius: var(--radius-sm);
-      color: #cbd5e1;
+      color: var(--text-primary);
       font-family: inherit;
       font-size: 0.76rem;
       font-weight: 500;
@@ -226,17 +226,17 @@
       transition: all 0.15s ease;
 
       &:hover {
-        background: rgba(255, 255, 255, 0.08);
-        color: #ffffff;
+        background-color: var(--surface-hover, rgba(255, 255, 255, 0.08));
+        color: var(--primary);
       }
 
       &.active {
-        background: var(--primary, #CCA45E);
-        color: var(--primary-contrast, #0a152e);
-        font-weight: 700;
+        background-color: var(--primary);
+        color: var(--primary-contrast);
+        font-weight: 600;
 
         .check-icon {
-          color: var(--primary-contrast, #0a152e);
+          color: var(--primary-contrast);
         }
       }
 
@@ -254,7 +254,7 @@
     .custom-dropdown-menu {
       top: auto;
       bottom: calc(100% + 4px);
-      box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.85), 0 0 0 1px var(--border-color);
     }
   }
 }
