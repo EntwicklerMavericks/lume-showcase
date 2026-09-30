@@ -1,7 +1,12 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DemoStorageService, DemoOrder } from '../../../../core/services/demo-storage.service';
+
+export interface StatusOption {
+  value: string;
+  label: string;
+}
 
 @Component({
   selector: 'app-orders-page',
@@ -21,6 +26,19 @@ export class OrdersPageComponent {
   isSavingTracking = signal<boolean>(false);
   saveTrackingSuccess = signal<boolean>(false);
 
+  /** ID do pedido cujo dropdown customizado de status está aberto */
+  openDropdownOrderId = signal<string | null>(null);
+
+  /** Opções padronizadas de status de pedido */
+  readonly statusOptions: StatusOption[] = [
+    { value: 'pending', label: 'Aguardando Pagamento' },
+    { value: 'paid', label: 'Pago' },
+    { value: 'preparing', label: 'Em separação' },
+    { value: 'shipped', label: 'Enviado' },
+    { value: 'delivered', label: 'Entregue' },
+    { value: 'cancelled', label: 'Cancelado' }
+  ];
+
   /**
    * Lista reativa de pedidos conectada diretamente ao DemoStorageService,
    * incluindo novos pedidos criados no checkout da loja e filtro em tempo real.
@@ -39,6 +57,37 @@ export class OrdersPageComponent {
       (ord.trackingCode && ord.trackingCode.toLowerCase().includes(query))
     );
   });
+
+  @HostListener('document:click')
+  onDocumentClick(): void {
+    if (this.openDropdownOrderId()) {
+      this.openDropdownOrderId.set(null);
+    }
+  }
+
+  toggleStatusDropdown(orderId: string, event: MouseEvent): void {
+    event.stopPropagation();
+    if (this.openDropdownOrderId() === orderId) {
+      this.openDropdownOrderId.set(null);
+    } else {
+      this.openDropdownOrderId.set(orderId);
+    }
+  }
+
+  selectStatus(orderId: string, status: any, event: MouseEvent): void {
+    event.stopPropagation();
+    this.demoStorage.updateOrderStatus(orderId, status);
+    this.openDropdownOrderId.set(null);
+
+    const currentSelected = this.selectedOrder();
+    if (currentSelected && (currentSelected.id === orderId || currentSelected.orderNumber === orderId)) {
+      const updated = this.demoStorage.getOrderById(orderId);
+      if (updated) {
+        this.selectedOrder.set(updated);
+        this.trackingInput.set(updated.trackingCode || '');
+      }
+    }
+  }
 
   openDetails(order: DemoOrder): void {
     this.selectedOrder.set(order);
@@ -79,20 +128,5 @@ export class OrdersPageComponent {
   getCorreiosUrl(code?: string): string {
     if (!code) return 'https://rastreamento.correios.com.br';
     return `https://rastreamento.correios.com.br/app/index.php?codigo=${encodeURIComponent(code.trim())}`;
-  }
-
-  updateStatus(orderId: string, event: Event): void {
-    const select = event.target as HTMLSelectElement;
-    const newStatus = select.value as any;
-    this.demoStorage.updateOrderStatus(orderId, newStatus);
-
-    const currentSelected = this.selectedOrder();
-    if (currentSelected && (currentSelected.id === orderId || currentSelected.orderNumber === orderId)) {
-      const updated = this.demoStorage.getOrderById(orderId);
-      if (updated) {
-        this.selectedOrder.set(updated);
-        this.trackingInput.set(updated.trackingCode || '');
-      }
-    }
   }
 }

@@ -65,8 +65,8 @@
   background-color: var(--surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
-  overflow: hidden;
   box-shadow: var(--shadow-md);
+  min-height: 420px;
 }
 
 .orders-table {
@@ -133,40 +133,128 @@
   text-align: center;
 }
 
-.status-select {
-  padding: 0.45rem 0.85rem;
-  font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: #f8fafc;
-  background-color: #121824;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: var(--radius-md);
-  outline: none;
-  cursor: pointer;
-  color-scheme: dark;
-  transition: all var(--transition-fast);
-  
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.25);
-    background-color: #161f30;
-  }
+.status-cell {
+  position: relative;
+}
 
-  &:focus {
-    border-color: var(--primary, #CCA45E);
-    background-color: #161f30;
-    box-shadow: 0 0 0 2px rgba(204, 164, 94, 0.2);
-  }
+.custom-dropdown-wrap {
+  position: relative;
+  display: inline-block;
+  min-width: 175px;
 
-  option {
-    background-color: #0b111e;
+  .custom-dropdown-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.45rem 0.85rem;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
     color: #f8fafc;
-    padding: 10px 14px;
-    font-size: 0.82rem;
+    background-color: #121824;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
 
-    &:checked {
-      background-color: var(--primary, #CCA45E);
-      color: #0a152e;
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      background-color: #161f30;
+      color: #ffffff;
+    }
+
+    &.open {
+      border-color: var(--primary, #CCA45E);
+      background-color: #161f30;
+      box-shadow: 0 0 0 2px var(--primary-focus, rgba(204, 164, 94, 0.25));
+
+      .chevron-icon {
+        transform: rotate(180deg);
+        color: var(--primary, #CCA45E);
+      }
+    }
+
+    .trigger-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .chevron-icon {
+      transition: transform 0.2s ease, color 0.2s ease;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+  }
+
+  .custom-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    min-width: 185px;
+    background: #0B111E;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.06);
+    z-index: 100;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    backdrop-filter: blur(14px);
+
+    .dropdown-option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.55rem 0.75rem;
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      color: #cbd5e1;
+      font-family: inherit;
+      font-size: 0.76rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.15s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+      }
+
+      &.active {
+        background: var(--primary, #CCA45E);
+        color: var(--primary-contrast, #0a152e);
+        font-weight: 700;
+
+        .check-icon {
+          color: var(--primary-contrast, #0a152e);
+        }
+      }
+
+      .opt-label {
+        white-space: nowrap;
+      }
+
+      .check-icon {
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  &.open-upward {
+    .custom-dropdown-menu {
+      top: auto;
+      bottom: calc(100% + 4px);
+      box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.06);
     }
   }
 }
@@ -411,8 +499,8 @@
   font-size: 0.72rem;
   font-weight: 600;
   color: var(--primary, #CCA45E);
-  background: rgba(204, 164, 94, 0.1);
-  border: 1px solid rgba(204, 164, 94, 0.25);
+  background: var(--primary-light, rgba(204, 164, 94, 0.1));
+  border: 1px solid var(--primary-focus, rgba(204, 164, 94, 0.25));
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   margin-top: 0.35rem;
@@ -421,8 +509,8 @@
 }
 
 .tracking-admin-section {
-  background: rgba(204, 164, 94, 0.04);
-  border: 1px solid rgba(204, 164, 94, 0.25);
+  background: var(--primary-light, rgba(204, 164, 94, 0.04));
+  border: 1px solid var(--primary-focus, rgba(204, 164, 94, 0.25));
   border-radius: var(--radius-md);
   padding: 1.15rem;
   margin-top: 1.25rem;
