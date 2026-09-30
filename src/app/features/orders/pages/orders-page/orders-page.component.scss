@@ -134,20 +134,40 @@
 }
 
 .status-select {
-  padding: 0.375rem 0.75rem;
+  padding: 0.45rem 0.85rem;
   font-family: inherit;
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-color);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #f8fafc;
+  background-color: #121824;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-md);
   outline: none;
   cursor: pointer;
-  transition: border-color var(--transition-fast), color var(--transition-fast);
+  color-scheme: dark;
+  transition: all var(--transition-fast);
   
-  &:focus, &:hover {
-    border-color: var(--border-hover);
-    color: var(--text-primary);
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    background-color: #161f30;
+  }
+
+  &:focus {
+    border-color: var(--primary, #CCA45E);
+    background-color: #161f30;
+    box-shadow: 0 0 0 2px rgba(204, 164, 94, 0.2);
+  }
+
+  option {
+    background-color: #0b111e;
+    color: #f8fafc;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+
+    &:checked {
+      background-color: var(--primary, #CCA45E);
+      color: #0a152e;
+    }
   }
 }
 
@@ -380,5 +400,117 @@
   }
   .modal-card {
     max-height: 100vh;
+  }
+}
+
+.tracking-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--primary, #CCA45E);
+  background: rgba(204, 164, 94, 0.1);
+  border: 1px solid rgba(204, 164, 94, 0.25);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.35rem;
+  letter-spacing: 0.04em;
+  max-width: fit-content;
+}
+
+.tracking-admin-section {
+  background: rgba(204, 164, 94, 0.04);
+  border: 1px solid rgba(204, 164, 94, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  margin-top: 1.25rem;
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary, #CCA45E) !important;
+    font-size: 0.875rem;
+    margin-bottom: 0.75rem;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+
+    svg {
+      color: var(--primary, #CCA45E);
+    }
+  }
+
+  .tracking-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+
+    .tracking-admin-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      color: #ffffff;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.85rem;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+      outline: none;
+      transition: border-color var(--transition-fast);
+
+      &:focus {
+        border-color: var(--primary, #CCA45E);
+      }
+
+      &::placeholder {
+        color: #64748b;
+      }
+    }
+
+    .btn-save-tracking {
+      background: var(--primary, #CCA45E);
+      color: var(--primary-contrast, #0a152e);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 1rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity var(--transition-fast);
+
+      &:hover:not(:disabled) {
+        opacity: 0.9;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .tracking-success-alert {
+    font-size: 0.75rem;
+    color: #10b981;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .tracking-external-link {
+    a {
+      font-size: 0.78rem;
+      color: var(--primary, #CCA45E);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

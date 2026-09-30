@@ -42,6 +42,11 @@
           <tr>
             <td>
               <span class="order-code">{{ ord.orderNumber ? ('#' + ord.orderNumber) : ord.id }}</span>
+              @if (ord.trackingCode) {
+                <div class="tracking-pill" title="Rastreio Correios: {{ ord.trackingCode }}">
+                  📦 {{ ord.trackingCode }}
+                </div>
+              }
             </td>
             <td>
               <div class="client-info">
@@ -52,7 +57,7 @@
             <td>{{ ord.date }}</td>
             <td class="num-col font-bold">R$ {{ ord.total.toFixed(2) }}</td>
             <td>
-              <span class="badge" [class]="'badge-' + (ord.status === 'delivered' ? 'success' : ord.status === 'cancelled' ? 'error' : (ord.status === 'pending' || ord.status === 'pending_payment') ? 'warning' : 'info')">
+              <span class="badge" [class]="'badge-' + (ord.status === 'delivered' || ord.status === 'paid' ? 'success' : ord.status === 'cancelled' ? 'error' : (ord.status === 'pending' || ord.status === 'pending_payment') ? 'warning' : 'info')">
                 {{ ord.statusLabel }}
               </span>
             </td>
@@ -126,13 +131,8 @@
                     CEP: {{ selectedOrder()?.postalCode }}
                   </p>
                   <p style="margin-top: 6px; font-size: 0.82rem; color: #94a3b8;">
-                    <strong>Método:</strong> {{ selectedOrder()?.shippingMethod || 'Correios PAC' }}
+                    <strong>Método de Frete:</strong> {{ selectedOrder()?.shippingMethod || 'Correios PAC' }}
                   </p>
-                  @if (selectedOrder()?.trackingCode) {
-                    <p style="margin-top: 4px; font-size: 0.82rem; color: var(--primary, #CCA45E);">
-                      <strong>Rastreio Correios:</strong> {{ selectedOrder()?.trackingCode }}
-                    </p>
-                  }
                 </div>
               }
 
@@ -140,10 +140,56 @@
                 <h3>Resumo do Status</h3>
                 <p>
                   <strong>Status Atual:</strong>
-                  <span class="badge" [class]="'badge-' + (selectedOrder()?.status === 'delivered' ? 'success' : selectedOrder()?.status === 'cancelled' ? 'error' : (selectedOrder()?.status === 'pending' || selectedOrder()?.status === 'pending_payment') ? 'warning' : 'info')">
+                  <span class="badge" [class]="'badge-' + (selectedOrder()?.status === 'delivered' || selectedOrder()?.status === 'paid' ? 'success' : selectedOrder()?.status === 'cancelled' ? 'error' : (selectedOrder()?.status === 'pending' || selectedOrder()?.status === 'pending_payment') ? 'warning' : 'info')">
                     {{ selectedOrder()?.statusLabel }}
                   </span>
                 </p>
+              </div>
+
+              <!-- Rastreamento Correios -->
+              <div class="detail-section tracking-admin-section">
+                <h3>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                  <span>Rastreamento de Envio (Correios)</span>
+                </h3>
+                <div class="tracking-input-group">
+                  <input 
+                    type="text" 
+                    class="tracking-admin-input" 
+                    placeholder="Ex: BR123456789SL"
+                    [value]="trackingInput()"
+                    (input)="onTrackingInput($event)"
+                  />
+                  <button 
+                    type="button" 
+                    class="btn-save-tracking"
+                    [disabled]="isSavingTracking()"
+                    (click)="saveTracking(selectedOrder()!)"
+                  >
+                    @if (isSavingTracking()) {
+                      <span>Salvando...</span>
+                    } @else {
+                      <span>Salvar Rastreio</span>
+                    }
+                  </button>
+                </div>
+                @if (saveTrackingSuccess()) {
+                  <div class="tracking-success-alert animate-fade-in">
+                    ✓ Código de rastreamento salvo com sucesso!
+                  </div>
+                }
+                @if (selectedOrder()?.trackingCode) {
+                  <div class="tracking-external-link">
+                    <a [href]="getCorreiosUrl(selectedOrder()?.trackingCode)" target="_blank" rel="noopener noreferrer">
+                      <span>Testar código nos Correios ↗</span>
+                    </a>
+                  </div>
+                }
               </div>
             </div>
 

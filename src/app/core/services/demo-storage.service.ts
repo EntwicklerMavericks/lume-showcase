@@ -713,4 +713,21 @@ export class DemoStorageService {
       localStorage.setItem(STORAGE_ORDERS, JSON.stringify(updated));
     }
   }
+
+  saveOrderTracking(id: string, trackingCode: string): void {
+    const orders = this.orders();
+    const index = orders.findIndex((o) => o.id === id || o.orderNumber === id);
+    if (index === -1) return;
+
+    const updated = [...orders];
+    updated[index] = {
+      ...updated[index],
+      trackingCode: trackingCode.trim(),
+    };
+
+    this.orders.set(updated);
+    if (this.isBrowser()) {
+      localStorage.setItem(STORAGE_ORDERS, JSON.stringify(updated));
+    }
+  }
 }

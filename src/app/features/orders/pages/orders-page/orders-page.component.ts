@@ -17,6 +17,10 @@ export class OrdersPageComponent {
   selectedOrder = signal<DemoOrder | null>(null);
   searchQuery = signal<string>('');
 
+  trackingInput = signal<string>('');
+  isSavingTracking = signal<boolean>(false);
+  saveTrackingSuccess = signal<boolean>(false);
+
   /**
    * Lista reativa de pedidos conectada diretamente ao DemoStorageService,
    * incluindo novos pedidos criados no checkout da loja e filtro em tempo real.
@@ -31,18 +35,50 @@ export class OrdersPageComponent {
       (ord.id && ord.id.toLowerCase().includes(query)) ||
       (ord.client && ord.client.toLowerCase().includes(query)) ||
       (ord.email && ord.email.toLowerCase().includes(query)) ||
-      (ord.statusLabel && ord.statusLabel.toLowerCase().includes(query))
+      (ord.statusLabel && ord.statusLabel.toLowerCase().includes(query)) ||
+      (ord.trackingCode && ord.trackingCode.toLowerCase().includes(query))
     );
   });
 
   openDetails(order: DemoOrder): void {
     this.selectedOrder.set(order);
+    this.trackingInput.set(order.trackingCode || '');
+    this.saveTrackingSuccess.set(false);
     this.showDetailsModal.set(true);
   }
 
   closeModal(): void {
     this.showDetailsModal.set(false);
     this.selectedOrder.set(null);
+  }
+
+  onTrackingInput(event: Event): void {
+    const val = (event.target as HTMLInputElement).value;
+    this.trackingInput.set(val);
+  }
+
+  saveTracking(order: DemoOrder): void {
+    const code = this.trackingInput().trim().toUpperCase();
+    this.isSavingTracking.set(true);
+    this.saveTrackingSuccess.set(false);
+
+    setTimeout(() => {
+      this.demoStorage.saveOrderTracking(order.id, code);
+      this.isSavingTracking.set(false);
+      this.saveTrackingSuccess.set(true);
+
+      const updated = this.demoStorage.getOrderById(order.id);
+      if (updated) {
+        this.selectedOrder.set(updated);
+      }
+
+      setTimeout(() => this.saveTrackingSuccess.set(false), 3000);
+    }, 200);
+  }
+
+  getCorreiosUrl(code?: string): string {
+    if (!code) return 'https://rastreamento.correios.com.br';
+    return `https://rastreamento.correios.com.br/app/index.php?codigo=${encodeURIComponent(code.trim())}`;
   }
 
   updateStatus(orderId: string, event: Event): void {
@@ -55,6 +91,7 @@ export class OrdersPageComponent {
       const updated = this.demoStorage.getOrderById(orderId);
       if (updated) {
         this.selectedOrder.set(updated);
+        this.trackingInput.set(updated.trackingCode || '');
       }
     }
   }
