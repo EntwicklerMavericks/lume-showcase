@@ -166,12 +166,7 @@ export class ProductPageComponent implements OnInit {
       this.selectedColor() || undefined
     );
 
-    this.whatsappService.sendProductOrder(
-      p, 
-      this.quantity(), 
-      this.selectedSize() || undefined, 
-      this.selectedColor() || undefined
-    );
+    this.router.navigate(['/checkout']);
   }
 
   closeToast() {
