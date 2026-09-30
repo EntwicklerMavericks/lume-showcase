@@ -49,7 +49,7 @@ export interface DemoOrder {
   subtotal?: number;
   shippingCost?: number;
   shippingMethod?: string;
-  status: 'paid' | 'pending' | 'shipped' | 'delivered' | 'cancelled';
+  status: 'paid' | 'pending' | 'pending_payment' | 'preparing' | 'shipped' | 'delivered' | 'cancelled';
   statusLabel: string;
   itemsCount: number;
   paymentMethod?: 'PIX' | 'CREDIT_CARD';
@@ -74,23 +74,131 @@ export interface DemoCustomer {
   name: string;
   email: string;
   phone: string;
+  cpf?: string;
+  address?: string;
+  purchasesCount?: number;
   totalOrders: number;
   totalSpent: number;
   lastOrderDate: string;
+  lastPurchase?: string;
 }
 
 const DEFAULT_ORDERS: DemoOrder[] = [
-  { id: '#1024', client: 'Marcos Vinícius Silva', email: 'marcos@email.com', phone: '(11) 98765-4321', date: 'Hoje, 14:32', total: 389.70, status: 'paid', statusLabel: 'Pago', itemsCount: 3 },
-  { id: '#1023', client: 'Fernanda Lima Castro', email: 'fernanda@email.com', phone: '(21) 97654-3210', date: 'Hoje, 11:15', total: 649.90, status: 'shipped', statusLabel: 'Enviado', itemsCount: 2 },
-  { id: '#1022', client: 'Rafael Albuquerque', email: 'rafael@email.com', phone: '(31) 99887-7665', date: 'Ontem, 17:45', total: 219.90, status: 'pending', statusLabel: 'Aguardando Pagamento', itemsCount: 1 },
-  { id: '#1021', client: 'Juliana Mendes Rocha', email: 'juliana@email.com', phone: '(81) 98112-3344', date: '21/09, 10:20', total: 1120.00, status: 'paid', statusLabel: 'Pago', itemsCount: 4 }
+  {
+    id: 'ord-1024',
+    orderNumber: '1024',
+    client: 'Marcos Vinícius Silva',
+    email: 'marcos@email.com',
+    phone: '(11) 98765-4321',
+    cpf: '123.456.789-00',
+    date: 'Hoje, 14:32',
+    total: 389.70,
+    subtotal: 359.80,
+    shippingCost: 29.90,
+    shippingMethod: 'Correios SEDEX',
+    status: 'paid',
+    statusLabel: 'Pago',
+    itemsCount: 3,
+    paymentMethod: 'PIX',
+    trackingCode: 'BR847291039SL',
+    street: 'Av. Paulista',
+    number: '1000',
+    neighborhood: 'Bela Vista',
+    city: 'São Paulo',
+    state: 'SP',
+    postalCode: '01310-100',
+    items: [
+      { id: 'item-1', name: 'Camiseta Performance Dry-Fit', sku: 'LUM-TSH-001', quantity: 2, price: 119.90, total: 239.80, size: 'M', color: 'Azul' },
+      { id: 'item-2', name: 'Meia Esportiva Alta Compressão', sku: 'LUM-ACC-004', quantity: 1, price: 120.00, total: 120.00, size: 'U', color: 'Preto' }
+    ]
+  },
+  {
+    id: 'ord-1023',
+    orderNumber: '1023',
+    client: 'Fernanda Lima Castro',
+    email: 'fernanda@email.com',
+    phone: '(21) 97654-3210',
+    cpf: '987.654.321-99',
+    date: 'Hoje, 11:15',
+    total: 649.90,
+    subtotal: 620.00,
+    shippingCost: 29.90,
+    shippingMethod: 'Correios PAC',
+    status: 'shipped',
+    statusLabel: 'Enviado',
+    itemsCount: 2,
+    paymentMethod: 'CREDIT_CARD',
+    trackingCode: 'BR912384756SL',
+    street: 'Rua das Flores',
+    number: '123',
+    neighborhood: 'Leblon',
+    city: 'Rio de Janeiro',
+    state: 'RJ',
+    postalCode: '22440-032',
+    items: [
+      { id: 'item-1', name: 'Jaqueta Bomber Tech Waterproof', sku: 'LUM-JAC-003', quantity: 1, price: 620.00, total: 620.00, size: 'G', color: 'Preto' }
+    ]
+  },
+  {
+    id: 'ord-1022',
+    orderNumber: '1022',
+    client: 'Rafael Albuquerque',
+    email: 'rafael@email.com',
+    phone: '(31) 99887-7665',
+    cpf: '456.789.123-11',
+    date: 'Ontem, 17:45',
+    total: 219.90,
+    subtotal: 199.90,
+    shippingCost: 20.00,
+    shippingMethod: 'Correios PAC',
+    status: 'pending',
+    statusLabel: 'Aguardando Pagamento',
+    itemsCount: 1,
+    paymentMethod: 'PIX',
+    street: 'Av. Afonso Pena',
+    number: '500',
+    neighborhood: 'Centro',
+    city: 'Belo Horizonte',
+    state: 'MG',
+    postalCode: '30130-001',
+    items: [
+      { id: 'item-1', name: 'Calça Chino Slim Comfort', sku: 'LUM-PAN-002', quantity: 1, price: 199.90, total: 199.90, size: '42', color: 'Cinza' }
+    ]
+  },
+  {
+    id: 'ord-1021',
+    orderNumber: '1021',
+    client: 'Juliana Mendes Rocha',
+    email: 'juliana@email.com',
+    phone: '(81) 98112-3344',
+    cpf: '321.654.987-88',
+    date: '21/09, 10:20',
+    total: 1120.00,
+    subtotal: 1120.00,
+    shippingCost: 0.00,
+    shippingMethod: 'Frete Grátis',
+    status: 'delivered',
+    statusLabel: 'Entregue',
+    itemsCount: 4,
+    paymentMethod: 'CREDIT_CARD',
+    trackingCode: 'BR736251940SL',
+    street: 'Rua Boa Vista',
+    number: '450',
+    neighborhood: 'Boa Viagem',
+    city: 'Recife',
+    state: 'PE',
+    postalCode: '51020-010',
+    items: [
+      { id: 'item-1', name: 'Camiseta Pima Tech Black', sku: 'LUM-TSH-002', quantity: 4, price: 280.00, total: 1120.00, size: 'M', color: 'Preto' }
+    ]
+  }
 ];
 
 const DEFAULT_CUSTOMERS: DemoCustomer[] = [
-  { id: 'cli-1', name: 'Marcos Vinícius Silva', email: 'marcos@email.com', phone: '(11) 98765-4321', totalOrders: 5, totalSpent: 1890.50, lastOrderDate: 'Hoje' },
-  { id: 'cli-2', name: 'Fernanda Lima Castro', email: 'fernanda@email.com', phone: '(21) 97654-3210', totalOrders: 3, totalSpent: 1240.00, lastOrderDate: 'Hoje' },
-  { id: 'cli-3', name: 'Rafael Albuquerque', email: 'rafael@email.com', phone: '(31) 99887-7665', totalOrders: 2, totalSpent: 480.00, lastOrderDate: 'Ontem' },
-  { id: 'cli-4', name: 'Juliana Mendes Rocha', email: 'juliana@email.com', phone: '(81) 98112-3344', totalOrders: 7, totalSpent: 3450.00, lastOrderDate: '21/09' }
+  { id: 'cli-1', name: 'Marcos Vinícius Silva', email: 'marcos@email.com', phone: '(11) 98765-4321', cpf: '123.456.789-00', address: 'Av. Paulista, 1000 - São Paulo/SP', totalOrders: 5, purchasesCount: 5, totalSpent: 1890.50, lastOrderDate: 'Hoje', lastPurchase: 'Hoje, 14:32' },
+  { id: 'cli-2', name: 'Fernanda Lima Castro', email: 'fernanda@email.com', phone: '(21) 97654-3210', cpf: '987.654.321-99', address: 'Rua das Flores, 123 - Rio de Janeiro/RJ', totalOrders: 3, purchasesCount: 3, totalSpent: 1240.00, lastOrderDate: 'Hoje', lastPurchase: 'Hoje, 11:15' },
+  { id: 'cli-3', name: 'Rafael Albuquerque', email: 'rafael@email.com', phone: '(31) 99887-7665', cpf: '456.789.123-11', address: 'Av. Afonso Pena, 500 - Belo Horizonte/MG', totalOrders: 2, purchasesCount: 2, totalSpent: 480.00, lastOrderDate: 'Ontem', lastPurchase: 'Ontem, 17:45' },
+  { id: 'cli-4', name: 'Juliana Mendes Rocha', email: 'juliana@email.com', phone: '(81) 98112-3344', cpf: '321.654.987-88', address: 'Rua Boa Vista, 450 - Recife/PE', totalOrders: 7, purchasesCount: 7, totalSpent: 3450.00, lastOrderDate: '21/09', lastPurchase: '21/09/2026' }
 ];
 
 @Injectable({
@@ -517,16 +625,28 @@ export class DemoStorageService {
     if (order.client) {
       const customers = this.customers();
       const existingIdx = customers.findIndex(
-        (c) => (order.email && c.email === order.email) || c.name === order.client
+        (c) => (order.email && c.email.toLowerCase() === order.email.toLowerCase()) || c.name === order.client
       );
+
+      const customerAddress = order.street
+        ? `${order.street}, ${order.number || 'S/N'}${order.complement ? ' • ' + order.complement : ''} - ${order.neighborhood || ''}, ${order.city || ''}/${order.state || ''}`
+        : 'Endereço cadastrado no checkout';
 
       if (existingIdx >= 0) {
         const updated = [...customers];
+        const prev = updated[existingIdx];
+        const newCount = (prev.totalOrders || prev.purchasesCount || 0) + 1;
+        const newSpent = Math.round(((prev.totalSpent || 0) + order.total) * 100) / 100;
         updated[existingIdx] = {
-          ...updated[existingIdx],
-          totalOrders: updated[existingIdx].totalOrders + 1,
-          totalSpent: Math.round((updated[existingIdx].totalSpent + order.total) * 100) / 100,
+          ...prev,
+          phone: order.phone || prev.phone,
+          cpf: order.cpf || prev.cpf,
+          address: order.street ? customerAddress : (prev.address || customerAddress),
+          totalOrders: newCount,
+          purchasesCount: newCount,
+          totalSpent: newSpent,
           lastOrderDate: 'Hoje',
+          lastPurchase: order.date || 'Hoje',
         };
         this.customers.set(updated);
         if (this.isBrowser()) {
@@ -538,9 +658,13 @@ export class DemoStorageService {
           name: order.client,
           email: order.email || 'cliente@exemplo.com',
           phone: order.phone || '',
+          cpf: order.cpf || '',
+          address: customerAddress,
           totalOrders: 1,
+          purchasesCount: 1,
           totalSpent: order.total,
           lastOrderDate: 'Hoje',
+          lastPurchase: order.date || 'Hoje',
         };
         const updated = [newCustomer, ...customers];
         this.customers.set(updated);
@@ -555,25 +679,33 @@ export class DemoStorageService {
     return this.orders().find((o) => o.id === id || o.orderNumber === id);
   }
 
-  updateOrderStatus(id: string, status: DemoOrder['status'], trackingCode?: string): void {
+  updateOrderStatus(id: string, status: any, trackingCode?: string): void {
     const orders = this.orders();
     const index = orders.findIndex((o) => o.id === id || o.orderNumber === id);
     if (index === -1) return;
 
-    const labels: Record<DemoOrder['status'], string> = {
+    const labels: Record<string, string> = {
       paid: 'Pago',
       pending: 'Aguardando Pagamento',
+      pending_payment: 'Aguardando Pagamento',
+      preparing: 'Em separação',
       shipped: 'Enviado',
       delivered: 'Entregue',
       cancelled: 'Cancelado',
     };
+
+    // Gera código de rastreio automático caso mude para 'shipped' e ainda não tenha
+    let generatedTracking = trackingCode || orders[index].trackingCode;
+    if (status === 'shipped' && !generatedTracking) {
+      generatedTracking = 'BR' + Math.floor(100000000 + Math.random() * 900000000) + 'SL';
+    }
 
     const updated = [...orders];
     updated[index] = {
       ...updated[index],
       status,
       statusLabel: labels[status] || status,
-      trackingCode: trackingCode || updated[index].trackingCode,
+      trackingCode: generatedTracking,
     };
 
     this.orders.set(updated);

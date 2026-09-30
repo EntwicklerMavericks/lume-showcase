@@ -13,7 +13,13 @@
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" placeholder="Filtrar por nome, e-mail ou CPF..." class="search-input" />
+      <input
+        type="text"
+        placeholder="Filtrar por nome, e-mail ou CPF..."
+        class="search-input"
+        [ngModel]="searchQuery()"
+        (ngModelChange)="searchQuery.set($event)"
+      />
     </div>
   </div>
 
@@ -35,17 +41,24 @@
         @for (c of customers(); track c.id) {
           <tr>
             <td><span class="customer-name">{{ c.name }}</span></td>
-            <td><span class="cpf-code">{{ c.cpf }}</span></td>
+            <td><span class="cpf-code">{{ c.cpf || 'Não informado' }}</span></td>
             <td>
               <div class="contact-details">
                 <span class="email">{{ c.email }}</span>
-                <span class="phone">{{ c.phone }}</span>
+                <span class="phone">{{ c.phone || '—' }}</span>
               </div>
             </td>
-            <td><span class="address-text" [title]="c.address">{{ c.address }}</span></td>
-            <td class="num-col">{{ c.purchasesCount }} pedidos</td>
+            <td><span class="address-text" [title]="c.address || ''">{{ c.address || 'Cadastrado no checkout' }}</span></td>
+            <td class="num-col">{{ c.purchasesCount ?? c.totalOrders }} pedidos</td>
             <td class="num-col font-bold">R$ {{ c.totalSpent.toFixed(2) }}</td>
-            <td>{{ c.lastPurchase }}</td>
+            <td>{{ c.lastPurchase || c.lastOrderDate || 'Hoje' }}</td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7" style="text-align: center; padding: 3rem 1.5rem; color: #94A3B8;">
+              <p style="font-size: 0.95rem; margin: 0 0 0.5rem 0; font-weight: 500;">Nenhum cliente encontrado</p>
+              <p style="font-size: 0.8rem; color: #64748B; margin: 0;">Clientes que finalizarem compras no checkout aparecerão automaticamente aqui.</p>
+            </td>
           </tr>
         }
       </tbody>

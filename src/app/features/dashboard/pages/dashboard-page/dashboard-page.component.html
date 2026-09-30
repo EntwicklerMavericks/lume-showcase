@@ -71,11 +71,11 @@
           <div class="order-item-row">
             <div class="order-meta">
               <span class="order-client">{{ ord.client }}</span>
-              <span class="order-code-date">{{ ord.id }} &bull; {{ ord.date }}</span>
+              <span class="order-code-date">{{ ord.orderNumber ? ('#' + ord.orderNumber) : ord.id }} &bull; {{ ord.date }}</span>
             </div>
             <div class="order-right">
               <span class="order-price">R$ {{ ord.total.toFixed(2) }}</span>
-              <span class="badge" [class]="'badge-' + (ord.status === 'paid' ? 'success' : ord.status === 'shipped' ? 'info' : 'warning')">
+              <span class="badge" [class]="'badge-' + (ord.status === 'delivered' || ord.status === 'paid' ? 'success' : ord.status === 'cancelled' ? 'error' : (ord.status === 'shipped' || ord.status === 'preparing') ? 'info' : 'warning')">
                 {{ ord.statusLabel }}
               </span>
             </div>

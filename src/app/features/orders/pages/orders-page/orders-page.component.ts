@@ -1,87 +1,41 @@
-import { Component, signal } from '@angular/core';
-
-interface OrderItem {
-  name: string;
-  sku: string;
-  quantity: number;
-  price: number;
-}
-
-interface Order {
-  id: string;
-  client: string;
-  email: string;
-  date: string;
-  items: OrderItem[];
-  total: number;
-  status: 'pending_payment' | 'paid' | 'preparing' | 'shipped' | 'delivered' | 'cancelled';
-  statusLabel: string;
-}
+import { Component, inject, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DemoStorageService, DemoOrder } from '../../../../core/services/demo-storage.service';
 
 @Component({
   selector: 'app-orders-page',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './orders-page.component.html',
   styleUrl: './orders-page.component.scss'
 })
 export class OrdersPageComponent {
+  private demoStorage = inject(DemoStorageService);
+
   showDetailsModal = signal<boolean>(false);
-  selectedOrder = signal<Order | null>(null);
+  selectedOrder = signal<DemoOrder | null>(null);
+  searchQuery = signal<string>('');
 
-  // Mock list of orders for Lume
-  orders = signal<Order[]>([
-    {
-      id: 'BI-ORD-1024',
-      client: 'João Paulo Dev',
-      email: 'joaopaulo@dev.com',
-      date: '2026-07-09 14:32',
-      total: 389.70,
-      status: 'paid',
-      statusLabel: 'Pago',
-      items: [
-        { name: 'Camiseta Pima Premium Black', sku: 'BI-TSH-001', quantity: 3, price: 129.90 }
-      ]
-    },
-    {
-      id: 'BI-ORD-1023',
-      client: 'Maria Silva',
-      email: 'maria.silva@gmail.com',
-      date: '2026-07-09 11:15',
-      total: 1290.00,
-      status: 'shipped',
-      statusLabel: 'Enviado',
-      items: [
-        { name: 'Jaqueta Bomber Couro Eclipse', sku: 'BI-JAC-003', quantity: 1, price: 1290.00 }
-      ]
-    },
-    {
-      id: 'BI-ORD-1022',
-      client: 'Carlos Santos',
-      email: 'carlos.s@yahoo.com',
-      date: '2026-07-08 17:45',
-      total: 249.90,
-      status: 'pending_payment',
-      statusLabel: 'Aguardando Pagamento',
-      items: [
-        { name: 'Calça Chino Slim Gray', sku: 'BI-PAN-002', quantity: 1, price: 249.90 }
-      ]
-    },
-    {
-      id: 'BI-ORD-1021',
-      client: 'Ana Oliveira',
-      email: 'ana.oliveira@outlook.com',
-      date: '2026-07-07 09:20',
-      total: 519.60,
-      status: 'delivered',
-      statusLabel: 'Entregue',
-      items: [
-        { name: 'Camiseta Pima Premium Black', sku: 'BI-TSH-001', quantity: 4, price: 129.90 }
-      ]
-    }
-  ]);
+  /**
+   * Lista reativa de pedidos conectada diretamente ao DemoStorageService,
+   * incluindo novos pedidos criados no checkout da loja e filtro em tempo real.
+   */
+  orders = computed<DemoOrder[]>(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    const list = this.demoStorage.orders();
+    if (!query) return list;
 
-  openDetails(order: Order): void {
+    return list.filter(ord =>
+      (ord.orderNumber && ord.orderNumber.toLowerCase().includes(query)) ||
+      (ord.id && ord.id.toLowerCase().includes(query)) ||
+      (ord.client && ord.client.toLowerCase().includes(query)) ||
+      (ord.email && ord.email.toLowerCase().includes(query)) ||
+      (ord.statusLabel && ord.statusLabel.toLowerCase().includes(query))
+    );
+  });
+
+  openDetails(order: DemoOrder): void {
     this.selectedOrder.set(order);
     this.showDetailsModal.set(true);
   }
@@ -94,34 +48,14 @@ export class OrdersPageComponent {
   updateStatus(orderId: string, event: Event): void {
     const select = event.target as HTMLSelectElement;
     const newStatus = select.value as any;
-    
-    const labels: { [key: string]: string } = {
-      'pending_payment': 'Aguardando Pagamento',
-      'paid': 'Pago',
-      'preparing': 'Em separação',
-      'shipped': 'Enviado',
-      'delivered': 'Entregue',
-      'cancelled': 'Cancelado'
-    };
-
-    this.orders.update(list => list.map(ord => {
-      if (ord.id === orderId) {
-        return {
-          ...ord,
-          status: newStatus,
-          statusLabel: labels[newStatus]
-        };
-      }
-      return ord;
-    }));
+    this.demoStorage.updateOrderStatus(orderId, newStatus);
 
     const currentSelected = this.selectedOrder();
-    if (currentSelected && currentSelected.id === orderId) {
-      this.selectedOrder.set({
-        ...currentSelected,
-        status: newStatus,
-        statusLabel: labels[newStatus]
-      });
+    if (currentSelected && (currentSelected.id === orderId || currentSelected.orderNumber === orderId)) {
+      const updated = this.demoStorage.getOrderById(orderId);
+      if (updated) {
+        this.selectedOrder.set(updated);
+      }
     }
   }
 }

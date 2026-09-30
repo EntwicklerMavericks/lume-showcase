@@ -1,70 +1,35 @@
-import { Component, signal } from '@angular/core';
-
-interface Customer {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  cpf: string;
-  address: string;
-  purchasesCount: number;
-  totalSpent: number;
-  lastPurchase: string;
-}
+import { Component, inject, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { DemoStorageService, DemoCustomer } from '../../../../core/services/demo-storage.service';
 
 @Component({
   selector: 'app-customers-page',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './customers-page.component.html',
   styleUrl: './customers-page.component.scss'
 })
 export class CustomersPageComponent {
-  // Mock customer database for Lume
-  customers = signal<Customer[]>([
-    {
-      id: 'c1',
-      name: 'João Paulo Dev',
-      email: 'joaopaulo@dev.com',
-      phone: '(11) 98765-4321',
-      cpf: '123.456.789-00',
-      address: 'Av. Paulista, 1000 - São Paulo/SP',
-      purchasesCount: 5,
-      totalSpent: 1850.40,
-      lastPurchase: '2026-07-09'
-    },
-    {
-      id: 'c2',
-      name: 'Maria Silva',
-      email: 'maria.silva@gmail.com',
-      phone: '(21) 99888-7766',
-      cpf: '987.654.321-99',
-      address: 'Rua das Flores, 123 - Rio de Janeiro/RJ',
-      purchasesCount: 3,
-      totalSpent: 2430.50,
-      lastPurchase: '2026-07-09'
-    },
-    {
-      id: 'c3',
-      name: 'Carlos Santos',
-      email: 'carlos.s@yahoo.com',
-      phone: '(31) 98877-6655',
-      cpf: '456.789.123-11',
-      address: 'Av. Afonso Pena, 500 - Belo Horizonte/MG',
-      purchasesCount: 1,
-      totalSpent: 249.90,
-      lastPurchase: '2026-07-08'
-    },
-    {
-      id: 'c4',
-      name: 'Ana Oliveira',
-      email: 'ana.oliveira@outlook.com',
-      phone: '(41) 97766-5544',
-      cpf: '321.654.987-88',
-      address: 'Rua XV de Novembro, 800 - Curitiba/PR',
-      purchasesCount: 8,
-      totalSpent: 4210.00,
-      lastPurchase: '2026-07-07'
-    }
-  ]);
+  private demoStorage = inject(DemoStorageService);
+
+  searchQuery = signal<string>('');
+
+  /**
+   * Lista reativa de clientes conectada ao DemoStorageService,
+   * atualizada dinamicamente a cada compra realizada na loja.
+   */
+  customers = computed<DemoCustomer[]>(() => {
+    const query = this.searchQuery().toLowerCase().trim();
+    const list = this.demoStorage.customers();
+    if (!query) return list;
+
+    return list.filter(c =>
+      (c.name && c.name.toLowerCase().includes(query)) ||
+      (c.email && c.email.toLowerCase().includes(query)) ||
+      (c.cpf && c.cpf.includes(query)) ||
+      (c.phone && c.phone.includes(query)) ||
+      (c.address && c.address.toLowerCase().includes(query))
+    );
+  });
 }
