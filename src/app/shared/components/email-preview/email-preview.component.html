@@ -17,7 +17,7 @@
             type="button"
             class="vp-btn"
             [class.active]="viewport() === 'desktop'"
-            (click)="viewport.set('desktop')"
+            (click)="setViewport('desktop')"
             title="Visualização Desktop"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -31,7 +31,7 @@
             type="button"
             class="vp-btn"
             [class.active]="viewport() === 'mobile'"
-            (click)="viewport.set('mobile')"
+            (click)="setViewport('mobile')"
             title="Visualização Celular"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +52,7 @@
         type="button"
         class="tab-btn"
         [class.active]="activeTab() === 'order_created'"
-        (click)="activeTab.set('order_created')"
+        (click)="selectTab('order_created')"
       >
         <span class="tab-emoji">🛍️</span>
         <span class="tab-text">1. Pedido Criado</span>
@@ -62,7 +62,7 @@
         type="button"
         class="tab-btn"
         [class.active]="activeTab() === 'payment_confirmed'"
-        (click)="activeTab.set('payment_confirmed')"
+        (click)="selectTab('payment_confirmed')"
       >
         <span class="tab-emoji">🎉</span>
         <span class="tab-text">2. Pagamento Confirmado</span>
@@ -72,7 +72,7 @@
         type="button"
         class="tab-btn"
         [class.active]="activeTab() === 'order_shipped'"
-        (click)="activeTab.set('order_shipped')"
+        (click)="selectTab('order_shipped')"
       >
         <span class="tab-emoji">📦</span>
         <span class="tab-text">3. Pedido Enviado</span>
@@ -82,7 +82,7 @@
         type="button"
         class="tab-btn"
         [class.active]="activeTab() === 'order_delivered'"
-        (click)="activeTab.set('order_delivered')"
+        (click)="selectTab('order_delivered')"
       >
         <span class="tab-emoji">✨</span>
         <span class="tab-text">4. Pedido Entregue</span>

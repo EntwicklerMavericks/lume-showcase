@@ -221,4 +221,20 @@ export class EmailPreviewComponent {
       this.close.emit();
     }
   }
+
+  selectTab(tab: EmailType) {
+    this.activeTab.set(tab);
+    setTimeout(() => {
+      const el = document.querySelector('.email-preview-scroll-wrapper');
+      if (el) el.scrollTop = 0;
+    }, 10);
+  }
+
+  setViewport(vp: 'desktop' | 'mobile') {
+    this.viewport.set(vp);
+    setTimeout(() => {
+      const el = document.querySelector('.email-preview-scroll-wrapper');
+      if (el) el.scrollTop = 0;
+    }, 10);
+  }
 }
