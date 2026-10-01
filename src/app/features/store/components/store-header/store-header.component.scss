@@ -637,6 +637,44 @@
       padding-top: 1.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
 
+      .mobile-reset-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: rgba(244, 63, 94, 0.08);
+        border: 1px solid rgba(244, 63, 94, 0.35);
+        color: #fb7185;
+        padding: 0.85rem;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        cursor: pointer;
+        margin-bottom: 0.75rem;
+        transition: all 0.2s ease;
+
+        svg {
+          flex-shrink: 0;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover {
+          background: rgba(244, 63, 94, 0.2);
+          border-color: #f43f5e;
+          color: #ffffff;
+
+          svg {
+            transform: rotate(-180deg);
+          }
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+
       .mobile-whatsapp-btn {
         width: 100%;
         display: flex;

@@ -369,16 +369,15 @@ export class DemoStorageService {
   }
 
   /**
-   * Restaura todos os dados da demonstração para o padrão original (Lume Oficial).
+   * Restaura completamente a loja e limpa todos os dados de simulação (carrinho, branding, temas, pedidos, etc.)
    */
-  resetToDefaults(): void {
+  resetEntireStore(redirectHome: boolean = true): void {
     if (this.isBrowser()) {
-      localStorage.removeItem(STORAGE_THEME_ID);
-      localStorage.removeItem(STORAGE_CUSTOM_BRAND);
-      localStorage.removeItem(STORAGE_PRODUCTS);
-      localStorage.removeItem(STORAGE_CATEGORIES);
-      localStorage.removeItem(STORAGE_ORDERS);
-      localStorage.removeItem(STORAGE_CUSTOMERS);
+      try {
+        localStorage.clear();
+      } catch (e) {
+        console.warn('Erro ao limpar localStorage:', e);
+      }
     }
 
     const defaultTheme = DEMO_THEMES['lume'];
@@ -390,13 +389,39 @@ export class DemoStorageService {
     this.customers.set(DEFAULT_CUSTOMERS);
 
     if (this.isBrowser()) {
-      localStorage.setItem(STORAGE_THEME_ID, 'lume');
-      localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(defaultTheme.categories));
-      localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(defaultTheme.products));
-      localStorage.setItem('lume_demo_catalog_version', 'v8_all_6_stores_bespoke_studio_2026');
+      try {
+        localStorage.setItem(STORAGE_THEME_ID, 'lume');
+        localStorage.setItem(STORAGE_CATEGORIES, JSON.stringify(defaultTheme.categories));
+        localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(defaultTheme.products));
+        localStorage.setItem('lume_demo_catalog_version', 'v8_all_6_stores_bespoke_studio_2026');
+        localStorage.setItem(STORAGE_ORDERS, JSON.stringify(DEFAULT_ORDERS));
+        localStorage.setItem(STORAGE_CUSTOMERS, JSON.stringify(DEFAULT_CUSTOMERS));
+        localStorage.setItem('lume_showcase_token', 'demo_jwt_token_customer');
+        localStorage.setItem('lume_showcase_user', JSON.stringify({
+          id: 'usr-customer-demo',
+          name: 'Ana Carolina Santos',
+          email: 'ana.santos@email.com',
+          role: 'CUSTOMER',
+          phone: '(11) 98765-4321',
+          avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100'
+        }));
+      } catch (e) {
+        // ignore
+      }
     }
 
     this.applyActiveThemeStyles();
+
+    if (redirectHome && this.isBrowser()) {
+      window.location.href = '/';
+    }
+  }
+
+  /**
+   * Restaura todos os dados da demonstração para o padrão original (Lume Oficial).
+   */
+  resetToDefaults(): void {
+    this.resetEntireStore(false);
   }
 
   // ==========================================

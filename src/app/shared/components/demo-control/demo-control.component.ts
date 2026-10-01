@@ -107,10 +107,8 @@ export class DemoControlComponent {
   }
 
   resetDefaults(): void {
-    if (confirm('Deseja realmente restaurar todos os dados e o catálogo para o padrão original da demonstração?')) {
-      this.demoStorage.resetToDefaults();
-      this.syncFormWithConfig();
-      this.notify('Demonstração restaurada com sucesso!');
+    if (confirm('Deseja realmente limpar todos os dados, esvaziar o carrinho e restaurar a loja para o padrão original da demonstração?')) {
+      this.demoStorage.resetEntireStore(true);
     }
   }
 

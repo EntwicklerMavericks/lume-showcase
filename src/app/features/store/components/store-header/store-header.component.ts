@@ -52,4 +52,11 @@ export class StoreHeaderComponent {
     this.closeMobileMenu();
     this.authService.logout('/');
   }
+
+  resetDemoStore() {
+    if (confirm('Deseja realmente limpar todos os dados, esvaziar o carrinho e resetar a loja para a demonstração original?')) {
+      this.closeMobileMenu();
+      this.demoStorage.resetEntireStore(true);
+    }
+  }
 }

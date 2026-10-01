@@ -29,5 +29,11 @@ export class StoreFooterComponent {
     const c = this.demoStorage.activeConfig();
     return `https://wa.me/${c.whatsappNumber}?text=${encodeURIComponent(`Olá! Vim pelo site da ${c.name} e gostaria de falar com um atendente sobre o catálogo e pedidos.`)}`;
   }
+
+  resetDemoStore(): void {
+    if (confirm('Deseja realmente limpar todos os dados, esvaziar o carrinho e resetar a loja para a demonstração original?')) {
+      this.demoStorage.resetEntireStore(true);
+    }
+  }
 }
 
