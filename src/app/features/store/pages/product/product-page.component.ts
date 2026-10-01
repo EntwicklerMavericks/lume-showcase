@@ -6,6 +6,7 @@ import { CartService } from '../../../../core/services/cart.service';
 import { WhatsappService } from '../../../../core/services/whatsapp.service';
 import { SeoService } from '../../../../core/services/seo.service';
 import { DemoStorageService } from '../../../../core/services/demo-storage.service';
+import { ShippingOption, ShippingService } from '../../../../core/services/shipping.service';
 import { Product, ProductColor } from '../../../../core/models/store.models';
 
 @Component({
@@ -23,6 +24,7 @@ export class ProductPageComponent implements OnInit {
   private whatsappService = inject(WhatsappService);
   private seoService = inject(SeoService);
   private demoStorage = inject(DemoStorageService);
+  shippingService = inject(ShippingService);
 
   get storeConfig() {
     return this.demoStorage.activeConfig();
@@ -33,6 +35,13 @@ export class ProductPageComponent implements OnInit {
   selectedSize = signal<string | null>(null);
   selectedColor = signal<string | null>(null);
   quantity = signal(1);
+
+  // Frete no Produto
+  shippingCep = signal('');
+  shippingError = signal<string | null>(null);
+  isCalculatingShipping = this.shippingService.isCalculating;
+  shippingResult = this.shippingService.lastResult;
+  selectedShipping = this.shippingService.selectedOption;
 
   // Estados de UX e Feedback
   attemptedSubmit = signal(false);
@@ -122,6 +131,33 @@ export class ProductPageComponent implements OnInit {
     if (this.quantity() > 1) {
       this.quantity.update(q => q - 1);
     }
+  }
+
+  onShippingCepInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let v = input.value.replace(/\D/g, '').slice(0, 8);
+    if (v.length > 5) v = v.replace(/(\d{5})(\d{1,3})/, '$1-$2');
+    this.shippingCep.set(v);
+    this.shippingError.set(null);
+  }
+
+  calculateShipping(): void {
+    const clean = this.shippingCep().replace(/\D/g, '');
+    if (clean.length !== 8) {
+      this.shippingError.set('Por favor, informe um CEP válido com 8 dígitos.');
+      return;
+    }
+    this.shippingError.set(null);
+    const price = this.currentPrice() * this.quantity();
+    this.shippingService.calculate(clean, price).subscribe({
+      error: (err) => {
+        this.shippingError.set(err?.error?.message || 'Não foi possível cotar o frete para este CEP.');
+      }
+    });
+  }
+
+  selectShipping(opt: ShippingOption): void {
+    this.shippingService.selectOption(opt);
   }
 
   toggleAccordion(section: 'details' | 'care' | 'shipping') {

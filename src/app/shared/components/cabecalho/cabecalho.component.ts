@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { DemoStorageService } from '../../../core/services/demo-storage.service';
@@ -11,6 +11,8 @@ import { DemoStorageService } from '../../../core/services/demo-storage.service'
   styleUrl: './cabecalho.component.scss'
 })
 export class CabecalhoComponent {
+  @Output() menuToggle = new EventEmitter<void>();
+
   private authService = inject(AuthService);
   private demoStorage = inject(DemoStorageService);
   private router = inject(Router);
