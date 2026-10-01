@@ -8,6 +8,7 @@ import { SeoService } from '../../../../core/services/seo.service';
 import { CartItem, ShippingOption } from '../../../../core/models/store.models';
 import { DemoStorageService } from '../../../../core/services/demo-storage.service';
 import { ShippingService } from '../../../../core/services/shipping.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -18,6 +19,7 @@ import { ShippingService } from '../../../../core/services/shipping.service';
 })
 export class CartPageComponent implements OnInit {
   private cartService = inject(CartService);
+  private authService = inject(AuthService);
   private whatsappService = inject(WhatsappService);
   private seoService = inject(SeoService);
   private demoStorage = inject(DemoStorageService);
@@ -102,7 +104,11 @@ export class CartPageComponent implements OnInit {
 
   goToCheckout() {
     if (this.isEmpty()) return;
-    this.router.navigate(['/checkout']);
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/checkout']);
+    } else {
+      this.router.navigate(['/conta/login'], { queryParams: { returnUrl: '/checkout' } });
+    }
   }
 
   checkoutViaWhatsApp() {

@@ -7,6 +7,7 @@ import { WhatsappService } from '../../../../core/services/whatsapp.service';
 import { SeoService } from '../../../../core/services/seo.service';
 import { DemoStorageService } from '../../../../core/services/demo-storage.service';
 import { ShippingOption, ShippingService } from '../../../../core/services/shipping.service';
+import { AuthService } from '../../../../core/services/auth.service';
 import { Product, ProductColor } from '../../../../core/models/store.models';
 
 @Component({
@@ -21,6 +22,7 @@ export class ProductPageComponent implements OnInit {
   private router = inject(Router);
   private storeService = inject(StoreService);
   private cartService = inject(CartService);
+  private authService = inject(AuthService);
   private whatsappService = inject(WhatsappService);
   private seoService = inject(SeoService);
   private demoStorage = inject(DemoStorageService);
@@ -202,7 +204,11 @@ export class ProductPageComponent implements OnInit {
       this.selectedColor() || undefined
     );
 
-    this.router.navigate(['/checkout']);
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/checkout']);
+    } else {
+      this.router.navigate(['/conta/login'], { queryParams: { returnUrl: '/checkout' } });
+    }
   }
 
   closeToast() {
