@@ -20,6 +20,7 @@ export class StoreHeaderComponent {
 
   categories = this.storeService.categories;
   isMobileMenuOpen = signal(false);
+  isAccountMenuOpen = signal(false);
 
   get storeConfig() {
     return this.demoStorage.activeConfig();
@@ -36,5 +37,19 @@ export class StoreHeaderComponent {
 
   closeMobileMenu() {
     this.isMobileMenuOpen.set(false);
+  }
+
+  toggleAccountMenu() {
+    this.isAccountMenuOpen.update(val => !val);
+  }
+
+  closeAccountMenu() {
+    this.isAccountMenuOpen.set(false);
+  }
+
+  logout() {
+    this.closeAccountMenu();
+    this.closeMobileMenu();
+    this.authService.logout('/');
   }
 }

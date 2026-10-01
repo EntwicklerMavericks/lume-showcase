@@ -1,15 +1,24 @@
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { computed, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { LoginRequest, LoginResponse, RegisterRequest, User } from '../models/auth.models';
 
-const DEMO_USER: User = {
+const DEMO_ADMIN: User = {
   id: 'usr-admin-demo',
   name: 'Vendedor Lume',
   email: 'admin@lumestore.com.br',
   role: 'ADMIN',
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100'
+};
+
+const DEMO_CUSTOMER: User = {
+  id: 'usr-customer-demo',
+  name: 'Ana Carolina Santos',
+  email: 'ana.santos@email.com',
+  role: 'CUSTOMER',
+  phone: '(11) 98765-4321',
+  avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100'
 };
 
 const TOKEN_KEY = 'lume_showcase_token';
@@ -22,18 +31,31 @@ export class AuthService {
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
 
-  // Modern Angular Signals for reactive state
-  public currentUser = signal<User | null>(DEMO_USER);
-  public token = signal<string | null>('demo_jwt_token_lume_showcase');
+  public currentUser = signal<User | null>(DEMO_CUSTOMER);
+  public token = signal<string | null>('demo_jwt_token_customer');
   public isAuth = signal<boolean>(true);
+
+  public isAdmin = computed(() => this.currentUser()?.role === 'ADMIN');
+  public isCustomer = computed(() => this.currentUser()?.role === 'CUSTOMER' || (this.isAuth() && this.currentUser()?.role !== 'ADMIN'));
+  public firstName = computed(() => {
+    const name = this.currentUser()?.name;
+    if (!name) return 'Minha Conta';
+    return name.split(' ')[0];
+  });
+  public userInitials = computed(() => {
+    const name = this.currentUser()?.name;
+    if (!name) return 'U';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return parts[0][0].toUpperCase();
+  });
 
   constructor() {
     this.initializeAuthState();
   }
 
-  /**
-   * Initializes state from localStorage if running in browser
-   */
   private initializeAuthState(): void {
     if (isPlatformBrowser(this.platformId)) {
       const savedToken = localStorage.getItem(TOKEN_KEY);
@@ -46,26 +68,27 @@ export class AuthService {
           this.isAuth.set(true);
           return;
         } catch (e) {
-          // fallback to demo user
+          // fallback
         }
       }
 
-      // Por padrão em modo demonstração, já deixa logado como ADMIN para facilitar a apresentação
-      this.token.set('demo_jwt_token_lume_showcase');
-      this.currentUser.set(DEMO_USER);
+      // Por padrão na vitrine, define como cliente logado para demonstrar o recurso de Meus Pedidos
+      this.token.set('demo_jwt_token_customer');
+      this.currentUser.set(DEMO_CUSTOMER);
       this.isAuth.set(true);
-      localStorage.setItem(TOKEN_KEY, 'demo_jwt_token_lume_showcase');
-      localStorage.setItem(USER_KEY, JSON.stringify(DEMO_USER));
+      localStorage.setItem(TOKEN_KEY, 'demo_jwt_token_customer');
+      localStorage.setItem(USER_KEY, JSON.stringify(DEMO_CUSTOMER));
     }
   }
 
-  /**
-   * Login instantâneo sem rede
-   */
   login(credentials: LoginRequest): Observable<LoginResponse> {
+    const isAdmin = credentials.email.includes('admin');
     const user: User = {
-      ...DEMO_USER,
-      email: credentials.email || DEMO_USER.email
+      id: 'usr-' + Date.now(),
+      name: isAdmin ? 'Administrador Lume' : (credentials.email.split('@')[0] || 'Cliente Lume'),
+      email: credentials.email,
+      role: isAdmin ? 'ADMIN' : 'CUSTOMER',
+      avatar: isAdmin ? DEMO_ADMIN.avatar : DEMO_CUSTOMER.avatar,
     };
 
     const response: LoginResponse = {
@@ -78,53 +101,67 @@ export class AuthService {
     return of(response);
   }
 
-  /**
-   * Registro instantâneo
-   */
-  register(userData: RegisterRequest): Observable<any> {
-    return of({
-      message: 'Usuário cadastrado com sucesso!',
-      user: {
-        id: 'usr-' + Date.now(),
-        name: userData.name,
-        email: userData.email,
-        role: 'ADMIN'
-      }
-    });
+  loginWithGoogle(credential?: string): Observable<LoginResponse> {
+    const user: User = {
+      id: 'usr-google-' + Date.now(),
+      name: 'Cliente Google',
+      email: 'cliente.google@gmail.com',
+      role: 'CUSTOMER',
+      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+    };
+
+    const response: LoginResponse = {
+      accessToken: 'demo_google_token_' + Date.now(),
+      refreshToken: 'demo_google_refresh_' + Date.now(),
+      user
+    };
+
+    this.saveSession(response);
+    return of(response);
   }
 
-  /**
-   * Recuperação de senha instantânea
-   */
+  register(userData: RegisterRequest): Observable<any> {
+    const user: User = {
+      id: 'usr-' + Date.now(),
+      name: userData.name,
+      email: userData.email,
+      role: 'CUSTOMER',
+    };
+
+    const response: LoginResponse = {
+      accessToken: 'demo_token_' + Date.now(),
+      refreshToken: 'demo_refresh_' + Date.now(),
+      user
+    };
+
+    this.saveSession(response);
+    return of({ message: 'Cadastro realizado com sucesso!', user });
+  }
+
   forgotPassword(email: string): Observable<any> {
     return of({ message: `Instruções de recuperação enviadas para ${email}.` });
   }
 
-  /**
-   * Clear auth state and redirect to login
-   */
-  logout(): void {
+  logout(redirectUrl?: string): void {
+    const wasAdmin = this.currentUser()?.role === 'ADMIN';
     this.clearSession();
-    this.router.navigate(['/login']);
+    if (redirectUrl) {
+      this.router.navigate([redirectUrl]);
+    } else if (!wasAdmin) {
+      this.router.navigate(['/']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
-  /**
-   * Checks if user is authenticated
-   */
   isAuthenticated(): boolean {
     return this.isAuth();
   }
 
-  /**
-   * Retrieves access token
-   */
   getToken(): string | null {
     return this.token();
   }
 
-  /**
-   * Saves credentials in localStorage and updates signals
-   */
   private saveSession(response: LoginResponse): void {
     this.token.set(response.accessToken);
     this.currentUser.set(response.user);
@@ -136,9 +173,6 @@ export class AuthService {
     }
   }
 
-  /**
-   * Clears state from signals and localStorage
-   */
   private clearSession(): void {
     this.token.set(null);
     this.currentUser.set(null);
