@@ -1,21 +1,30 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
 .checkout-page {
   min-height: 80vh;
   padding: 2.5rem 1.5rem 5rem;
   background: var(--background);
   color: var(--text-primary);
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
 
   @media (max-width: 640px) {
-    padding: 1.25rem 0.85rem 3.5rem;
+    padding: 1rem 0.75rem 3rem;
   }
 
   .checkout-container {
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
   }
 }
@@ -84,12 +93,16 @@
 
 .checkout-grid {
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: minmax(0, 1fr) 380px;
   gap: 2.5rem;
   align-items: start;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 992px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
   }
 }
 
@@ -97,6 +110,10 @@
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .checkout-section {
@@ -109,10 +126,11 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   overflow: hidden;
 
   @media (max-width: 640px) {
-    padding: 1.15rem 0.85rem;
+    padding: 1rem 0.75rem;
     border-radius: 10px;
   }
 
@@ -158,13 +176,13 @@
 
 .form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.25rem;
   width: 100%;
   box-sizing: border-box;
 
   @media (max-width: 600px) {
-    grid-template-columns: 100%;
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
   }
 
@@ -176,6 +194,7 @@
   .cep-group {
     grid-column: span 1;
     min-width: 0;
+    width: 100%;
 
     .cep-label-wrapper {
       display: flex;
@@ -185,17 +204,19 @@
       gap: 0.35rem;
       margin-bottom: 0.2rem;
       min-width: 0;
+      width: 100%;
 
       .cep-badge {
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         color: var(--primary);
         background: rgba(204, 164, 94, 0.1);
         border: 1px solid rgba(204, 164, 94, 0.25);
-        padding: 0.15rem 0.45rem;
+        padding: 0.15rem 0.4rem;
         border-radius: 4px;
         font-weight: 600;
         letter-spacing: 0.02em;
-        white-space: nowrap;
+        white-space: normal;
+        word-break: break-word;
       }
     }
 
@@ -206,7 +227,7 @@
       min-width: 0;
       box-sizing: border-box;
 
-      @media (max-width: 480px) {
+      @media (max-width: 520px) {
         flex-direction: column;
         gap: 0.5rem;
 
@@ -220,6 +241,7 @@
       .input-with-loader {
         flex: 1;
         min-width: 0;
+        width: 100%;
         position: relative;
 
         .form-control {
@@ -246,6 +268,7 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
+        box-sizing: border-box;
 
         &:hover:not(:disabled) {
           filter: brightness(1.1);
@@ -485,12 +508,15 @@
 /* Payment Tabs */
 .payment-tabs {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1rem;
   margin-bottom: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: 600px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
   }
 }
 
@@ -507,6 +533,14 @@
   cursor: pointer;
   text-align: left;
   transition: all 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+
+  @media (max-width: 480px) {
+    padding: 0.85rem 0.75rem;
+    gap: 0.75rem;
+  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
@@ -602,6 +636,9 @@
 .checkout-sidebar {
   position: sticky;
   top: 2rem;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 
   .order-summary-card {
     background: rgba(255, 255, 255, 0.02);
@@ -609,6 +646,14 @@
     border-radius: 12px;
     padding: 1.75rem;
     backdrop-filter: blur(12px);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    @media (max-width: 640px) {
+      padding: 1rem 0.75rem;
+      border-radius: 10px;
+    }
 
     .summary-card-title {
       font-size: 1.15rem;
@@ -806,8 +851,9 @@
   width: 100%;
   max-width: 100%;
 
-  @media (max-width: 640px) {
-    padding: 1.15rem 0.85rem;
+  /* No mobile deve ter apenas 1 botão de pagamento (no final, dentro do Resumo da Compra). No web exibe ambos. */
+  @media (max-width: 992px) {
+    display: none !important;
   }
 
   .bottom-action-header {
@@ -1117,39 +1163,60 @@
 
 .checkout-shipping-block {
   margin-top: 1.5rem;
-  padding: 1.25rem;
+  padding: 1.15rem 0.85rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+
+  @media (max-width: 640px) {
+    padding: 0.85rem 0.65rem;
+  }
 
   .shipping-block-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
+    width: 100%;
+    min-width: 0;
 
     .shipping-block-label {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
+
+      span {
+        word-break: break-word;
+        min-width: 0;
+      }
 
       .truck-icon {
         color: var(--primary);
+        flex-shrink: 0;
       }
     }
 
     .shipping-origin-tag {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-secondary);
       background: rgba(255, 255, 255, 0.04);
-      padding: 0.2rem 0.5rem;
+      padding: 0.2rem 0.45rem;
       border-radius: 4px;
       border: 1px solid rgba(255, 255, 255, 0.08);
+      white-space: normal;
+      word-break: break-word;
     }
   }
 
@@ -1157,9 +1224,17 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 1rem;
+    padding: 0.75rem;
     color: var(--text-secondary);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
+    span {
+      word-break: break-word;
+      min-width: 0;
+    }
   }
 
   .checkout-free-shipping-tag {
@@ -1170,31 +1245,41 @@
     border-radius: 4px;
     font-size: 0.82rem;
     margin-bottom: 0.85rem;
+    word-break: break-word;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
   }
 
   .shipping-options-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 0.85rem;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 
     @media (max-width: 600px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .checkout-shipping-card {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      padding: 0.9rem 1rem;
+      gap: 0.65rem;
+      padding: 0.85rem 0.75rem;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.2s;
       box-sizing: border-box;
+      width: 100%;
+      min-width: 0;
 
       @media (max-width: 480px) {
-        padding: 0.75rem 0.85rem;
+        padding: 0.75rem 0.65rem;
 
         .co-shipping-label {
           flex-wrap: wrap;
@@ -1207,6 +1292,7 @@
         width: 16px;
         height: 16px;
         cursor: pointer;
+        flex-shrink: 0;
       }
 
       .co-shipping-label {
@@ -1216,20 +1302,24 @@
         flex: 1;
         cursor: pointer;
         gap: 0.5rem;
+        min-width: 0;
       }
 
       .co-shipping-desc {
         display: flex;
         flex-direction: column;
         gap: 0.15rem;
+        min-width: 0;
+        flex: 1;
 
         .co-shipping-name {
-          font-size: 0.875rem;
+          font-size: 0.82rem;
           color: var(--text-primary);
+          word-break: break-word;
         }
 
         .co-shipping-deadline {
-          font-size: 0.72rem;
+          font-size: 0.7rem;
           color: var(--text-secondary);
         }
       }
@@ -1239,15 +1329,16 @@
         flex-direction: column;
         align-items: flex-end;
         gap: 0.1rem;
+        flex-shrink: 0;
 
         .co-free-badge {
           color: #10b981;
           font-weight: 700;
-          font-size: 0.875rem;
+          font-size: 0.82rem;
         }
 
         .co-crossed-price {
-          font-size: 0.7rem;
+          font-size: 0.68rem;
           color: var(--text-muted);
           text-decoration: line-through;
         }
@@ -1255,7 +1346,7 @@
         .co-price {
           color: var(--primary);
           font-weight: 700;
-          font-size: 0.95rem;
+          font-size: 0.875rem;
         }
       }
 
@@ -1276,12 +1367,22 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.85rem;
+    padding: 0.75rem 0.85rem;
     background: rgba(255, 255, 255, 0.02);
     border: 1px dashed rgba(255, 255, 255, 0.15);
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--text-secondary);
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+
+    span {
+      word-break: break-word;
+      min-width: 0;
+      flex: 1;
+    }
 
     svg {
       color: var(--primary);
