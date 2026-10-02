@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="public/images/lume-logo.png" alt="Lume Showcase Logo" width="140" />
+  <img src="public/images/lume-logo.png" alt="Lume Showcase Logo" width="160" />
 
   # ⚡ LUME SHOWCASE
   ### *Plataforma Comercial de Demonstração de Alta Conversão para E-Commerce de Moda*
@@ -14,18 +14,25 @@
 
   <br />
 
+  > ### 🌐 **[👉 ACESSAR DEMONSTRAÇÃO AO VIVO: lume-showcase.pages.dev 👈](https://lume-showcase.pages.dev)**
+  > *Aplicação SPA 100% client-side hospedada na CDN global da Cloudflare. Sem servidor, sem banco de dados, sem risco de lentidão.*
+
+  <br />
+
   <p align="center">
-    <strong>Aplicação SPA autônoma desenvolvida para equipes comerciais e executivos de vendas apresentarem a tecnologia Lume a donos de marcas de moda com personalização em tempo real, estabilidade absoluta e fechamento de alto impacto.</strong>
+    <strong>Aplicação SPA autônoma desenvolvida para equipes comerciais e executivos de vendas apresentarem a tecnologia Lume a donos de marcas de moda com personalização visual ao vivo, estabilidade de 100% e fechamento de alto impacto.</strong>
   </p>
 
   <p align="center">
     <a href="#-visão-geral">Visão Geral</a> •
+    <a href="#-arquitetura-zero-backend">Arquitetura</a> •
     <a href="#-principais-recursos">Recursos</a> •
-    <a href="#-nichos-nativos-de-moda">Nichos de Moda</a> •
+    <a href="#-os-6-nichos-nativos-de-moda">Nichos de Moda</a> •
     <a href="#-pitch-mode-personalização-ao-vivo">Pitch Mode</a> •
-    <a href="#-limpeza-e-reset-em-1-toque">Reset Rápido</a> •
-    <a href="#-arquitetura-e-pastas">Arquitetura</a> •
-    <a href="#-execução-e-deploy">Execução & Deploy</a>
+    <a href="#-reset-em-1-toque">Reset Rápido</a> •
+    <a href="#-estrutura-de-pastas">Pastas</a> •
+    <a href="#-execução-e-deploy">Execução</a> •
+    <a href="#-desenvolvedor--contato-comercial">Contato</a>
   </p>
 
   <br />
@@ -36,85 +43,115 @@
 
 ## 📌 Visão Geral
 
-O **Lume Showcase** é a versão de demonstração comercial interativa da plataforma Lume. Criado para resolver os desafios clássicos de vendas de software para varejistas de moda (quedas de servidor, lentidão em conexões 4G/5G, complexidade de banco de dados e necessidade de demonstrar a marca do próprio cliente durante a conversa).
+O **Lume Showcase** é a versão de demonstração comercial interativa da plataforma Lume. Criado especialmente para resolver os maiores gargalos de vendas de software para o varejo de moda:
 
-Toda a infraestrutura roda **100% no navegador (Client-Side SPA)** com armazenamento reativo em `LocalStorage`, simulando perfeitamente a experiência completa de uma loja virtual e painel de controle administrativo profissional sem exigir qualquer servidor ou banco de dados conectado.
+- ❌ **Sem quedas de servidor:** Funciona 100% no navegador do cliente ou do vendedor.
+- ❌ **Sem lentidão por conexão móvel:** Catálogos e fotos otimizadas carregadas localmente na memória do browser.
+- ❌ **Sem complexidade de infraestrutura:** Não requer Docker, PostgreSQL/MySQL ou servidor Node.js ativo para rodar.
+- ✅ **Personalização em Tempo Real:** Mude o nome da marca, cores e logo durante a própria reunião presencial ou call online com o prospect.
+
+---
+
+## 📐 Arquitetura Zero-Backend
+
+Toda a persistência e inteligência da aplicação rodam no navegador com reatividade via **Angular Signals** e **LocalStorage**:
+
+```mermaid
+flowchart LR
+    subgraph Browser["🖥️ Navegador do Usuário / PWA"]
+        direction TB
+        UI["Vitrine de Moda / Storefront<br/><b>Angular 20 Standalone</b>"]
+        DOCK["Dock de Pitch Comercial<br/><b>DemoControlComponent</b>"]
+        ENGINE["Motor de Temas Dinâmicos<br/><b>CSS Variables Engine</b>"]
+        STORAGE[("Demo Storage<br/>LocalStorage Reativo")]
+    end
+
+    subgraph External["📲 Fechamento Comercial"]
+        WA["WhatsApp do Lojista<br/><b>Mensagem Estruturada</b>"]
+        GOOGLE["Google OAuth<br/><b>Botão Dinâmico</b>"]
+    end
+
+    DOCK -->|Altera cores / nome / WhatsApp| STORAGE
+    STORAGE -->|Atualiza variáveis CSS| ENGINE
+    ENGINE -->|Injeta estilos em tempo real| UI
+    UI -->|Finaliza pedido de teste| WA
+    UI -->|Autenticação| GOOGLE
+```
 
 ---
 
 ## ✨ Principais Recursos
 
 ### 🛍️ Vitrine Pública de Alta Conversão
-- **Design System Dark Luxury & High-End:** Interface sofisticada com paleta dark obsidian, microinterações fluidas e tipografia editorial de alta legibilidade.
+- **Design System Dark Luxury & High-End:** Interface imersiva com paleta dark obsidian, contrastes refinados e tipografia editorial de alta legibilidade.
 - **Navegação Mobile-First & Desktop:** Header com drawer lateral intuitivo para celular, busca instantânea e categorias dinâmicas.
 - **Página de Produto (PDP) Detalhada:** Seletor de variações de cor e tamanho, acordeões de composição e caimento, e botão de compra rápida.
 - **Sacola & Checkout Otimizado:**
   - Layout responsivo no celular com botão único de pagamento para evitar poluição visual.
   - Simulador de frete integrado (cálculo instantâneo PAC e SEDEX).
-  - Fechamento flexível com envio estruturado de pedidos para o WhatsApp.
+  - Fechamento flexível com envio estruturado de pedidos para o WhatsApp do prospect.
 - **Área do Cliente com Login Dinâmico:**
   - Login tradicional e autenticação com Google.
   - **Botão e ícone oficial do Google com estilização dinâmica**, sincronizados instantaneamente à paleta de cores da marca ativa.
   - Central de pedidos com consulta detalhada e acompanhamento de status em tempo real.
 
 ### ⚙️ Painel de Controle Administrativo (ERP Demonstrativo)
-- **Gestão de Produtos:** Cadastro, edição, precificação, inativação e fotos.
-- **📸 Captura com Câmera do Dispositivo:** Tire uma foto na hora durante a reunião presencial para cadastrar uma peça de roupa do próprio cliente e vê-la imediatamente na vitrine pública.
+- **Gestão de Produtos:** Cadastro, edição, precificação, inativação e fotos com compressão no cliente.
+- **📸 Captura com Câmera do Dispositivo:** Tire uma foto na hora durante a reunião presencial para cadastrar uma peça de roupa do próprio prospect e vê-la imediatamente na vitrine pública.
 - **Gestão de Categorias:** Organização flexível com reflexo imediato nos menus de navegação.
-- **Gestão de Pedidos:** Acompanhamento de pedidos de teste com alteração de status (Pendente, Pago, Em Separação, Enviado, Entregue).
-- **Base de Clientes:** Listagem de clientes com histórico de compras.
+- **Gestão de Pedidos:** Acompanhamento de pedidos de teste com alteração de status (*Pendente*, *Pago*, *Em Separação*, *Enviado*, *Entregue*).
+- **Base de Clientes:** Listagem de clientes demonstrativos com histórico de compras.
 
 ---
 
-## 🎨 Nichos Nativos de Moda (1-Click Switch)
+## 🎨 Os 6 Nichos Nativos de Moda
 
-O vendedor pode alternar instantaneamente entre nichos de mercado com um clique, carregando identidades visuais e catálogos completos:
+O vendedor pode alternar instantaneamente entre nichos de mercado com **1 clique**, carregando identidades visuais e catálogos completos:
 
-| Nicho | Estilo & Segmento | Identidade Visual |
-| :--- | :--- | :--- |
-| **Lume** *(Oficial)* | Futurewear & Tech Apparel | Preto Cyber `#080809` & Verde Neon `#0DF5A4` |
-| **Oliveira** | Moda Esportiva, Performance & Casual | Azul Marinho `#0A152E` & Dourado Nobre `#CCA45E` |
-| **Vortex** | Streetwear Heavyweight & Cultura Urbana | All-Black `#080809` & Vermelho Vibrante `#E63946` |
-| **Maré** | Resort, Linho Puro & Beachwear | Terracota Solar `#C15C3D` & Areia Natural |
-| **Terra Forte** | Moda Country, Western & Vaquejada | Couro Rústico `#140E0A` & Âmbar Dourado `#D97706` |
-| **Atelier Aura** | Alfaiataria Feminina & Luxo Minimalista | Grafite `#0E0E10` & Pérola Nobre `#F5F5F7` |
+| Nicho | Estilo & Segmento | Identidade Visual | Destaque |
+| :--- | :--- | :--- | :--- |
+| **⚡ Lume** *(Oficial)* | Futurewear & Tech Apparel | `Preto Cyber #080809` & `Verde Neon #0DF5A4` | Look futurista com tecidos tecnológicos |
+| **🏃 Oliveira** | Moda Esportiva, Performance & Casual | `Azul Marinho #0A152E` & `Dourado Nobre #CCA45E` | Atletas, academia e lifestyle esportivo |
+| **🛹 Vortex** | Streetwear Heavyweight & Cultura Urbana | `All-Black #080809` & `Vermelho Vibrante #E63946` | Oversized, capuz pesado e estética underground |
+| **🌊 Maré** | Resort, Linho Puro & Beachwear | `Terracota Solar #C15C3D` & `Areia Natural #E8DFD8` | Elegância praiana, linho orgânico e tons quentes |
+| **🤠 Terra Forte** | Moda Country, Western & Vaquejada | `Couro Rústico #140E0A` & `Âmbar Dourado #D97706` | Tradição sertaneja, fivelas e rusticidade nobre |
+| **🪡 Atelier Aura** | Alfaiataria Feminina & Luxo Minimalista | `Grafite #0E0E10` & `Pérola Nobre #F5F5F7` | Cortes precisos, alfaiataria fina e alta-costura |
 
 ---
 
 ## ⚡ Pitch Mode: Personalização ao Vivo
 
-Durante reuniões comerciais, o vendedor abre o dock flutuante (`DemoControlComponent`) e personaliza a loja na frente do cliente em segundos:
+Durante reuniões comerciais, o vendedor clica no ícone da varinha mágica flutuante e abre o dock de personalização (`DemoControlComponent`):
 
-1. **Nome da Marca:** Altere para o nome da loja do prospect (ex.: *"Camila Modas"*, *"Alpha Street"*).
-2. **Color Pickers em Tempo Real:** Modifique a cor primária, secundária e fundos — todos os botões, banners, tags e ícones (inclusive o botão do Google) atualizam no mesmo instante via variáveis CSS (`--primary`, `--surface`, etc.).
-3. **WhatsApp de Teste:** Insira o número do WhatsApp do cliente; ao finalizar um pedido de teste, o cliente recebe o pedido formatado direto no celular dele!
+1. **Nome da Marca:** Digite o nome da marca do cliente (ex.: *"Camila Modas"*, *"Black Skull"*). A loja inteira, cabeçalho, rodapé e títulos atualizam no milissegundo seguinte.
+2. **Color Pickers em Tempo Real:** Modifique a cor primária, secundária e fundos — todos os botões, banners, tags e ícones (inclusive o botão do Google) atualizam instantaneamente via variáveis CSS (`--primary`, `--surface`, `--header-bg`, etc.).
+3. **WhatsApp do Cliente:** Insira o WhatsApp do próprio prospect. Ao finalizar um pedido de teste na sacola, o cliente recebe o pedido estruturado direto no celular dele, vivenciando a experiência de compra do seu futuro e-commerce!
 
 ---
 
-## 🔄 Limpeza e Reset em 1 Toque
+## 🔄 Reset em 1 Toque
 
-Pensado especialmente para vendedores em trânsito que realizam múltiplos pitches por dia no smartphone:
+Pensado para representantes comerciais que realizam múltiplas reuniões por dia:
 
 - **1-Tap Wipe:** Limpa o carrinho de teste, descarta personalizações provisórias, zera dados de demonstração e restaura o catálogo oficial Lume.
-- **Recarregamento Automático:** Redireciona para a raiz (`/`) com a memória do navegador limpa para o próximo prospect.
 - **5 Pontos de Acesso Estratégicos:**
   1. *Botão Flutuante Rápido:* Posicionado acima da varinha mágica de demonstração em qualquer tela.
   2. *Menu Lateral Mobile (Drawer):* Botão destacado no rodapé da navegação no celular.
   3. *Cabeçalho do Painel Demo:* Botão rápido no topo do painel flutuante.
   4. *Rodapé do Painel Demo:* Botão expandido de restauração completa.
-  5. *Rodapé da Loja:* Link discreto de reset no fim da página.
+  5. *Rodapé da Loja:* Botão no rodapé da página.
 
 ---
 
-## 📁 Arquitetura e Pastas
+## 📁 Estrutura de Pastas
 
 ```text
 lume-showcase/
 ├── public/
 │   ├── images/
 │   │   ├── lume-logo.png              # Logo oficial Lume
-│   │   ├── hero-lume.jpg              # Banner da vitrine
-│   │   └── products/                  # Imagens locais por nicho de demonstração
+│   │   ├── hero-lume.jpg              # Banner principal da vitrine
+│   │   └── products/                  # Imagens por nicho de demonstração
 │   └── favicon.ico
 ├── src/
 │   ├── app/
@@ -159,9 +196,9 @@ npm install
 # Iniciar servidor local
 npm start
 # ou
-ng serve
+ng serve --port 4300
 ```
-Acesse no navegador: `http://localhost:4200`
+Acesse no navegador: `http://localhost:4300`
 
 ### 2. Gerar Build de Produção
 ```bash
@@ -169,12 +206,38 @@ npm run build
 ```
 O build estático ultra-otimizado será gerado no diretório `dist/lume-showcase/browser`.
 
-### 3. Hospedagem
+### 3. Hospedagem & CDN
 Como o projeto é 100% estático e não requer servidor backend, pode ser hospedado com custo zero em qualquer serviço de Edge CDN:
-- **Cloudflare Pages** *(Configuração ativa em `https://lume-showcase.pages.dev`)*
+- **Cloudflare Pages** *(Configuração ativa em [lume-showcase.pages.dev](https://lume-showcase.pages.dev))*
 - **Vercel**
 - **Netlify**
 - **GitHub Pages**
+
+---
+
+## 👨‍💻 Desenvolvedor & Contato Comercial
+
+Plataforma idealizada e desenvolvida por **Eduardo Theodoro**.
+
+<div align="center">
+
+  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Eduardo%20Theodoro-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/eduardot97)
+  [![WhatsApp](https://img.shields.io/badge/WhatsApp-Conversar%20no%20WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/5511961742713?text=Ol%C3%A1%20Eduardo,%20vim%20pelo%20Lume%20Showcase!)
+  [![E-mail 1](https://img.shields.io/badge/E--mail-entwicklermavericks%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:entwicklermavericks@gmail.com)
+  [![E-mail 2](https://img.shields.io/badge/E--mail-eduardotheodorofegit%40gmail.com-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:eduardotheodorofegit@gmail.com)
+
+</div>
+
+<br />
+
+| Canal | Informação / Link Direto |
+| :--- | :--- |
+| 👤 **Nome** | **Eduardo Theodoro** |
+| 💼 **LinkedIn** | [linkedin.com/in/eduardot97](https://www.linkedin.com/in/eduardot97) |
+| 📱 **WhatsApp** | [**+55 (11) 96174-2713**](https://wa.me/5511961742713?text=Ol%C3%A1%20Eduardo,%20vim%20pelo%20Lume%20Showcase!) |
+| 📧 **E-mail Principal** | [entwicklermavericks@gmail.com](mailto:entwicklermavericks@gmail.com) |
+| 📧 **E-mail Dev / Git** | [eduardotheodorofegit@gmail.com](mailto:eduardotheodorofegit@gmail.com) |
+| 🎯 **Foco de Atuação** | *Desenvolvimento Fullstack, Arquitetura SPA/Edge, Customizações White-Label & E-Commerce de Alta Performance* |
 
 ---
 
