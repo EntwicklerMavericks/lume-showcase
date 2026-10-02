@@ -138,8 +138,31 @@ export class AuthService {
     return of({ message: 'Cadastro realizado com sucesso!', user });
   }
 
+  private demoResetCode: string | null = null;
+
   forgotPassword(email: string): Observable<any> {
-    return of({ message: `Instruções de recuperação enviadas para ${email}.` });
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    this.demoResetCode = code;
+    return of({
+      success: true,
+      message: `Código de verificação enviado para ${email}.`,
+      demoCode: code,
+    });
+  }
+
+  verifyResetCode(email: string, code: string): Observable<any> {
+    const clean = code.replace(/\D/g, '').trim();
+    if (clean === '123456' || (this.demoResetCode && clean === this.demoResetCode) || clean.length === 6) {
+      return of({ valid: true, message: 'Código verificado com sucesso.' });
+    }
+    return of({ valid: false, message: 'Código de verificação incorreto.' });
+  }
+
+  resetPassword(data: { email: string; code: string; password: string }): Observable<any> {
+    return of({
+      success: true,
+      message: 'Senha redefinida com sucesso! Você já pode entrar com sua nova senha.',
+    });
   }
 
   updateProfile(profileData: { name?: string; phone?: string | null; avatar?: string | null }): Observable<User> {

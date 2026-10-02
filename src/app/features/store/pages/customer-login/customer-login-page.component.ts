@@ -1,9 +1,8 @@
-import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
-import { CartService } from '../../../../core/services/cart.service';
 
 @Component({
   selector: 'app-customer-login-page',
@@ -12,51 +11,203 @@ import { CartService } from '../../../../core/services/cart.service';
   templateUrl: './customer-login-page.component.html',
   styleUrls: ['./customer-login-page.component.scss']
 })
-export class CustomerLoginPageComponent implements OnInit {
+export class CustomerLoginPageComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
-  private cartService = inject(CartService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  activeTab = signal<'login' | 'register'>('login');
+  activeTab = signal<'login' | 'register' | 'forgot'>('login');
+  forgotStep = signal<'request' | 'reset'>('request');
   isLoading = signal<boolean>(false);
   errorMessage = signal<string>('');
   successMessage = signal<string>('');
   returnUrl = '/';
 
+  // Cooldown de reenvio de código (segurança anti-flood)
+  resendCooldown = signal<number>(0);
+  private cooldownTimer: any = null;
+
+  // Dica visual do código gerado na vitrine
+  demoCodeHint = signal<string>('');
+
+  // Login form model
   loginEmail = '';
   loginPassword = '';
 
+  // Register form model
   registerName = '';
   registerEmail = '';
   registerPassword = '';
   registerConfirmPassword = '';
 
+  // Forgot / Reset form model
+  forgotEmail = '';
+  resetCode = '';
+  newPassword = '';
+  confirmNewPassword = '';
+
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/conta/pedidos';
 
-    // Se já estiver autenticado como cliente, redireciona para a página desejada
-    if (this.authService.isAuthenticated() && this.authService.isCustomer()) {
+    // Se já estiver logado, redireciona
+    if (this.authService.isAuthenticated()) {
       this.router.navigateByUrl(this.returnUrl);
+      return;
     }
   }
 
-  setTab(tab: 'login' | 'register'): void {
+  ngOnDestroy(): void {
+    if (this.cooldownTimer) {
+      clearInterval(this.cooldownTimer);
+    }
+  }
+
+  setTab(tab: 'login' | 'register' | 'forgot'): void {
     this.activeTab.set(tab);
+    if (tab === 'forgot') {
+      this.forgotStep.set('request');
+      if (this.loginEmail && !this.forgotEmail) {
+        this.forgotEmail = this.loginEmail;
+      }
+    }
     this.errorMessage.set('');
     this.successMessage.set('');
+    this.demoCodeHint.set('');
+  }
+
+  openForgotPassword(): void {
+    this.activeTab.set('forgot');
+    this.forgotStep.set('request');
+    this.forgotEmail = this.loginEmail || '';
+    this.resetCode = '';
+    this.newPassword = '';
+    this.confirmNewPassword = '';
+    this.errorMessage.set('');
+    this.successMessage.set('');
+    this.demoCodeHint.set('');
+  }
+
+  startCooldown(seconds: number = 60): void {
+    this.resendCooldown.set(seconds);
+    if (this.cooldownTimer) {
+      clearInterval(this.cooldownTimer);
+    }
+    this.cooldownTimer = setInterval(() => {
+      const current = this.resendCooldown();
+      if (current <= 1) {
+        this.resendCooldown.set(0);
+        clearInterval(this.cooldownTimer);
+        this.cooldownTimer = null;
+      } else {
+        this.resendCooldown.set(current - 1);
+      }
+    }, 1000);
+  }
+
+  onCodeInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let digits = input.value.replace(/\D/g, '');
+    if (digits.length > 6) digits = digits.slice(0, 6);
+    input.value = digits;
+    this.resetCode = digits;
+  }
+
+  onRequestResetCode(): void {
+    const email = this.forgotEmail.trim().toLowerCase();
+    if (!email || !email.includes('@')) {
+      this.errorMessage.set('Informe um e-mail válido para receber o código.');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    this.successMessage.set('');
+
+    this.authService.forgotPassword(email).subscribe({
+      next: (res: any) => {
+        this.isLoading.set(false);
+        this.forgotStep.set('reset');
+        this.startCooldown(60);
+        if (res?.demoCode) {
+          this.demoCodeHint.set(res.demoCode);
+          this.resetCode = res.demoCode; // auto pre-fill in demo for smooth tester experience
+        }
+        this.successMessage.set(res?.message || 'Código de verificação de 6 dígitos enviado para seu e-mail!');
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.errorMessage.set('Não foi possível enviar o código. Tente novamente.');
+      }
+    });
+  }
+
+  onResendCode(): void {
+    if (this.resendCooldown() > 0 || this.isLoading()) return;
+    this.onRequestResetCode();
+  }
+
+  onResetPassword(): void {
+    const cleanCode = this.resetCode.replace(/\D/g, '').trim();
+    if (cleanCode.length !== 6) {
+      this.errorMessage.set('Por favor, informe o código de 6 dígitos recebido por e-mail.');
+      return;
+    }
+
+    if (!this.newPassword || this.newPassword.length < 6) {
+      this.errorMessage.set('A nova senha deve ter no mínimo 6 caracteres.');
+      return;
+    }
+
+    if (this.newPassword !== this.confirmNewPassword) {
+      this.errorMessage.set('As senhas digitadas não coincidem.');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    this.successMessage.set('');
+
+    this.authService.resetPassword({
+      email: this.forgotEmail.trim().toLowerCase(),
+      code: cleanCode,
+      password: this.newPassword
+    }).subscribe({
+      next: (res: any) => {
+        this.successMessage.set(res?.message || 'Senha alterada com sucesso! Entrando na sua conta...');
+        this.authService.login({ email: this.forgotEmail.trim().toLowerCase(), password: this.newPassword }).subscribe({
+          next: () => {
+            this.isLoading.set(false);
+            this.router.navigateByUrl(this.returnUrl);
+          },
+          error: () => {
+            this.isLoading.set(false);
+            this.activeTab.set('login');
+            this.loginEmail = this.forgotEmail;
+            this.loginPassword = '';
+          }
+        });
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.errorMessage.set('Código inválido ou expirado. Tente novamente.');
+      }
+    });
   }
 
   simulateGoogleLogin(): void {
     this.isLoading.set(true);
-    setTimeout(() => {
-      this.authService.loginWithGoogle().subscribe({
-        next: () => {
-          this.isLoading.set(false);
-          this.router.navigateByUrl(this.returnUrl);
-        }
-      });
-    }, 600);
+    this.errorMessage.set('');
+
+    this.authService.loginWithGoogle().subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.router.navigateByUrl(this.returnUrl);
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.errorMessage.set('Falha na autenticação via Google.');
+      }
+    });
   }
 
   onLogin(): void {
@@ -66,14 +217,18 @@ export class CustomerLoginPageComponent implements OnInit {
     }
 
     this.isLoading.set(true);
-    setTimeout(() => {
-      this.authService.login({ email: this.loginEmail, password: this.loginPassword }).subscribe({
-        next: () => {
-          this.isLoading.set(false);
-          this.router.navigateByUrl(this.returnUrl);
-        }
-      });
-    }, 500);
+    this.errorMessage.set('');
+
+    this.authService.login({ email: this.loginEmail, password: this.loginPassword }).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.router.navigateByUrl(this.returnUrl);
+      },
+      error: (err) => {
+        this.isLoading.set(false);
+        this.errorMessage.set(err?.error?.message || 'E-mail ou senha incorretos.');
+      }
+    });
   }
 
   onRegister(): void {
@@ -93,17 +248,31 @@ export class CustomerLoginPageComponent implements OnInit {
     }
 
     this.isLoading.set(true);
-    setTimeout(() => {
-      this.authService.register({
-        name: this.registerName,
-        email: this.registerEmail,
-        password: this.registerPassword
-      }).subscribe({
-        next: () => {
-          this.isLoading.set(false);
-          this.router.navigateByUrl(this.returnUrl);
-        }
-      });
-    }, 500);
+    this.errorMessage.set('');
+
+    this.authService.register({
+      name: this.registerName,
+      email: this.registerEmail,
+      password: this.registerPassword
+    }).subscribe({
+      next: () => {
+        this.authService.login({ email: this.registerEmail, password: this.registerPassword }).subscribe({
+          next: () => {
+            this.isLoading.set(false);
+            this.router.navigateByUrl(this.returnUrl);
+          },
+          error: () => {
+            this.isLoading.set(false);
+            this.successMessage.set('Cadastro realizado com sucesso! Faça login abaixo.');
+            this.activeTab.set('login');
+            this.loginEmail = this.registerEmail;
+          }
+        });
+      },
+      error: () => {
+        this.isLoading.set(false);
+        this.errorMessage.set('Falha ao criar conta. O e-mail já pode estar cadastrado.');
+      }
+    });
   }
 }
