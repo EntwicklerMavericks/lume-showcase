@@ -87,6 +87,21 @@ export class CustomerLoginPageComponent implements OnInit, OnDestroy {
     this.demoCodeHint.set('');
   }
 
+  onCheckEmailBlur(): void {
+    const email = this.forgotEmail.trim().toLowerCase();
+    if (!email || !email.includes('@')) return;
+
+    this.authService.checkEmail(email).subscribe({
+      next: (res) => {
+        if (!res.exists) {
+          this.errorMessage.set('Nenhum usuário cadastrado com este e-mail no sistema. Verifique o endereço digitado.');
+        } else if (this.errorMessage().includes('Nenhum usuário') || this.errorMessage().includes('Nenhuma conta')) {
+          this.errorMessage.set('');
+        }
+      }
+    });
+  }
+
   startCooldown(seconds: number = 60): void {
     this.resendCooldown.set(seconds);
     if (this.cooldownTimer) {

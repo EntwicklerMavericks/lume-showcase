@@ -245,6 +245,7 @@
                 id="forgotEmail" 
                 name="forgotEmail" 
                 [(ngModel)]="forgotEmail" 
+                (blur)="onCheckEmailBlur()"
                 placeholder="seu@email.com" 
                 autocomplete="email"
                 required 

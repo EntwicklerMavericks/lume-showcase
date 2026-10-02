@@ -138,6 +138,10 @@ export class AuthService {
     return of({ message: 'Cadastro realizado com sucesso!', user });
   }
 
+  checkEmail(email: string): Observable<{ exists: boolean; name?: string }> {
+    return of({ exists: true });
+  }
+
   private demoResetCode: string | null = null;
 
   forgotPassword(email: string): Observable<any> {
