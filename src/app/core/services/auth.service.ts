@@ -142,6 +142,22 @@ export class AuthService {
     return of({ message: `Instruções de recuperação enviadas para ${email}.` });
   }
 
+  updateProfile(profileData: { name?: string; phone?: string | null; avatar?: string | null }): Observable<User> {
+    const current = this.currentUser();
+    const updatedUser: User = {
+      ...(current || DEMO_CUSTOMER),
+      ...(profileData.name !== undefined ? { name: profileData.name.trim() } : {}),
+      ...(profileData.phone !== undefined ? { phone: profileData.phone } : {}),
+      ...(profileData.avatar !== undefined ? { avatar: profileData.avatar } : {}),
+    };
+
+    this.currentUser.set(updatedUser);
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(USER_KEY, JSON.stringify(updatedUser));
+    }
+    return of(updatedUser);
+  }
+
   logout(redirectUrl?: string): void {
     const wasAdmin = this.currentUser()?.role === 'ADMIN';
     this.clearSession();
