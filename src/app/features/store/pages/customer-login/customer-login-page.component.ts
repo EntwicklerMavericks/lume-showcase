@@ -27,9 +27,6 @@ export class CustomerLoginPageComponent implements OnInit, OnDestroy {
   resendCooldown = signal<number>(0);
   private cooldownTimer: any = null;
 
-  // Dica visual do código gerado na vitrine
-  demoCodeHint = signal<string>('');
-
   // Login form model
   loginEmail = '';
   loginPassword = '';
@@ -72,7 +69,6 @@ export class CustomerLoginPageComponent implements OnInit, OnDestroy {
     }
     this.errorMessage.set('');
     this.successMessage.set('');
-    this.demoCodeHint.set('');
   }
 
   openForgotPassword(): void {
@@ -84,7 +80,6 @@ export class CustomerLoginPageComponent implements OnInit, OnDestroy {
     this.confirmNewPassword = '';
     this.errorMessage.set('');
     this.successMessage.set('');
-    this.demoCodeHint.set('');
   }
 
   onCheckEmailBlur(): void {
@@ -137,16 +132,14 @@ export class CustomerLoginPageComponent implements OnInit, OnDestroy {
     this.isLoading.set(true);
     this.errorMessage.set('');
     this.successMessage.set('');
+    this.resetCode = '';
 
     this.authService.forgotPassword(email).subscribe({
       next: (res: any) => {
         this.isLoading.set(false);
         this.forgotStep.set('reset');
         this.startCooldown(60);
-        if (res?.demoCode) {
-          this.demoCodeHint.set(res.demoCode);
-          this.resetCode = res.demoCode; // auto pre-fill in demo for smooth tester experience
-        }
+        this.resetCode = '';
         this.successMessage.set(res?.message || 'Código de verificação de 6 dígitos enviado para seu e-mail!');
       },
       error: () => {
