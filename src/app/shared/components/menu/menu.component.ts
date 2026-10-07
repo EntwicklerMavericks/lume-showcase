@@ -13,11 +13,15 @@ export class MenuComponent {
 
   // Visible menu items for Lume Showcase Demo
   menuItems = [
+    { label: 'Pedidos', route: '/admin/orders', icon: 'orders' },
     { label: 'Produtos', route: '/admin/products', icon: 'products' },
     { label: 'Categorias', route: '/admin/categories', icon: 'categories' },
-    { label: 'Dashboard', route: '/admin/dashboard', icon: 'dashboard' },
-    { label: 'Pedidos', route: '/admin/orders', icon: 'orders' },
-    { label: 'Clientes', route: '/admin/customers', icon: 'customers' },
     { label: 'Configurações', route: '/admin/settings', icon: 'settings' }
+  ];
+
+  // Preserved for future projects (hidden in this project)
+  hiddenMenuItems = [
+    { label: 'Dashboard', route: '/admin/dashboard', icon: 'dashboard' },
+    { label: 'Clientes', route: '/admin/customers', icon: 'customers' }
   ];
 }
